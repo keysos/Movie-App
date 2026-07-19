@@ -1,4 +1,4 @@
-{ 
+{
   "homepage": "https://keysos.github.io/Movie-App/",
   "name": "movie-search-app",
   "private": true,
@@ -8,9 +8,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeply": "npm run build",
+    "deply": "gh-pages -d dist"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
