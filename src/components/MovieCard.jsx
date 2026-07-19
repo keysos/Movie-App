@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const MovieCard = ({ movie }) => {
 
-    if (movie.Type !== 'movie' || !movie.Poster || movie.Poster === 'N/A') {
-        return null;
-    }
+    const [hidden, setHidden] = useState(false);
+
+    if (hidden) return null
 
     return (
         <div className='movie-card'>
-            {movie.Poster && movie.Poster !== 'N/A' && (
-                <img
-                    src={movie.Poster}
-                    alt={movie.Title}
-                    className='movie-poster'
-                />
-            )}
-            <div className='movie-info'>
+
+            <img
+                src={movie.Poster ? movie.Poster : noPoster}
+                alt={movie.title}
+                onError={() => setHidden(true)}
+            >
+            </img>
+
+            <div className="movie-info">
                 <h3>{movie.Title}</h3>
                 <p className='year'>{movie.Year}</p>
+
             </div>
         </div>
     )

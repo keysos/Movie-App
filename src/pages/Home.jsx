@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { fetchMovies } from '../services/movieApi'
 import SearchBar from '../components/SearchBar'
 import MovieList from '../components/MovieList'
+import { fetchMovies } from '../services/movieApi'
 
 const Home = () => {
 
@@ -12,34 +12,28 @@ const Home = () => {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        async function getMovies() {
-            if (!query) {
-                setMovies([]);
-                setError("");
-                return;
-            }
 
-            setLoading(true)
-            setError("error")
+        async function getMovies() {
+            setLoading(true);
 
             try {
-                console.log("Fetching movies for query:", query);
-                const results = await fetchMovies(query);
-                console.log("Results received:", results);
+                const result = await fetchMovies(query);
 
-                 if (!results || results.length === 0) {
-                    setError("No movies found. Try a different search.");
-                } else {
-                    setMovies(results);
+                if (!result) {
+                    setError("Error during fetching movies")
                 }
-            } catch (err) {
-                console.error("Error fetching movies", err);
-                setError("Failed to fetch movies. Check your API key.")
-            } finally {
-                setLoading(false)
-            }
 
-            
+                setError("")
+
+                if (result.length === 0 && query.length >= 1) setError("No movies were found");
+
+                setMovies(result);
+            } catch (err) {
+                console.error(err);
+                setError("Error during fetching movies");
+            } finally {
+                setLoading(false);
+            }
         }
         getMovies();
     }, [query])
@@ -47,19 +41,15 @@ const Home = () => {
 
     return (
         <div>
-            <h1>🎬 Movie Search</h1>
-            <SearchBar 
-                query={query}
-                setQuery={setQuery}
-                placeholder="Search for a movie..."
-            />
+            <h1 className='title'>Movie Search</h1>
+
+            <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
 
             {loading && <p className='loading'>Loading...</p>}
-            {error && <p className='error'>{error}</p>}
-            
-            {!loading && movies.length > 0 && (
-                <p className='result-count'>Found {movies.length} result(s)</p>
-            )}
+
+            {error !== "" && <p className='error'>{error}</p>}
+
+            {(!loading && movies.length > 0) && <p className='result-count'>Found {movies.length} result(s)</p>}
 
             <MovieList movies={movies}/>
         </div>
