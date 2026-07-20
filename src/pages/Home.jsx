@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 
 import SearchBar from '../components/SearchBar'
 import MovieList from '../components/MovieList'
+import MovieModal from '../components/MovieModal'
+
 import { fetchMovies } from '../services/movieApi'
 
 const Home = () => {
 
     const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -32,10 +35,18 @@ const Home = () => {
                 console.error(err);
                 setError("Error during fetching movies");
             } finally {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 300)
             }
         }
-        getMovies();
+
+        const timeout = setTimeout(() => {
+            getMovies();
+        }, 300);
+
+        return () => clearTimeout(timeout);
+
     }, [query])
 
 
@@ -51,7 +62,12 @@ const Home = () => {
 
             {(!loading && movies.length > 0) && <p className='result-count'>Found {movies.length} result(s)</p>}
 
-            <MovieList movies={movies}/>
+            <MovieList
+                movies={movies}
+                onMovieClick={setSelectedMovie}
+            />
+
+            {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
         </div>
     )
 }
