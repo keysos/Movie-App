@@ -1,24 +1,26 @@
 import React, { useState } from 'react'
 
 const MovieCard = ({ movie }) => {
-
-    const [hidden, setHidden] = useState(false);
-
-    if (hidden) return null
-
+    
+    const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    
     return (
         <div className='movie-card'>
 
             <img
-                src={movie.Poster ? movie.Poster : noPoster}
+                src={`${IMAGE_BASE_URL}${movie.poster_path}`}
                 alt={movie.title}
                 onError={() => setHidden(true)}
             >
             </img>
 
             <div className="movie-info">
-                <h3>{movie.Title}</h3>
-                <p className='year'>{movie.Year}</p>
+                <h3>{movie.title}</h3>
+                <div className="movie-details">
+                    <p className='year'>{movie.release_date?.slice(0, 4)}</p>
+                    <p className='rating'>{movie.vote_average.toFixed(1)} ⭐</p>
+                </div>
+                
 
             </div>
         </div>

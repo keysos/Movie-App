@@ -92,7 +92,6 @@ h1 {
   border-color: var(--primary-400);
 }
 
-
 .movie-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -132,9 +131,17 @@ h1 {
 }
 
 .movie-info {
+  justify-content: space-between;
+  height: 100%;
   padding: 12px;
   display: flex;
   flex-direction: column;
+}
+
+.movie-details {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .loading {
