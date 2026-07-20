@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchMovieDetail } from '../services/movieApi';
+import RottenTomatoesIcon from "../assets/icons/Rotten_Tomatoes.svg.webp";
+import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 
 const MovieModal = ({ movie, onClose }) => {
 
@@ -73,17 +75,40 @@ const MovieModal = ({ movie, onClose }) => {
                                 </span>
                             ))}
                         </p>
+                        
+                        <p className='director'>Director:
+                            <span> {details.credits?.crew.find((person) => person.job === "Director")?.name || "Unknown"}</span>
+                        </p>
 
-                        <p className='modal-misc'>
-                            <span>{(details.original_language).toUpperCase()}</span>
-                            <span>{details.status}</span>
-                            <span>{formatRuntime(details.runtime)}</span>
+                        <p className='actors'>
+                            <p>Main Actors:
+                                {
+                                    details.credits?.cast.slice(0, 3).map((actor) => (
+                                        <span key={actor.name}> {actor.name}</span>
+                                    ))
+                                }
+                            </p>
                         </p>
 
                         <div className="modal-score">
+                            <div className="runtime">{formatRuntime(details.runtime)}</div>
                             <div className='populatiry'>Popularity: {details.popularity.toFixed(2)}</div>
-                            <div className='vote-count'>Votes: {details.vote_count}</div>
                             <div className='score'>Rating: {details.vote_average.toFixed(1)} ⭐</div>
+                            <a className="rotten-tomatoes" href={`https://www.rottentomatoes.com/search?search=${encodeURIComponent(details.title)}`} target="_blank">
+                                <img
+                                    src={RottenTomatoesIcon}
+                                    alt="Rotten Tomatoes"
+                                    width="24"
+                                    height="24"
+                                />
+                            </a>
+                            <a className="imdb" href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`} target="_blank">
+                                <img
+                                    src={IMDBIcon}
+                                    alt="IMDB"
+                                    width="30"
+                                />
+                            </a>
                         </div>
 
                     </div>

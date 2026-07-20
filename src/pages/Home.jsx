@@ -3,20 +3,35 @@ import React, { useEffect, useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import MovieList from '../components/MovieList'
 import MovieModal from '../components/MovieModal'
+import MovieSlider from '../components/MovieSlider'
 
-import { fetchMovies } from '../services/movieApi'
+import { fetchMovies, fetchNowPlayingMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchTrendingMovies } from '../services/movieApi'
 
 const Home = () => {
 
     const [query, setQuery] = useState("");
-    const [movies, setMovies] = useState([]);
+    const [queryMovies, setQueryMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const [trending, setTrending] = useState([]);
+    const [upcoming, setUpcoming] = useState([]);
+    const [topRated, setTopRated] = useState([]);
+    const [nowPlaying, setNowPlaying] = useState([]);
+
+    const isSearching = query.length >= 3;
+
     useEffect(() => {
 
         async function getMovies() {
+
+            if (query.length < 3) {
+                setQueryMovies([]);
+                setLoading(false);
+                return;
+            }
+
             setLoading(true);
 
             try {
@@ -30,7 +45,7 @@ const Home = () => {
 
                 if (result.length === 0 && query.length >= 1) setError("No movies were found");
 
-                setMovies(result);
+                setQueryMovies(result);
             } catch (err) {
                 console.error(err);
                 setError("Error during fetching movies");
@@ -49,6 +64,29 @@ const Home = () => {
 
     }, [query])
 
+    useEffect(() => {
+
+        try {
+            async function loadHomepageMovies() {
+
+                const trending = await fetchTrendingMovies();
+                const topRated = await fetchTopRatedMovies();
+                const nowPlaying = await fetchNowPlayingMovies();
+                const upcoming = await fetchUpcomingMovies();
+
+                setTrending(trending);
+                setTopRated(topRated);
+                setNowPlaying(nowPlaying);
+                setUpcoming(upcoming)
+            }
+
+            loadHomepageMovies();
+        } catch (err) {
+            console.error(err);
+        }
+
+
+    }, [])
 
     return (
         <div>
@@ -60,12 +98,45 @@ const Home = () => {
 
             {error !== "" && <p className='error'>{error}</p>}
 
-            {(!loading && movies.length > 0) && <p className='result-count'>Found {movies.length} result(s)</p>}
-
+            {(!loading && queryMovies.length > 0) && <p className='result-count'>Found {queryMovies.length} result(s)</p>}
+            
             <MovieList
-                movies={movies}
+                movies={queryMovies}
                 onMovieClick={setSelectedMovie}
+                isSearching={isSearching}
             />
+
+            {!isSearching && (
+                <>
+                    <MovieSlider
+                        movies={trending}
+                        onMovieClick={setSelectedMovie}
+                        isSearching={isSearching}
+                        name="Trending"
+                    />
+
+                    <MovieSlider
+                        movies={topRated}
+                        onMovieClick={setSelectedMovie}
+                        isSearching={isSearching}
+                        name="Top Rated"
+                    />
+
+                    <MovieSlider
+                        movies={upcoming}
+                        onMovieClick={setSelectedMovie}
+                        isSearching={isSearching}
+                        name="Upcoming"
+                    />
+
+                    <MovieSlider
+                        movies={nowPlaying}
+                        onMovieClick={setSelectedMovie}
+                        isSearching={isSearching}
+                        name="Now Playing"
+                    />
+                </>
+            )}
 
             {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
         </div>
