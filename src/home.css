@@ -346,13 +346,14 @@ body {
 
 .movie-slider {
   max-width: 1300px;
-  margin: 0 auto 40px;
+  margin: 20px auto 40px;
 }
 
 .movie-slider h2 {
-  font-size: 1.4rem;
+  font-size: 1.9rem;
   color: var(--text);
   margin-bottom: 15px;
+  margin-left: 42px;
 }
 
 .slider-track {
