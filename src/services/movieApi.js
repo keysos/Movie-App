@@ -1,6 +1,8 @@
 const API_KEY = "db87ef245b11415f2a90041686ef4eff"
 const BASE_URL = "https://api.themoviedb.org/3";
 
+export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
 export async function fetchMovies(query) {
 
     try {

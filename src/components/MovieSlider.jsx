@@ -25,6 +25,7 @@ const MovieSlider = ({ movies, name, onMovieClick, isSearching }) => {
                 <button
                     className='slider-btn slider-btn-left'
                     onClick={() => scroll("left")}
+                    aria-label={`Scroll ${name} left`}
                 >
                     ‹
                 </button>
@@ -44,6 +45,7 @@ const MovieSlider = ({ movies, name, onMovieClick, isSearching }) => {
                 <button
                     className='slider-btn slider-btn-right'
                     onClick={() => scroll("right")}
+                    aria-label={`Scroll ${name} right`}
                 >
                     ›
                 </button>

@@ -69,10 +69,12 @@ const Home = () => {
         try {
             async function loadHomepageMovies() {
 
-                const trending = await fetchTrendingMovies();
-                const topRated = await fetchTopRatedMovies();
-                const nowPlaying = await fetchNowPlayingMovies();
-                const upcoming = await fetchUpcomingMovies();
+                const [trending, topRated, nowPlaying, upcoming] = await Promise.all([
+                    fetchTrendingMovies(),
+                    fetchTopRatedMovies(),
+                    fetchNowPlayingMovies(),
+                    fetchUpcomingMovies(),
+                ]);
 
                 setTrending(trending);
                 setTopRated(topRated);
@@ -94,11 +96,13 @@ const Home = () => {
 
             <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
 
-            {loading && <p className='loading'>Loading...</p>}
+            <div aria-live="polite">
+                {loading && <p className='loading'>Loading...</p>}
 
-            {error !== "" && <p className='error'>{error}</p>}
+                {error !== "" && <p className='error'>{error}</p>}
 
-            {(!loading && queryMovies.length > 0) && <p className='result-count'>Found {queryMovies.length} result(s)</p>}
+                {(!loading && queryMovies.length > 0) && <p className='result-count'>Found {queryMovies.length} result(s)</p>}
+            </div>
             
             <MovieList
                 movies={queryMovies}

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { fetchMovieDetail } from '../services/movieApi';
+import React, { useEffect, useRef, useState } from 'react'
+import { fetchMovieDetail, IMAGE_BASE_URL } from '../services/movieApi';
 import RottenTomatoesIcon from "../assets/icons/Rotten_Tomatoes.svg.webp";
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 
@@ -12,46 +12,57 @@ const MovieModal = ({ movie, onClose }) => {
         return `${hours}h ${mins.toString().padStart(2, "0")}min`;
     }
 
-    const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-
-    const [movieDetails, setMoviesDetail] = useState(null)
-    const [isLoading, setIsLoading] = useState(false);
+    const [movieDetails, setMovieDetails] = useState(null)
+    const closeButtonRef = useRef(null);
 
     useEffect(() => {
 
         async function getMovie() {
-
             try {
                 const result = await fetchMovieDetail(movie.id);
-
-                setMoviesDetail(result);
-
+                setMovieDetails(result);
             } catch (err) {
                 console.error(err)
             }
-
-            setTimeout(() => {
-                setDetails(data);
-                setLoading(false);
-            }, 300);
-
         }
 
         getMovie()
     }, [movie.id])
+
+    // Accessibility: keyboard users need a way to close the dialog without
+    // a mouse, and focus should land inside the dialog when it opens so
+    // screen reader / keyboard users aren't left back on the page behind it.
+    useEffect(() => {
+        closeButtonRef.current?.focus();
+
+        function handleKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [onClose])
 
     const details = movieDetails || movie;
 
     return (
         <div className='overlay' onClick={onClose}>
 
-            <div className="movie-modal" onClick={(e) => e.stopPropagation()}>
+            <div
+                className="movie-modal"
+                onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="movie-modal-title"
+            >
 
 
                 <div className="modal-header">
-                    <h1>{details.title} ({movie.release_date?.slice(0, 4)})</h1>
+                    <h2 id="movie-modal-title">{details.title} ({movie.release_date?.slice(0, 4)})</h2>
 
-                    <button onClick={onClose}>✖</button>
+                    <button ref={closeButtonRef} onClick={onClose} aria-label="Close">✖</button>
                 </div>
 
                 <div className="overview">
@@ -59,8 +70,7 @@ const MovieModal = ({ movie, onClose }) => {
                         src={`${IMAGE_BASE_URL}${details.poster_path}`}
                         alt={details.title}
                         className='movie-modal-poster'
-                    >
-                    </img>
+                    />
 
                     <div className="movie-modal-details">
 
@@ -75,26 +85,29 @@ const MovieModal = ({ movie, onClose }) => {
                                 </span>
                             ))}
                         </p>
-                        
+
                         <p className='director'>Director:
                             <span> {details.credits?.crew.find((person) => person.job === "Director")?.name || "Unknown"}</span>
                         </p>
 
-                        <p className='actors'>
-                            <p>Main Actors:
-                                {
-                                    details.credits?.cast.slice(0, 3).map((actor) => (
-                                        <span key={actor.name}> {actor.name}</span>
-                                    ))
-                                }
-                            </p>
+                        <p className='actors'>Main Actors:
+                            {
+                                details.credits?.cast.slice(0, 3).map((actor) => (
+                                    <span key={actor.name}> {actor.name}</span>
+                                ))
+                            }
                         </p>
 
                         <div className="modal-score">
                             <div className="runtime">{formatRuntime(details.runtime)}</div>
-                            <div className='populatiry'>Popularity: {details.popularity.toFixed(2)}</div>
+                            <div className='popularity'>Popularity: {details.popularity.toFixed(2)}</div>
                             <div className='score'>Rating: {details.vote_average.toFixed(1)} ⭐</div>
-                            <a className="rotten-tomatoes" href={`https://www.rottentomatoes.com/search?search=${encodeURIComponent(details.title)}`} target="_blank">
+                            <a
+                                className="rotten-tomatoes"
+                                href={`https://www.rottentomatoes.com/search?search=${encodeURIComponent(details.title)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <img
                                     src={RottenTomatoesIcon}
                                     alt="Rotten Tomatoes"
@@ -102,7 +115,12 @@ const MovieModal = ({ movie, onClose }) => {
                                     height="24"
                                 />
                             </a>
-                            <a className="imdb" href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`} target="_blank">
+                            <a
+                                className="imdb"
+                                href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <img
                                     src={IMDBIcon}
                                     alt="IMDB"

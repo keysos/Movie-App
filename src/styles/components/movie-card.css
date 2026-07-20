@@ -1,0 +1,58 @@
+.movie-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--text);
+  border-radius: 8px;
+  background-color: var(--search-bg);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 1px 1px 10px 3px #F86D67;
+}
+
+/* Match the hover treatment for keyboard focus so keyboard users get the
+   same visible feedback mouse users get on hover. */
+.movie-card:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 1px 1px 10px 3px #F86D67;
+  outline: 2px solid var(--primary-400);
+  outline-offset: 2px;
+}
+
+.movie-card h3 {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.movie-info {
+  justify-content: space-between;
+  height: 100%;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-details {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-card .year {
+  color: var(--primary-400);
+  margin-bottom: 4px;
+}

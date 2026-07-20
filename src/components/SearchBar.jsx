@@ -3,13 +3,17 @@ import React from 'react'
 const SearchBar = ({ query, setQuery, placeholder }) => {
 
     return (
-        <input
-            className='search-bar'
-            type="search"
-            placeholder={placeholder}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-        />
+        <>
+            <label htmlFor="movie-search" className="sr-only">{placeholder}</label>
+            <input
+                id="movie-search"
+                className='search-bar'
+                type="search"
+                placeholder={placeholder}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+            />
+        </>
     )
 }
 

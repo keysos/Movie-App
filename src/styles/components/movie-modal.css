@@ -1,0 +1,130 @@
+.overlay {
+
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+
+  animation: fadeIn 0.2s ease;
+}
+
+.movie-modal {
+  background: var(--bg-secondary);
+  width: min(900px, 90vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  color: white;
+  border-radius: 12px;
+  padding: 1rem 1rem 2rem 2rem;
+
+  animation: modalIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.movie-modal button {
+  color: #FFF1F0;
+  font-size: 2rem;
+  background-color: var(--bg-secondary);
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.movie-modal button:hover {
+  color: #c07f7a;
+}
+
+.movie-modal h1 {
+  margin: 0;
+  text-align: start;
+  font-size: 1.8rem;
+  text-overflow: ellipsis;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.movie-modal .overview {
+  width: 100%;
+  display: flex;
+  gap: 30px;
+}
+
+
+.movie-modal .sinopsis {
+  line-height: 1.5;
+  margin-right: 5px;
+}
+
+.movie-modal-poster {
+  width: 250px;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.movie-modal-details {
+  padding: 15px;
+  background-color: var(--search-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.modal-genres span:not(:last-child)::after, .actors span:not(:last-child)::after {
+  content: ", ";
+}
+
+.modal-score {
+  display: flex;
+  gap: 20px;
+}
+
+.modal-score div {
+  padding: 5px 10px;
+  gap: 10px;
+  color: var(--text);
+  font-weight: 700;
+  border-radius: 12px;
+  background-color: var(--primary-500);
+}
+
+.imdb, .rotten-tomatoes {
+  display: flex;
+  align-items: center;
+}
+
+.imdb img, .rotten-tomatoes img {
+  max-width: 30px;
+}
