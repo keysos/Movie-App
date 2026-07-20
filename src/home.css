@@ -119,7 +119,7 @@ h1 {
 }
 
 .movie-card h3 {
-  font-size: 1rem;
+  font-size: 1.4rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
