@@ -54,13 +54,18 @@
   border: none;
   cursor: pointer;
   transition: color 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .movie-modal button:hover {
   color: #c07f7a;
 }
 
-.movie-modal h1 {
+.movie-modal h2 {
   margin: 0;
   text-align: start;
   font-size: 1.8rem;
@@ -108,6 +113,8 @@
 
 .modal-score {
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
   gap: 20px;
 }
 
@@ -127,4 +134,30 @@
 
 .imdb img, .rotten-tomatoes img {
   max-width: 30px;
+}
+
+@media (max-width: 768px) {
+
+  .movie-modal {
+    padding: 1rem;
+  }
+
+  .movie-modal h2 {
+    font-size: 1.4rem;
+  }
+
+  .movie-modal .overview {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .movie-modal-poster {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .movie-modal-details {
+    gap: 10px;
+  }
 }
