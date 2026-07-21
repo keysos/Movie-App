@@ -94,11 +94,11 @@ const MovieModal = ({ movie, onClose }) => {
                         <button className="watchlist-button" onClick={handleWatchlist}>
                             {isOnWatchlist(movie.id) ? (
                                 <>
-                                    Remove from Watchlist  <FaPlus />
+                                    Remove from Watchlist <FaCheck />
                                 </>
                             ) : (
                                 <>
-                                    Add to Watchlist  <FaCheck />
+                                    Add to Watchlist  <FaPlus />
                                 </>
                             )}
                         </button>
