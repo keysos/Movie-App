@@ -1,6 +1,7 @@
 .movie-slider {
   max-width: 1300px;
   margin: 20px auto 40px;
+  padding: 0 5px;
 }
 
 .movie-slider h2 {
@@ -29,7 +30,7 @@
 }
 
 .slider-btn {
-  background-color: var(--surface);
+  background-color: var(--border-light);
   border: 1px solid var(--border);
   color: var(--text);
   font-size: 1.4rem;

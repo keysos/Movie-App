@@ -56,7 +56,7 @@
 }
 
 .favorite-button-home {
-  background-color: #3d1d1b;
+  background-color: var(--primary-300);
   border: none;
   border-radius: 50%;
   font-size: 1.2rem;
