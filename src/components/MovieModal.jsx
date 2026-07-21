@@ -75,16 +75,27 @@ const MovieModal = ({ movie, onClose }) => {
                 <div className="modal-header">
                     <h2 id="movie-modal-title">{details.title} ({movie.release_date?.slice(0, 4)})</h2>
 
-                    <button className='watchlist-button'>Add to Watchlist 🔖</button>
+                    <div className="modal-actions">
+                        <button className="watchlist-button">
+                            Add to Watchlist 🔖
+                        </button>
 
-                    <button 
-                    className={`favorite-button ${favorite ? 'active' : ''}`}
-                    onClick={handleFavorites}
-                    >
-                        Add to Favorites {favorite ? '❤️' : '🤍'}
-                    </button>
+                        <button
+                            className={`favorite-button ${favorite ? 'active' : ''}`}
+                            onClick={handleFavorites}
+                        >
+                            Add to Favorites {favorite ? '❤️' : '🤍'}
+                        </button>
 
-                    <button className="close-button" ref={closeButtonRef} onClick={onClose} aria-label="Close">✖</button>
+                        <button
+                            className="close-button"
+                            ref={closeButtonRef}
+                            onClick={onClose}
+                            aria-label="Close"
+                        >
+                            ✖
+                        </button>
+                    </div>
                 </div>
 
                 <div className="overview">

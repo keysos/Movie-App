@@ -68,18 +68,23 @@
   color: #c07f7a;
 }
 
-.movie-modal h2 {
-  margin: 0;
-  text-align: start;
-  font-size: 1.8rem;
-  text-overflow: ellipsis;
+.modal-header h2 {
+    flex: 1;
+    min-width: 0;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+    justify-content: space-between;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .movie-modal .overview {
@@ -88,6 +93,9 @@
   gap: 30px;
 }
 
+.overview {
+  margin-top: 10px;
+}
 
 .movie-modal .sinopsis {
   line-height: 1.5;
@@ -141,19 +149,15 @@
 
 .favorite-button,
 .watchlist-button {
-  background-color: #3d1d1b;
+  background-color: #63302c;
   border: none;
   border-radius: 12px;
   padding: 8px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: background-color 0.2s ease;
   width: fit-content;
-}
-
-.favorite-button:hover,
-.watchlist-button:hover {
-  transform: scale(1.1);
+  white-space: nowrap;
 }
 
 .favorite-button {
@@ -161,25 +165,7 @@
 }
 
 .favorite-button:hover,.watchlist-button:hover {
-    transform: scale(1.15);
-}
-
-.favorite-button.active {
-    animation: heartPop 0.3s ease;
-}
-
-@keyframes heartPop {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.4);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+    background-color: #4f2623;
 }
 
 @media (max-width: 768px) {
