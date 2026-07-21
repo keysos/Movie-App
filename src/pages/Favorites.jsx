@@ -3,8 +3,11 @@ import MovieCard from '../components/MovieCard';
 import { useFavorites } from '../context/FavoritesContext';
 import MovieList from '../components/MovieList';
 import MovieModal from '../components/MovieModal';
+import { useDocumentTitle } from '../services/useDocumentTitle'
 
 const Favorites = () => {
+
+    useDocumentTitle("Favorites | CineSearch");
 
     const { favorites, removeFavorite } = useFavorites();
 

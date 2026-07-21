@@ -4,8 +4,12 @@ import MovieList from '../components/MovieList'
 import MovieModal from '../components/MovieModal'
 import MovieSlider from '../components/MovieSlider'
 import { fetchMovies, fetchNowPlayingMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchTrendingMovies } from '../services/movieApi'
+import { useDocumentTitle } from '../services/useDocumentTitle'
+
 
 const Home = () => {
+
+    useDocumentTitle("Home | CineSearch");
 
     const [query, setQuery] = useState("");
     const [queryMovies, setQueryMovies] = useState([]);
@@ -90,7 +94,9 @@ const Home = () => {
 
     return (
         <div>
-            <h1 className='title'>Movie Search</h1>
+            <h1 className="title">
+                <span> CineSearch </span>
+            </h1>
 
             <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
 
@@ -101,7 +107,7 @@ const Home = () => {
 
                 {(!loading && queryMovies.length > 0) && <p className='result-count'>Found {queryMovies.length} result(s)</p>}
             </div>
-            
+
             <MovieList
                 movies={queryMovies}
                 onMovieClick={setSelectedMovie}
