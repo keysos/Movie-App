@@ -19,7 +19,7 @@ body,
   flex-direction: column;
 }
 
-.page-content {
+main {
     flex: 1;
 }
 
