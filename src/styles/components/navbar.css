@@ -51,6 +51,6 @@
 }
 
 .navbar a.active {
-    color: var(--text);
+    color: var(--primary-500);
     font-weight: 600;
 }

@@ -5,6 +5,7 @@ import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
 import { FaPlus, FaCheck } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const MovieModal = ({ movie, onClose }) => {
 
@@ -109,16 +110,16 @@ const MovieModal = ({ movie, onClose }) => {
                         >
                             Add to Favorites {favorite ? '❤️' : '🤍'}
                         </button>
+                    </div>
 
-                        <button
+                    <button
                             className="close-button"
                             ref={closeButtonRef}
                             onClick={onClose}
                             aria-label="Close"
                         >
-                            ✖
-                        </button>
-                    </div>
+                            <IoClose />
+                    </button>
                 </div>
 
                 <div className="overview">

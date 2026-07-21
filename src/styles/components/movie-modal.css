@@ -1,5 +1,4 @@
 .overlay {
-
   position: fixed;
   inset: 0;
 
@@ -11,6 +10,9 @@
   z-index: 9999;
 
   animation: fadeIn 0.2s ease;
+
+  /* prevents overlay itself from scrolling weirdly on mobile */
+  padding: 0;
 }
 
 .movie-modal {
@@ -23,6 +25,9 @@
   padding: 1rem 1rem 2rem 2rem;
 
   animation: modalIn 0.25s ease-out;
+
+  /* smoother touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes fadeIn {
@@ -52,16 +57,18 @@
   border: none;
   cursor: pointer;
   transition: color 0.2s ease;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 30px;
+  min-height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .close-button {
-  background-color: var(--bg-secondary);
-  font-size: 2rem;
+  background-color: var(--bg-secondaryx);
+  font-size: 1.5rem;
+  min-width: 36px;
+  min-height: 36px;
 }
 
 .close-button:hover {
@@ -69,22 +76,29 @@
 }
 
 .modal-header h2 {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .modal-actions {
-    display: flex;
-    gap: 10px;
-    flex-shrink: 0;
-    justify-content: space-between;
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  justify-content: space-between;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 20px;
+
+  /* keeps header visible/anchored while body scrolls */
+  position: sticky;
+  top: 0;
+  background: var(--bg-secondary);
+  z-index: 1;
+  padding-top: 2px;
 }
 
 .movie-modal .overview {
@@ -118,7 +132,19 @@
   border-radius: 5px;
 }
 
-.modal-genres span:not(:last-child)::after, .actors span:not(:last-child)::after {
+.modal-genres {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-genres span {
+  background-color: var(--primary-400);
+  padding: 5px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.actors span:not(:last-child)::after {
   content: ", ";
 }
 
@@ -138,62 +164,79 @@
   background-color: var(--primary-500);
 }
 
-.imdb, .rotten-tomatoes {
+.imdb,
+.rotten-tomatoes {
   display: flex;
   align-items: center;
 }
 
-.imdb img, .rotten-tomatoes img {
+.imdb img,
+.rotten-tomatoes img {
   max-width: 30px;
 }
 
 .favorite-button,
 .watchlist-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 
-    background-color: #63302c;
-    color: var(--text);
-    border: none;
-    border-radius: 12px;
+  background-color: #63302c;
+  color: var(--text);
+  border: none;
+  border-radius: 12px;
 
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
 
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .favorite-button:hover,
 .watchlist-button:hover {
-    background-color: #4f2623;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  background-color: #4f2623;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
 .favorite-button:active,
 .watchlist-button:active {
-    transform: translateY(0) scale(0.96);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .favorite-button:focus-visible,
 .watchlist-button:focus-visible {
-    outline: 2px solid var(--primary-400);
-    outline-offset: 3px;
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
 }
 
+/* Tablet / small laptop */
 @media (max-width: 768px) {
-
   .movie-modal {
     padding: 1rem;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.5rem;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
 
   .movie-modal h2 {
@@ -213,5 +256,79 @@
 
   .movie-modal-details {
     gap: 10px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .favorite-button,
+  .watchlist-button {
+    width: 100%;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .overlay {
+    align-items: flex-end;
+    /* modal slides up from bottom, more native feel */
+  }
+
+  .movie-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92dvh;
+    /* dvh accounts for mobile browser chrome better than vh */
+    border-radius: 16px 16px 0 0;
+    padding: 0.75rem;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.15rem;
+    padding-right: 44px;
+    /* keeps title from colliding with close button */
+    position: relative;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.5rem;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .favorite-button,
+  .watchlist-button {
+    flex: 1;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .movie-modal-details {
+    padding: 10px;
+  }
+
+  .modal-score {
+    gap: 10px;
+  }
+
+  .modal-score div {
+    font-size: 0.85rem;
+    padding: 4px 8px;
   }
 }
