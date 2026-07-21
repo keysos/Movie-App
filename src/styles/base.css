@@ -26,12 +26,6 @@ body {
   }
 }
 
-/*
-  Visually hides an element while keeping it available to screen readers.
-  Use this instead of `display: none` for labels/text that sighted users
-  don't need to see but assistive tech should still announce.
-*/
-
 .sr-only {
   position: absolute;
   width: 1px;

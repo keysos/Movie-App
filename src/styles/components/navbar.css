@@ -1,0 +1,15 @@
+@import "../theme.css";
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--text);
+}

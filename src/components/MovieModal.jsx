@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { fetchMovieDetail, IMAGE_BASE_URL } from '../services/movieApi';
 import RottenTomatoesIcon from "../assets/icons/Rotten_Tomatoes.svg.webp";
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
+import { useFavorites } from '../context/FavoritesContext';
 
 const MovieModal = ({ movie, onClose }) => {
 
@@ -12,8 +13,23 @@ const MovieModal = ({ movie, onClose }) => {
         return `${hours}h ${mins.toString().padStart(2, "0")}min`;
     }
 
+    function handleFavorites(e) {
+        e.stopPropagation();
+
+        if (favorite) {
+            removeFavorite(movie.id)
+        } else {
+            addFavorite(movie);
+        }
+
+    }
+
     const [movieDetails, setMovieDetails] = useState(null)
     const closeButtonRef = useRef(null);
+
+    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
+    const favorite = isFavorite(movie.id);
 
     useEffect(() => {
 
@@ -29,9 +45,6 @@ const MovieModal = ({ movie, onClose }) => {
         getMovie()
     }, [movie.id])
 
-    // Accessibility: keyboard users need a way to close the dialog without
-    // a mouse, and focus should land inside the dialog when it opens so
-    // screen reader / keyboard users aren't left back on the page behind it.
     useEffect(() => {
         closeButtonRef.current?.focus();
 
@@ -62,7 +75,16 @@ const MovieModal = ({ movie, onClose }) => {
                 <div className="modal-header">
                     <h2 id="movie-modal-title">{details.title} ({movie.release_date?.slice(0, 4)})</h2>
 
-                    <button ref={closeButtonRef} onClick={onClose} aria-label="Close">✖</button>
+                    <button className='watchlist-button'>Add to Watchlist 🔖</button>
+
+                    <button 
+                    className={`favorite-button ${favorite ? 'active' : ''}`}
+                    onClick={handleFavorites}
+                    >
+                        Add to Favorites {favorite ? '❤️' : '🤍'}
+                    </button>
+
+                    <button className="close-button" ref={closeButtonRef} onClick={onClose} aria-label="Close">✖</button>
                 </div>
 
                 <div className="overview">

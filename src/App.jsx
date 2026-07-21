@@ -1,7 +1,19 @@
 import Home from './pages/Home'
+import Navbar from './components/Navbar'
+import Favorites from './pages/Favorites'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
-  return <Home />
+  return (
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/favorites" element={<Favorites />} />
+      </Routes>
+    </>
+  )
 }
 
 export default App

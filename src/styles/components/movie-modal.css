@@ -49,8 +49,6 @@
 
 .movie-modal button {
   color: #FFF1F0;
-  font-size: 2rem;
-  background-color: var(--bg-secondary);
   border: none;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -61,7 +59,12 @@
   justify-content: center;
 }
 
-.movie-modal button:hover {
+.close-button {
+  background-color: var(--bg-secondary);
+  font-size: 2rem;
+}
+
+.close-button:hover {
   color: #c07f7a;
 }
 
@@ -134,6 +137,49 @@
 
 .imdb img, .rotten-tomatoes img {
   max-width: 30px;
+}
+
+.favorite-button,
+.watchlist-button {
+  background-color: #3d1d1b;
+  border: none;
+  border-radius: 12px;
+  padding: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: fit-content;
+}
+
+.favorite-button:hover,
+.watchlist-button:hover {
+  transform: scale(1.1);
+}
+
+.favorite-button {
+  white-space: nowrap;
+}
+
+.favorite-button:hover,.watchlist-button:hover {
+    transform: scale(1.15);
+}
+
+.favorite-button.active {
+    animation: heartPop 0.3s ease;
+}
+
+@keyframes heartPop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @media (max-width: 768px) {
