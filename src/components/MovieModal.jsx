@@ -164,7 +164,7 @@ const MovieModal = ({ movie, onClose }) => {
 
 
                             <p className="director">
-                                Director:
+                                Director:{" "}
                                 <span>
                                     {details.credits?.crew.find(
                                         (person) => person.job === "Director"
@@ -174,13 +174,13 @@ const MovieModal = ({ movie, onClose }) => {
 
 
                             <p className="actors">
-                                Main Actors:
+                                Main Actors:{" "}
                                 {
                                     details.credits?.cast
                                         .slice(0, 3)
                                         .map((actor) => (
                                             <span key={actor.name}>
-                                                {actor.name}
+                                                 {actor.name}
                                             </span>
                                         ))
                                 }
