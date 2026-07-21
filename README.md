@@ -1,46 +1,30 @@
 # 🎬 Movie App
 
-A movie search application built with **React** that allows users to search for movies and view information using the **OMDb API**. The app dynamically fetches movie data and displays details such as posters, titles, release years, and more.
+A movie search application built with **React** that allows users to search for movies and explore detailed information using the **TMDb API**. The application fetches movie data dynamically and displays information such as posters, titles, release dates, ratings, overviews, and more.
 
 ## 🚀 Features
 
-- 🔎 Search for movies by title
-- 🎞️ Display movie posters and basic information
-- 📄 View detailed movie information
-- ⚡ Fetch movie data from the OMDb API
-- ⌨️ Search dynamically as the user types
-- 📱 Responsive design
-- ⚛️ Built with React hooks
+* 🔎 Search for movies by title
+* 🎞️ Display movie posters and essential information
+* 📄 View detailed movie information
+* ⭐ Display movie ratings and descriptions
+* ⚡ Fetch movie data from the TMDb API
+* ⌨️ Search dynamically as the user types
+* ❤️ Add movies to favorites
+* 📌 Create and manage a watchlist
+* 🌙 Dark/light theme support
+* 📱 Responsive design
+* ⚛️ Built with React hooks and Context API
 
 ## 🛠️ Technologies
 
-- **React**
-- **JavaScript (ES6+)**
-- **CSS**
-- **Vite**
-- **OMDb API**
-
-## 📸 Screenshots
-
-_Add screenshots of your application here._
-
-## 📂 Project Structure
-
-```
-src
-├── components
-│   ├── SearchBar.jsx
-│   └── MovieList.jsx
-│
-├── pages
-│   └── Home.jsx
-│
-├── services
-│   └── movieApi.js
-│
-├── App.jsx
-└── main.jsx
-```
+* **React**
+* **JavaScript (ES6+)**
+* **CSS**
+* **Vite**
+* **TMDb API**
+* **React Router**
+* **React Context API**
 
 ## ⚙️ Installation
 
@@ -76,61 +60,69 @@ http://localhost:5173
 
 ## 🔑 API Setup
 
-This project uses the OMDb API.
+This project uses the **TMDb API**.
 
 1. Create an API key at:
 
-https://www.omdbapi.com/apikey.aspx
+```
+https://www.themoviedb.org/settings/api
+```
 
 2. Create a `.env` file in the root directory:
 
 ```env
-VITE_OMDB_API_KEY=your_api_key_here
+VITE_TMDB_API_KEY=your_api_key_here
 ```
 
 3. Use the environment variable in your API service:
 
 ```javascript
-const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 ```
 
 ## 📡 API Usage
 
-The application uses the OMDb API to search for movies:
+The application uses the TMDb API to search for movies:
 
 ```
-GET https://www.omdbapi.com/?apikey=API_KEY&s=movie_title
+GET https://api.themoviedb.org/3/search/movie?api_key=API_KEY&query=movie_title
 ```
 
 Example response:
 
 ```json
 {
-  "Title": "Batman Begins",
-  "Year": "2005",
-  "Poster": "poster_url",
-  "imdbID": "tt0372784"
+  "id": 27205,
+  "title": "Inception",
+  "release_date": "2010-07-16",
+  "poster_path": "/poster_path.jpg",
+  "vote_average": 8.4,
+  "overview": "A thief who steals corporate secrets..."
 }
 ```
 
 ## 🧠 React Concepts Used
 
-- Components
-- Props
-- State management with `useState`
-- Side effects with `useEffect`
-- API requests with `fetch`
-- Conditional rendering
-- Component composition
+* Components
+* Props
+* State management with `useState`
+* Side effects with `useEffect`
+* API requests with `fetch`
+* Conditional rendering
+* Component composition
+* Context API for global state management
+* Custom hooks
+* React Router navigation
 
 ## 🔮 Future Improvements
 
-- Add movie details page
-- Add favorites/watchlist functionality
-- Add pagination for search results
-- Add loading animations
-- Add error handling messages
-- Improve UI design
+* Add advanced movie filtering
+* Add pagination for search results
+* Add user authentication
+* Add personalized movie recommendations
+* Improve animations and UI interactions
+* Add movie trailers
+* Improve accessibility
 
 ## 📄 License
 
