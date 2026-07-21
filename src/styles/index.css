@@ -7,4 +7,5 @@
 @import "./components/movie-card.css";
 @import "./components/movie-modal.css";
 @import "./components/movie-slider.css";
-@import "./components/navbar.css"
+@import "./components/navbar.css";
+@import "./components/theme-switcher.css";

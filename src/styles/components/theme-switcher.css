@@ -1,0 +1,85 @@
+.theme-switch {
+    width: 40px;
+    height: 20px;
+    display: block;
+    position: absolute;
+
+    top: 60px;
+    right: 10px;
+
+    user-select: none;
+}
+
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+
+.slider {
+    position: absolute;
+    inset: 0;
+
+    background: #ccc;
+    border-radius: 20px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 16px;
+    height: 16px;
+
+    left: 2px;
+    bottom: 2px;
+
+    background: white;
+    border-radius: 50%;
+
+    transition: 0.3s;
+}
+
+
+/* move the circle */
+input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+
+/* change background */
+input:checked + .slider {
+    background: #222;
+}
+
+.icon {
+    position: absolute;
+
+    left: 4px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    color: #f5b301;
+
+    transition: 0.3s;
+}
+
+
+input:checked + .slider .icon {
+    transform: translate(20px, -50%);
+    color: white;
+}

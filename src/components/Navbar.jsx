@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import ThemeSwitcher from './ThemeSwitcher'
 
 const Navbar = () => {
 
@@ -7,6 +8,8 @@ const Navbar = () => {
             <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
             <NavLink to="/favorites" className={({ isActive }) => isActive ? "active" : ""}>Favorites</NavLink>
             <NavLink to="/watchlist" className={({ isActive }) => isActive ? "active" : ""}>Watchlist</NavLink>
+
+            <ThemeSwitcher />
         </nav>
     )
 }

@@ -4,7 +4,6 @@ import SearchBar from '../components/SearchBar'
 import MovieList from '../components/MovieList'
 import MovieModal from '../components/MovieModal'
 import MovieSlider from '../components/MovieSlider'
-
 import { fetchMovies, fetchNowPlayingMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchTrendingMovies } from '../services/movieApi'
 
 const Home = () => {
