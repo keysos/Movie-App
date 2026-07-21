@@ -9,11 +9,13 @@ function App() {
     <>
       <Navbar />
 
+      <main className='page-content'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/watchlist" element={<Watchlist />} />
       </Routes>
+      </main>
     </>
   )
 }
