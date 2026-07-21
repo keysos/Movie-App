@@ -19,12 +19,6 @@ body {
   color: var(--color-text);
 }
 
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-}
-
 .sr-only {
   position: absolute;
   width: 1px;

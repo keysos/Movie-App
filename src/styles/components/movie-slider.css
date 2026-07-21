@@ -55,3 +55,24 @@
     background-color: var(--border-light);
     border-radius: 4px;
 }
+
+@media (max-width: 768px) {
+    .slider-track .movie-card {
+        flex: 0 0 70%;
+        min-width: 180px;
+        max-width: 200px;
+    }
+
+    .movie-slider {
+      padding: 0 5px;
+    }
+
+    .movie-slider h2 {
+      font-size: 1.4rem;
+    }
+
+    .slider-btn {
+        display: none;
+    }
+
+}
