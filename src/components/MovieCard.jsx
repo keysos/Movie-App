@@ -22,11 +22,14 @@ const MovieCard = ({ movie, onMovieClick, onRemoveFavorite }) => {
         e.stopPropagation();
 
         if (favorite) {
-            onRemoveFavorite?.(movie.id)
+            if (onRemoveFavorite) {
+                onRemoveFavorite(movie.id);
+            } else {
+                removeFavorite(movie.id);
+            }
         } else {
             addFavorite(movie);
         }
-
     }
 
     return (

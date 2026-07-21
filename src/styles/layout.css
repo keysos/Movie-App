@@ -1,8 +1,4 @@
 /* Page-level layout: the overall page shell, not any single component. */
-#root>div {
-  max-width: 1400px;
-  margin: 0 auto;
-}
 
 .title {
   text-align: center;
