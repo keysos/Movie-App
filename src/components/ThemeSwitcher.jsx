@@ -1,16 +1,24 @@
 import { FaSun, FaMoon } from "react-icons/fa";
 
+import { useThemeToggle } from "../context/ThemeToggleContext";
+
+
+
 const ThemeSwitcher = () => {
 
-    const dark = false;
+    const { isDark, toggleTheme} = useThemeToggle();
 
     return (
         <label className="theme-switch">
-            <input type="checkbox" />
+            <input 
+            type="checkbox"
+            checked={isDark}
+            onChange={toggleTheme}
+            />
 
             <span className="slider">
                 <span className="icon">
-                    {dark ? <FaMoon /> : <FaSun />}
+                    {isDark ? <FaMoon /> : <FaSun />}
                 </span>
             </span>
         </label>

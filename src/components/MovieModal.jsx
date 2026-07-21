@@ -24,20 +24,18 @@ const MovieModal = ({ movie, onClose }) => {
         } else {
             addFavorite(movie);
         }
-
     }
 
     const [movieDetails, setMovieDetails] = useState(null)
     const closeButtonRef = useRef(null);
 
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
-
     const { addToWatchlist, removeFromWatchlist, isOnWatchlist } = useWatchlist();
 
+    const favorite = isFavorite(movie.id);
     const watchlist = isOnWatchlist(movie.id);
 
     function handleWatchlist() {
-
         if (watchlist) {
             removeFromWatchlist(movie.id)
         } else {
@@ -45,10 +43,8 @@ const MovieModal = ({ movie, onClose }) => {
         }
     }
 
-    const favorite = isFavorite(movie.id);
 
     useEffect(() => {
-
         async function getMovie() {
             try {
                 const result = await fetchMovieDetail(movie.id);
@@ -61,6 +57,7 @@ const MovieModal = ({ movie, onClose }) => {
         getMovie()
     }, [movie.id])
 
+
     useEffect(() => {
         closeButtonRef.current?.focus();
 
@@ -71,13 +68,18 @@ const MovieModal = ({ movie, onClose }) => {
         }
 
         document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
     }, [onClose])
+
 
     const details = movieDetails || movie;
 
+
     return (
-        <div className='overlay' onClick={onClose}>
+        <div className="overlay" onClick={onClose}>
 
             <div
                 className="movie-modal"
@@ -87,109 +89,157 @@ const MovieModal = ({ movie, onClose }) => {
                 aria-labelledby="movie-modal-title"
             >
 
-
                 <div className="modal-header">
-                    <h2 id="movie-modal-title">{details.title} ({movie.release_date?.slice(0, 4)})</h2>
+
+                    <h2 id="movie-modal-title">
+                        {details.title} ({movie.release_date?.slice(0, 4)})
+                    </h2>
+
 
                     <div className="modal-actions">
-                        <button className="watchlist-button" onClick={handleWatchlist}>
-                            {isOnWatchlist(movie.id) ? (
+
+                        <button 
+                            className="watchlist-button" 
+                            onClick={handleWatchlist}
+                        >
+                            {watchlist ? (
                                 <>
                                     Remove from Watchlist <FaCheck />
                                 </>
                             ) : (
                                 <>
-                                    Add to Watchlist  <FaPlus />
+                                    Add to Watchlist <FaPlus />
                                 </>
                             )}
                         </button>
 
+
                         <button
-                            className={`favorite-button ${favorite ? 'active' : ''}`}
+                            className={`favorite-button ${favorite ? "active" : ""}`}
                             onClick={handleFavorites}
                         >
-                            Add to Favorites {favorite ? '❤️' : '🤍'}
+                            Add to Favorites {favorite ? "❤️" : "🤍"}
                         </button>
+
                     </div>
 
+
                     <button
-                            className="close-button"
-                            ref={closeButtonRef}
-                            onClick={onClose}
-                            aria-label="Close"
-                        >
-                            <IoClose />
+                        className="close-button"
+                        ref={closeButtonRef}
+                        onClick={onClose}
+                        aria-label="Close"
+                    >
+                        <IoClose />
                     </button>
+
                 </div>
 
-                <div className="overview">
-                    <img
-                        src={`${IMAGE_BASE_URL}${details.poster_path}`}
-                        alt={details.title}
-                        className='movie-modal-poster'
-                    />
 
-                    <div className="movie-modal-details">
+                <div className="modal-content">
 
-                        <p className='sinopsis'>
-                            {details.overview}
-                        </p>
+                    <div className="overview">
 
-                        <p className="modal-genres">
-                            {details.genres?.map((genre) => (
-                                <span key={genre.id}>
-                                    {genre.name}
+                        <img
+                            src={`${IMAGE_BASE_URL}${details.poster_path}`}
+                            alt={details.title}
+                            className="movie-modal-poster"
+                        />
+
+
+                        <div className="movie-modal-details">
+
+                            <p className="sinopsis">
+                                {details.overview}
+                            </p>
+
+
+                            <p className="modal-genres">
+                                {details.genres?.map((genre) => (
+                                    <span key={genre.id}>
+                                        {genre.name}
+                                    </span>
+                                ))}
+                            </p>
+
+
+                            <p className="director">
+                                Director:
+                                <span>
+                                    {details.credits?.crew.find(
+                                        (person) => person.job === "Director"
+                                    )?.name || "Unknown"}
                                 </span>
-                            ))}
-                        </p>
+                            </p>
 
-                        <p className='director'>Director:
-                            <span> {details.credits?.crew.find((person) => person.job === "Director")?.name || "Unknown"}</span>
-                        </p>
 
-                        <p className='actors'>Main Actors:
-                            {
-                                details.credits?.cast.slice(0, 3).map((actor) => (
-                                    <span key={actor.name}> {actor.name}</span>
-                                ))
-                            }
-                        </p>
+                            <p className="actors">
+                                Main Actors:
+                                {
+                                    details.credits?.cast
+                                        .slice(0, 3)
+                                        .map((actor) => (
+                                            <span key={actor.name}>
+                                                {actor.name}
+                                            </span>
+                                        ))
+                                }
+                            </p>
 
-                        <div className="modal-score">
-                            <div className="runtime">{formatRuntime(details.runtime)}</div>
-                            <div className='popularity'>Popularity: {details.popularity.toFixed(2)}</div>
-                            <div className='score'>Rating: {details.vote_average.toFixed(1)} ⭐</div>
-                            <a
-                                className="rotten-tomatoes"
-                                href={`https://www.rottentomatoes.com/search?search=${encodeURIComponent(details.title)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <img
-                                    src={RottenTomatoesIcon}
-                                    alt="Rotten Tomatoes"
-                                    width="24"
-                                    height="24"
-                                />
-                            </a>
-                            <a
-                                className="imdb"
-                                href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <img
-                                    src={IMDBIcon}
-                                    alt="IMDB"
-                                    width="30"
-                                />
-                            </a>
+
+                            <div className="modal-score">
+
+                                <div className="runtime">
+                                    {formatRuntime(details.runtime)}
+                                </div>
+
+                                <div className="popularity">
+                                    Popularity: {details.popularity.toFixed(2)}
+                                </div>
+
+                                <div className="score">
+                                    Rating: {details.vote_average.toFixed(1)} ⭐
+                                </div>
+
+
+                                <a
+                                    className="rotten-tomatoes"
+                                    href={`https://www.rottentomatoes.com/search?search=${encodeURIComponent(details.title)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <img
+                                        src={RottenTomatoesIcon}
+                                        alt="Rotten Tomatoes"
+                                        width="24"
+                                        height="24"
+                                    />
+                                </a>
+
+
+                                <a
+                                    className="imdb"
+                                    href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <img
+                                        src={IMDBIcon}
+                                        alt="IMDB"
+                                        width="30"
+                                    />
+                                </a>
+
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
+
             </div>
+
         </div>
     )
 }

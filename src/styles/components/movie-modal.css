@@ -17,17 +17,22 @@
 
 .movie-modal {
   background: var(--bg-secondary);
+
   width: min(900px, 90vw);
   max-height: 90vh;
-  overflow-y: auto;
+
   color: var(--text);
+
   border-radius: 12px;
+
   padding: 1rem 1rem 2rem 2rem;
 
-  animation: modalIn 0.25s ease-out;
+  display: flex;
+  flex-direction: column;
 
-  /* smoother touch scrolling on iOS */
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+
+  animation: modalIn 0.25s ease-out;
 }
 
 @keyframes fadeIn {
@@ -91,13 +96,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   gap: 20px;
 
-  position: sticky;
-  top: 0;
+  flex-shrink: 0;
+
   background: var(--bg-secondary);
-  z-index: 1;
-  padding-top: 2px;
+
+  padding: 10px 0;
+
+  z-index: 2;
+}
+
+.modal-content {
+  overflow-y: auto;
+  flex: 1;
 }
 
 .movie-modal .overview {
