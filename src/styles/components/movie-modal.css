@@ -273,14 +273,12 @@
 @media (max-width: 480px) {
   .overlay {
     align-items: flex-end;
-    /* modal slides up from bottom, more native feel */
   }
 
   .movie-modal {
     width: 100%;
     max-width: 100%;
     max-height: 92dvh;
-    /* dvh accounts for mobile browser chrome better than vh */
     border-radius: 16px 16px 0 0;
     padding: 0.75rem;
   }
@@ -294,7 +292,6 @@
   .modal-header h2 {
     font-size: 1.15rem;
     padding-right: 44px;
-    /* keeps title from colliding with close button */
     position: relative;
   }
 
