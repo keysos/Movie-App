@@ -3,6 +3,8 @@ import { fetchMovieDetail, IMAGE_BASE_URL } from '../services/movieApi';
 import RottenTomatoesIcon from "../assets/icons/Rotten_Tomatoes.svg.webp";
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
+import { useWatchlist } from '../context/WatchlistContext';
+import { FaPlus, FaCheck } from "react-icons/fa";
 
 const MovieModal = ({ movie, onClose }) => {
 
@@ -28,6 +30,19 @@ const MovieModal = ({ movie, onClose }) => {
     const closeButtonRef = useRef(null);
 
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
+    const { addToWatchlist, removeFromWatchlist, isOnWatchlist } = useWatchlist();
+
+    const watchlist = isOnWatchlist(movie.id);
+
+    function handleWatchlist() {
+
+        if (watchlist) {
+            removeFromWatchlist(movie.id)
+        } else {
+            addToWatchlist(movie)
+        }
+    }
 
     const favorite = isFavorite(movie.id);
 
@@ -76,8 +91,16 @@ const MovieModal = ({ movie, onClose }) => {
                     <h2 id="movie-modal-title">{details.title} ({movie.release_date?.slice(0, 4)})</h2>
 
                     <div className="modal-actions">
-                        <button className="watchlist-button">
-                            Add to Watchlist 🔖
+                        <button className="watchlist-button" onClick={handleWatchlist}>
+                            {isOnWatchlist(movie.id) ? (
+                                <>
+                                    Remove from Watchlist  <FaPlus />
+                                </>
+                            ) : (
+                                <>
+                                    Add to Watchlist  <FaCheck />
+                                </>
+                            )}
                         </button>
 
                         <button

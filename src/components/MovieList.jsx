@@ -1,7 +1,7 @@
 import React from 'react'
 import MovieCard from './MovieCard';
 
-const MovieList = ({ movies, onMovieClick}) => {
+const MovieList = ({ movies, onMovieClick, onRemoveFavorite}) => {
 
     return (
         <div className='movie-list'>
@@ -11,6 +11,7 @@ const MovieList = ({ movies, onMovieClick}) => {
                         key={movie.id} 
                         movie={movie} 
                         onMovieClick={onMovieClick} 
+                        onRemoveFavorite={onRemoveFavorite}
                     />
                 ))
             }

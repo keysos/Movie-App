@@ -1,8 +1,9 @@
 import React from 'react'
 import { IMAGE_BASE_URL } from '../services/movieApi'
 import { useFavorites } from '../context/FavoritesContext';
+import { useWatchlist } from '../context/WatchlistContext';
 
-const MovieCard = ({ movie, onMovieClick }) => {
+const MovieCard = ({ movie, onMovieClick, onRemoveFavorite }) => {
 
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
@@ -21,7 +22,7 @@ const MovieCard = ({ movie, onMovieClick }) => {
         e.stopPropagation();
 
         if (favorite) {
-            removeFavorite(movie.id)
+            onRemoveFavorite?.(movie.id)
         } else {
             addFavorite(movie);
         }

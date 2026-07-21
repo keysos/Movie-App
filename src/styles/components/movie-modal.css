@@ -149,23 +149,45 @@
 
 .favorite-button,
 .watchlist-button {
-  background-color: #63302c;
-  border: none;
-  border-radius: 12px;
-  padding: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: fit-content;
-  white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    background-color: #63302c;
+    color: var(--text);
+    border: none;
+    border-radius: 12px;
+
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
 }
 
-.favorite-button {
-  white-space: nowrap;
-}
-
-.favorite-button:hover,.watchlist-button:hover {
+.favorite-button:hover,
+.watchlist-button:hover {
     background-color: #4f2623;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.favorite-button:active,
+.watchlist-button:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-button:focus-visible,
+.watchlist-button:focus-visible {
+    outline: 2px solid var(--primary-400);
+    outline-offset: 3px;
 }
 
 @media (max-width: 768px) {

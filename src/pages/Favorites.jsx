@@ -6,7 +6,7 @@ import MovieModal from '../components/MovieModal';
 
 const Favorites = () => {
 
-    const { favorites } = useFavorites();
+    const { favorites, removeFavorite } = useFavorites();
 
     const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -15,6 +15,11 @@ const Favorites = () => {
             <MovieList
                 movies={favorites}
                 onMovieClick={setSelectedMovie}
+                onRemoveFavorite={(id) => {
+                    if (window.confirm("Remove this movie from your favorites?")) {
+                        removeFavorite(id);
+                    }
+                }}
             />
 
             {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}

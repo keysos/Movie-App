@@ -2,14 +2,55 @@
 
 .navbar {
     display: flex;
-    justify-content: space-around;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+
+    padding: 1rem 2rem;
     font-size: 1.2rem;
+    margin-bottom: 2rem;
+
+    background-color: var(--surface);
     border-bottom: 1px solid var(--border);
 }
 
 .navbar a {
     text-decoration: none;
+    color: var(--text-secondary);
+
+    position: relative;
+
+    font-weight: 500;
+    font-size: 1rem;
+
+    transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+    color: var(--primary-500);
+}
+
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: var(--primary-500);
+
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+}
+
+.navbar a:hover::after, .navbar a.active::after  {
+    transform: scaleX(1);
+}
+
+.navbar a.active {
     color: var(--text);
+    font-weight: 600;
 }
