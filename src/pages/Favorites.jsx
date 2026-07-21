@@ -22,6 +22,8 @@ const Favorites = () => {
                 }}
             />
 
+            <Footer />
+
             {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
         </>
     )

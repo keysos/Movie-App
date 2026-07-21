@@ -5,6 +5,7 @@ import MovieList from '../components/MovieList'
 import MovieModal from '../components/MovieModal'
 import MovieSlider from '../components/MovieSlider'
 import { fetchMovies, fetchNowPlayingMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchTrendingMovies } from '../services/movieApi'
+import Footer from '../components/Footer'
 
 const Home = () => {
 
@@ -140,6 +141,8 @@ const Home = () => {
                     />
                 </>
             )}
+
+            <Footer />
 
             {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
         </div>

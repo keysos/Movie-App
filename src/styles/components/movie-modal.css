@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
 
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay);
   z-index: 9999;
 
   animation: fadeIn 0.2s ease;
@@ -58,7 +58,7 @@
 }
 
 .movie-modal button {
-  color: #FFF1F0;
+  color: var(--text-secondary);
   border: none;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -70,14 +70,14 @@
 }
 
 .close-button {
-  background-color: var(--bg-secondaryx);
+  background-color: var(--bg-secondary);
   font-size: 1.5rem;
   min-width: 36px;
   min-height: 36px;
 }
 
 .close-button:hover {
-  color: #c07f7a;
+  color: var(--primary-500);
 }
 
 .modal-header h2 {
@@ -215,13 +215,13 @@
 .watchlist-button:hover {
   background-color: var(--primary-800);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 16px var(--shadow-strong);
 }
 
 .favorite-button:active,
 .watchlist-button:active {
   transform: translateY(0) scale(0.96);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px var(--shadow-soft);
 }
 
 .favorite-button:focus-visible,

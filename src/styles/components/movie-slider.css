@@ -8,6 +8,7 @@
   font-size: 1.9rem;
   color: var(--text);
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .slider-track {

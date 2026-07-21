@@ -1,40 +1,41 @@
 /* Design tokens: colors only. Swap this file to re-theme the app. */
+/* Palette: Black / Orange / White — a bold, modern cinema-marquee feel. */
 :root {
-  /* Primary */
-  --primary-50: #FFF1F0;
-  --primary-100: #FFD9D7;
-  --primary-200: #FFB3AF;
-  --primary-300: #FF8D87;
-  --primary-400: #F86D67;
-  --primary-500: #F0544F;
-  --primary-600: #D9433D;
-  --primary-700: #B93530;
-  --primary-800: #922824;
-  --primary-900: #6B1A18;
+  /* Primary (Orange) */
+  --primary-50: #FFF3E8;
+  --primary-100: #FFE1C2;
+  --primary-200: #FFC488;
+  --primary-300: #FFA352;
+  --primary-400: #FF8A2B;
+  --primary-500: #FF7A00;
+  --primary-600: #E86A00;
+  --primary-700: #C25600;
+  --primary-800: #954300;
+  --primary-900: #663000;
 
 
-  /* Backgrounds */
-  --bg: #FAFAFA;
-  --bg-secondary: #F4F4F4;
+  /* Backgrounds (White / soft neutrals) */
+  --bg: #FFFFFF;
+  --bg-secondary: #F6F4F1;
   --surface: #FFFFFF;
-  --surface-hover: #EEEEEE;
+  --surface-hover: #EFEBE6;
 
 
   /* Search */
-  --search-bg: #dedddd;
-  --search-hover: #E7E7E7;
-  --search-focus: #DDDDDD;
+  --search-bg: #F1EEE9;
+  --search-hover: #E7E2DB;
+  --search-focus: #FFFFFF;
 
 
-  /* Text */
-  --text: #111111;
-  --text-secondary: #444444;
-  --text-muted: #777777;
+  /* Text (Black) */
+  --text: #14110E;
+  --text-secondary: #4A423C;
+  --text-muted: #7A7168;
 
 
   /* Borders */
-  --border: #D8D8D8;
-  --border-light: #BDBDBD;
+  --border: #E1DBD3;
+  --border-light: #CFC7BC;
 
 
   /* Status */
@@ -43,39 +44,50 @@
   --error: #D93A3A;
   --info: #3578E5;
 
+  /* Overlay / shadow */
+  --overlay: rgba(0, 0, 0, 0.8);
+  --shadow-soft: rgba(20, 17, 14, 0.2);
+  --shadow-strong: rgba(20, 17, 14, 0.28);
+
+  /* Theme toggle switch */
+  --toggle-track: #E1DBD3;
+  --toggle-track-active: #14110E;
+  --toggle-thumb: #FFFFFF;
+  --toggle-icon: var(--primary-500);
 }
 
 [data-theme="dark"] {
-  --primary-50: #FFF1F0;
-  --primary-100: #FFD9D7;
-  --primary-200: #FFB3AF;
-  --primary-300: #FF8D87;
-  --primary-400: #F86D67;
-  --primary-500: #F0544F;
-  --primary-600: #D9433D;
-  --primary-700: #B93530;
-  --primary-800: #922824;
-  --primary-900: #6B1A18;
+  /* Primary (Orange) — slightly brighter for contrast on dark surfaces */
+  --primary-50: #FFF3E8;
+  --primary-100: #FFE1C2;
+  --primary-200: #FFC488;
+  --primary-300: #FFA352;
+  --primary-400: #FF9645;
+  --primary-500: #FF8A00;
+  --primary-600: #FF7A00;
+  --primary-700: #E86A00;
+  --primary-800: #C25600;
+  --primary-900: #954300;
 
-  /* Backgrounds */
-  --bg: #0D0D0D;
+  /* Backgrounds (Black) */
+  --bg: #0A0A0A;
   --bg-secondary: #141414;
-  --surface: #1B1B1B;
-  --surface-hover: #242424;
+  --surface: #1C1C1C;
+  --surface-hover: #272727;
 
   /* Search */
-  --search-bg: #202020;
-  --search-hover: #292929;
-  --search-focus: #313131;
+  --search-bg: #1A1A1A;
+  --search-hover: #242424;
+  --search-focus: #2A2A2A;
 
-  /* Text */
-  --text: #F8F8F8;
-  --text-secondary: #C7C7C7;
-  --text-muted: #A1A1A1;
+  /* Text (White) */
+  --text: #FAF9F7;
+  --text-secondary: #CBC6C0;
+  --text-muted: #928C85;
 
   /* Borders */
-  --border: #383838;
-  --border-light: #505050;
+  --border: #2E2E2E;
+  --border-light: #3D3D3D;
 
   /* Status */
   --success: #2ECC71;
@@ -83,4 +95,14 @@
   --error: #FF5C5C;
   --info: #4D96FF;
 
+  /* Overlay / shadow */
+  --overlay: rgba(0, 0, 0, 0.85);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --shadow-strong: rgba(0, 0, 0, 0.5);
+
+  /* Theme toggle switch */
+  --toggle-track: #333333;
+  --toggle-track-active: var(--primary-600);
+  --toggle-thumb: #FFFFFF;
+  --toggle-icon: var(--primary-400);
 }
