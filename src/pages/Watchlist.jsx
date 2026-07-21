@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useWatchlist } from '../context/WatchlistContext'
 import MovieList from '../components/MovieList';
 import MovieModal from '../components/MovieModal';
+import Footer from '../components/Footer';
 
 const Watchlist = () => {
 

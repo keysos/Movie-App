@@ -3,6 +3,7 @@ import MovieCard from '../components/MovieCard';
 import { useFavorites } from '../context/FavoritesContext';
 import MovieList from '../components/MovieList';
 import MovieModal from '../components/MovieModal';
+import Footer from '../components/Footer';
 
 const Favorites = () => {
 
