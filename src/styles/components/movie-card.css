@@ -5,6 +5,7 @@
   overflow: hidden;
   color: var(--text);
   border-radius: 8px;
+  border: 1px solid var(--border);
   background-color: var(--search-bg);
   cursor: pointer;
   overflow: hidden;
