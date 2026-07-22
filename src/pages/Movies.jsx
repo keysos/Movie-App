@@ -3,12 +3,13 @@ import SearchBar from '../components/SearchBar'
 import MediaList from '../components/MediaList'
 import MediaModal from '../components/MediaModal'
 import MediaSlider from '../components/MediaSlider'
+import Pagination from '../components/Pagination'
 import { fetchMedia, fetchPopularMedia, fetchTopRatedMedia, fetchTrendingMedia } from '../services/TMDBApi'
 import { useDocumentTitle } from '../services/useDocumentTitle'
 
 const MEDIA_TYPE = "movie";
 
-const Movies = ( {query, setQuery}) => {
+const Movies = ({ query, setQuery }) => {
 
     useDocumentTitle("Movies | CineSearch");
 
@@ -16,6 +17,10 @@ const Movies = ( {query, setQuery}) => {
     const [selectedMedia, setSelectedMedia] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalResults, setTotalResults] = useState(0)
 
     const [trending, setTrending] = useState([]);
     const [topRated, setTopRated] = useState([]);
@@ -37,7 +42,7 @@ const Movies = ( {query, setQuery}) => {
             setLoading(true);
 
             try {
-                const result = await fetchMedia(MEDIA_TYPE, query);
+                const result = await fetchMedia(MEDIA_TYPE, query, page);
 
                 if (result.length === 0) {
                     setError("No movies were found");
@@ -45,7 +50,9 @@ const Movies = ( {query, setQuery}) => {
                     setError("");
                 }
 
-                setQueryMedia(result);
+                setQueryMedia(result.results);
+                setTotalPages(result.totalPages)
+                setTotalResults(result.totalResults)
             } catch (err) {
                 console.error(err);
                 setError("Error during fetching movies");
@@ -62,7 +69,7 @@ const Movies = ( {query, setQuery}) => {
 
         return () => clearTimeout(timeout);
 
-    }, [query])
+    }, [query, page])
 
     useEffect(() => {
 
@@ -119,14 +126,18 @@ const Movies = ( {query, setQuery}) => {
 
                 {error !== "" && <p className='error'>{error}</p>}
 
-                {(!loading && queryMedia.length > 0) && <p className='result-count'>Found {queryMedia.length} result(s)</p>}
+                {(!loading && queryMedia.length > 0) && <p className='result-count'>Found {totalResults} result(s)</p>}
             </div>
+
+            {isSearching && <Pagination page={page} setPage={setPage} totalPages={totalPages}/>}
 
             <MediaList
                 media={queryMedia}
                 onMediaClick={setSelectedMedia}
                 isSearching={isSearching}
             />
+
+            
 
             {!isSearching && (
                 <>

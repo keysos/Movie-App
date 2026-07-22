@@ -5,10 +5,11 @@ import MediaSlider from '../components/MediaSlider'
 import { fetchMedia, fetchPopularMedia, fetchTopRatedMedia, fetchTrendingMedia } from '../services/TMDBApi'
 import SearchBar from '../components/SearchBar'
 import { useDocumentTitle } from '../services/useDocumentTitle'
+import Pagination from '../components/Pagination'
 
 const MEDIA_TYPE = "tv";
 
-const TVShows = ( { query, setQuery}) => {
+const TVShows = ({ query, setQuery }) => {
 
     useDocumentTitle("TV Shows | CineSearch")
 
@@ -16,6 +17,10 @@ const TVShows = ( { query, setQuery}) => {
     const [selectedMedia, setSelectedMedia] = useState(null)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalResults, setTotalResults] = useState(0)
 
     const [trending, setTrending] = useState([]);
     const [popular, setPopular] = useState([]);
@@ -39,7 +44,7 @@ const TVShows = ( { query, setQuery}) => {
 
             try {
 
-                const result = await fetchMedia(MEDIA_TYPE, query);
+                const result = await fetchMedia(MEDIA_TYPE, query, page);
 
 
                 if (result.length === 0) {
@@ -48,7 +53,9 @@ const TVShows = ( { query, setQuery}) => {
                     setError("");
                 }
 
-                setQueryMedia(result);
+                setQueryMedia(result.results);
+                setTotalPages(result.totalPages)
+                setTotalResults(result.totalResults)
             } catch (err) {
                 console.error(err);
                 setError("Error during fetching tv shows");
@@ -64,7 +71,7 @@ const TVShows = ( { query, setQuery}) => {
         }, 300);
 
         return () => clearTimeout(timeout);
-    }, [query])
+    }, [query, page])
 
     useEffect(() => {
 
@@ -86,7 +93,7 @@ const TVShows = ( { query, setQuery}) => {
                 setTimeout(() => {
                     setLoading(false)
                 }, 300)
-            }          
+            }
         }
 
         loadShowspage()
@@ -124,6 +131,8 @@ const TVShows = ( { query, setQuery}) => {
 
                 {(!loading && queryMedia.length > 0) && <p className='result-count'>Found {queryMedia.length} result(s)</p>}
             </div>
+
+            {isSearching && <Pagination page={page} setPage={setPage} totalPages={totalPages}/>}
 
             <MediaList
                 media={queryMedia}

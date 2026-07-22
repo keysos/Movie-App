@@ -3,16 +3,27 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-export async function fetchMedia(mediaType, query) {
+export async function fetchMedia(mediaType, query, page = 1) {
 
     try {
-        const response = await fetch(`${BASE_URL}/search/${mediaType}?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+        const response = await fetch(`${BASE_URL}/search/${mediaType}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}`);
         const data = await response.json();
 
-        return data.results.filter((media) => media.poster_path).sort((a, b) => b.popularity - a.popularity);
+        return {
+            results: data.results.filter((media) => media.poster_path).sort((a, b) => b.popularity - a.popularity),
+            pages: data.pages,
+            totalPages: data.total_pages,
+            totalResults: data.total_results
+
+        }
     }  catch (err) {
         console.error(err)
-        return []
+        return {
+            results: [],
+            page: 1,
+            totalPages: 0,
+            totalResults: 0,
+        };
     }
 }
 

@@ -222,7 +222,10 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                 </a>
                             </div>
 
+                            <p>Available On:</p>
+
                             <div className="modal-streaming">
+
                                 {details?.providers?.results?.US?.flatrate?.length > 0 ? (
                                     details.providers.results.US.flatrate.map((provider) => (
                                         <img
