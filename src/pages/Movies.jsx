@@ -26,15 +26,23 @@ const Movies = ({ query, setQuery }) => {
     const [topRated, setTopRated] = useState([]);
     const [popular, setPopular] = useState([]);
 
-    const isSearching = query.length >= 3;
+    const [debouncedQuery, setDebouncedQuery] = useState(query);
 
-    console.log("query:", query, "length:", query.length);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedQuery(query);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [query]);
+
+    const isSearching = debouncedQuery.length >= 3;
 
     useEffect(() => {
 
         async function getMedia() {
 
-            if (query.length < 3) {
+            if (debouncedQuery.length < 3) {
                 setQueryMedia([]);
                 setLoading(false);
                 return;
@@ -44,9 +52,9 @@ const Movies = ({ query, setQuery }) => {
             setLoading(true);
 
             try {
-                const result = await fetchMedia(MEDIA_TYPE, query, page);
+                const result = await fetchMedia(MEDIA_TYPE, debouncedQuery, page);
 
-                if (result.length === 0) {
+                if (result.results.length === 0) {
                     setError("No movies were found");
                 } else {
                     setError("");
@@ -65,13 +73,9 @@ const Movies = ({ query, setQuery }) => {
             }
         }
 
-        const timeout = setTimeout(() => {
-            getMedia();
-        }, 300);
+        getMedia();
 
-        return () => clearTimeout(timeout);
-
-    }, [query, page])
+    }, [debouncedQuery, page])
 
     useEffect(() => {
 
@@ -100,22 +104,6 @@ const Movies = ({ query, setQuery }) => {
         loadHomepageMovies();
     }, [])
 
-    if (loading) {
-        return (
-            <>
-                <h1 className="title">
-                    <span> CineSearch </span>
-                </h1>
-                <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
-                <div className="page-loader">
-                    <div className="loading-bar">
-                        <div className="loading-progress"></div>
-                    </div>
-                </div>
-            </>
-        );
-    }
-
     return (
         <div>
             <h1 className="title">
@@ -126,6 +114,14 @@ const Movies = ({ query, setQuery }) => {
                 setPage(1);
                 setQuery(value);
             }} placeholder="Search a movie..." />
+
+            {loading && 
+            
+            <div className="page-loader">
+                <div className="loading-bar">
+                    <div className="loading-progress"></div>
+                </div>
+            </div>}
 
             <div aria-live="polite">
 

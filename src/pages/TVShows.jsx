@@ -26,14 +26,24 @@ const TVShows = ({ query, setQuery }) => {
     const [popular, setPopular] = useState([]);
     const [topRated, setTopRated] = useState([]);
 
+    const [debouncedQuery, setDebouncedQuery] = useState(query);
 
-    const isSearching = query.length >= 3;
+
+    const isSearching = debouncedQuery.length >= 3;
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedQuery(query);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [query]);
 
     useEffect(() => {
 
         async function getMedia() {
 
-            if (query.length < 3) {
+            if (debouncedQuery.length < 3) {
                 setQueryMedia([])
                 setLoading(false)
                 return
@@ -44,10 +54,10 @@ const TVShows = ({ query, setQuery }) => {
 
             try {
 
-                const result = await fetchMedia(MEDIA_TYPE, query, page);
+                const result = await fetchMedia(MEDIA_TYPE, debouncedQuery, page);
 
 
-                if (result.length === 0) {
+                if (result.results.length === 0) {
                     setError("No tv shows were found");
                 } else {
                     setError("");
@@ -66,12 +76,9 @@ const TVShows = ({ query, setQuery }) => {
             }
         }
 
-        const timeout = setTimeout(() => {
-            getMedia();
-        }, 300);
+        getMedia();
 
-        return () => clearTimeout(timeout);
-    }, [query, page])
+    }, [debouncedQuery, page])
 
     useEffect(() => {
 
@@ -125,6 +132,13 @@ const TVShows = ({ query, setQuery }) => {
                 setPage(1);
                 setQuery(value);
             }} placeholder="Search a tv show..." />
+
+            {loading && 
+            <div className="page-loader">
+                <div className="loading-bar">
+                    <div className="loading-progress"></div>
+                </div>
+            </div>}
 
             <div aria-live="polite">
                 {loading && <p className='loading'>Loading...</p>}

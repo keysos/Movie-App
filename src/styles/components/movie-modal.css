@@ -151,6 +151,8 @@
 }
 
 .modal-genres span {
+  display: flex;
+  align-items: center;
   background-color: var(--primary-600);
   padding: 5px 10px;
   border-radius: 20px;
