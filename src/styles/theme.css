@@ -1,99 +1,95 @@
-/* Design tokens: colors only. Swap this file to re-theme the app. */
-/* Palette: Black / Orange / White — a bold, modern cinema-marquee feel. */
+/* Design tokens: colors only. */
+/* Palette: Forest Green / Neutral Gray / White */
+
 :root {
-  /* Primary (Orange) */
-  --primary-50: #FFF3E8;
-  --primary-100: #FFE1C2;
-  --primary-200: #FFC488;
-  --primary-300: #FFA352;
-  --primary-400: #FF8A2B;
-  --primary-500: #FF7A00;
-  --primary-600: #E86A00;
-  --primary-700: #C25600;
-  --primary-800: #954300;
-  --primary-900: #663000;
+  /* Primary (Forest Green) */
+  --primary-50: #ECFDF3;
+  --primary-100: #D1FAE5;
+  --primary-200: #A7F3D0;
+  --primary-300: #6EE7B7;
+  --primary-400: #34D399;
+  --primary-500: #15803D;
+  --primary-600: #166534;
+  --primary-700: #14532D;
+  --primary-800: #123524;
+  --primary-900: #0B2418;
 
-
-  /* Backgrounds (White / soft neutrals) */
-  --bg: #FFFFFF;
-  --bg-secondary: #F6F4F1;
-  --surface: #FFFFFF;
-  --surface-hover: #EFEBE6;
-
+  /* Backgrounds */
+  --bg: #ECEFF1;
+  --bg-secondary: #dadbdc;
+  --surface: #afc4b6;
+  --surface-hover: #F1F5F9;
 
   /* Search */
-  --search-bg: #dddcd9;
-  --search-hover: #E7E2DB;
+  --search-bg: #E5E7EB;
+  --search-hover: #D1D5DB;
   --search-focus: #FFFFFF;
 
-
-  /* Text (Black) */
-  --text: #14110E;
-  --text-secondary: #4A423C;
-  --text-muted: #7A7168;
-
+  /* Text */
+  --text: #10261a;
+  --text-secondary: #374151;
+  --text-muted: #6B7280;
 
   /* Borders */
-  --border: #bcb7b1;
-  --border-light: #CFC7BC;
-
+  --border: #94A3B8;
+  --border-light: #CBD5E1;
 
   /* Status */
-  --success: #1FA463;
-  --warning: #D89B00;
-  --error: #D93A3A;
-  --info: #3578E5;
+  --success: #16A34A;
+  --warning: #CA8A04;
+  --error: #DC2626;
+  --info: #2563EB;
 
   /* Overlay / shadow */
-  --overlay: rgba(0, 0, 0, 0.8);
-  --shadow-soft: rgba(20, 17, 14, 0.2);
-  --shadow-strong: rgba(20, 17, 14, 0.28);
+  --overlay: rgba(0, 0, 0, 0.75);
+  --shadow-soft: rgba(15, 23, 42, 0.12);
+  --shadow-strong: rgba(15, 23, 42, 0.24);
 
   /* Theme toggle switch */
-  --toggle-track: #E1DBD3;
-  --toggle-track-active: #14110E;
+  --toggle-track: #CBD5E1;
+  --toggle-track-active: var(--primary-600);
   --toggle-thumb: #FFFFFF;
   --toggle-icon: var(--primary-500);
 }
 
 [data-theme="dark"] {
-  /* Primary (Orange) — slightly brighter for contrast on dark surfaces */
-  --primary-50: #FFF3E8;
-  --primary-100: #FFE1C2;
-  --primary-200: #FFC488;
-  --primary-300: #FFA352;
-  --primary-400: #FF9645;
-  --primary-500: #FF8A00;
-  --primary-600: #FF7A00;
-  --primary-700: #E86A00;
-  --primary-800: #C25600;
-  --primary-900: #954300;
+  /* Primary (Forest Green) */
+  --primary-50: #ECFDF3;
+  --primary-100: #D1FAE5;
+  --primary-200: #A7F3D0;
+  --primary-300: #6EE7B7;
+  --primary-400: #34D399;
+  --primary-500: #22C55E;
+  --primary-600: #16A34A;
+  --primary-700: #15803D;
+  --primary-800: #166534;
+  --primary-900: #14532D;
 
-  /* Backgrounds (Black) */
-  --bg: #0A0A0A;
-  --bg-secondary: #141414;
-  --surface: #1C1C1C;
-  --surface-hover: #272727;
+  /* Backgrounds */
+  --bg: #0B0F0D;
+  --bg-secondary: #121815;
+  --surface: #1A221E;
+  --surface-hover: #26302B;
 
   /* Search */
-  --search-bg: #1A1A1A;
-  --search-hover: #242424;
-  --search-focus: #2A2A2A;
+  --search-bg: #151D19;
+  --search-hover: #202924;
+  --search-focus: #2B3731;
 
-  /* Text (White) */
-  --text: #FAF9F7;
-  --text-secondary: #CBC6C0;
-  --text-muted: #928C85;
+  /* Text */
+  --text: #F9FAFB;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
 
   /* Borders */
-  --border: #2E2E2E;
-  --border-light: #3D3D3D;
+  --border: #374151;
+  --border-light: #4B5563;
 
   /* Status */
-  --success: #2ECC71;
-  --warning: #F4B400;
-  --error: #FF5C5C;
-  --info: #4D96FF;
+  --success: #22C55E;
+  --warning: #EAB308;
+  --error: #F87171;
+  --info: #60A5FA;
 
   /* Overlay / shadow */
   --overlay: rgba(0, 0, 0, 0.85);
@@ -101,7 +97,7 @@
   --shadow-strong: rgba(0, 0, 0, 0.5);
 
   /* Theme toggle switch */
-  --toggle-track: #333333;
+  --toggle-track: #374151;
   --toggle-track-active: var(--primary-600);
   --toggle-thumb: #FFFFFF;
   --toggle-icon: var(--primary-400);

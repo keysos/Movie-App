@@ -15,7 +15,7 @@ const Footer = () => {
                 className='github-link'
             >
                 <FaGithub />
-                Github
+                <span className="github-text">Github</span>
             </a>
 
             <p>

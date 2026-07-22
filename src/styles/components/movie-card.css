@@ -10,6 +10,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
 }
 
 .movie-card:hover {
@@ -52,12 +53,18 @@
   align-items: center;
 }
 
-.movie-card .year {
-  color: var(--primary-400);
+.movie-card .year, .rating {
+  color: var(--primary-600);
 }
 
 .favorite-button-home {
-  background-color: var(--primary-300);
+  background-color: var(--text);
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   border-radius: 50%;
   font-size: 1.2rem;
@@ -65,6 +72,13 @@
   height: 36px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  color: var(--primary-500);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .favorite-button-home:hover {

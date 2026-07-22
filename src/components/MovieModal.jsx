@@ -6,6 +6,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
 import { FaPlus, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const MovieModal = ({ movie, onClose }) => {
 
@@ -118,7 +119,7 @@ const MovieModal = ({ movie, onClose }) => {
                             className={`favorite-button ${favorite ? "active" : ""}`}
                             onClick={handleFavorites}
                         >
-                            Add to Favorites {favorite ? "❤️" : "🤍"}
+                            Add to Favorites {favorite ? <FaHeart /> : <FaRegHeart />}
                         </button>
 
                     </div>

@@ -17,6 +17,10 @@
     margin-top: 20px;
 }
 
+.footer p {
+    max-width: 200px;
+}
+
 .github-link {
     display: flex;
     align-items: center;
@@ -37,4 +41,16 @@
 .github-link:hover {
     color: var(--primary-500);
     transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  
+    .footer {
+        gap: 10px;
+        padding: 1rem;
+    }
+
+    .github-text {
+        display: none;
+    }
 }

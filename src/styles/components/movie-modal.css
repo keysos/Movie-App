@@ -137,7 +137,7 @@
 
 .movie-modal-details {
   padding: 15px;
-  background-color: var(--search-bg);
+  background-color: var(--surface);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -150,7 +150,7 @@
 }
 
 .modal-genres span {
-  background-color: var(--primary-400);
+  background-color: var(--primary-600);
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: 600;
@@ -173,7 +173,7 @@
   color: var(--text);
   font-weight: 700;
   border-radius: 12px;
-  background-color: var(--primary-500);
+  background-color: var(--primary-600);
 }
 
 .imdb,
@@ -195,7 +195,6 @@
   gap: 0.5rem;
 
   background-color: var(--primary-700);
-  color: var(--text);
   border: none;
   border-radius: 12px;
 
