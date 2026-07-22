@@ -1,15 +1,14 @@
 import React from 'react'
-import { IMAGE_BASE_URL } from '../services/movieApi'
+import { IMAGE_BASE_URL } from '../services/TMDBApi'
 import { useFavorites } from '../context/FavoritesContext';
-import { useWatchlist } from '../context/WatchlistContext';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from "react-icons/ti";
 
-const MovieCard = ({ movie, onMovieClick, onRemoveFavorite }) => {
+const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
 
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
-    const favorite = isFavorite(movie.id);
+    const favorite = isFavorite(media.id);
 
     function convertRatingToStars(rating) {
         const stars = rating / 2;
@@ -32,7 +31,7 @@ const MovieCard = ({ movie, onMovieClick, onRemoveFavorite }) => {
         // Mirror native <button> behavior: activate on Enter or Space.
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            onMovieClick(movie);
+            onMediaClick(media);
         }
     }
 
@@ -41,39 +40,39 @@ const MovieCard = ({ movie, onMovieClick, onRemoveFavorite }) => {
 
         if (favorite) {
             if (onRemoveFavorite) {
-                onRemoveFavorite(movie.id);
+                onRemoveFavorite(media.id);
             } else {
-                removeFavorite(movie.id);
+                removeFavorite(media.id);
             }
         } else {
-            addFavorite(movie);
+            addFavorite(media);
         }
     }
 
     return (
         <div
             className='movie-card'
-            onClick={() => onMovieClick(movie)}
+            onClick={() => onMediaClick(media)}
             onKeyDown={handleKeyDown}
             role="button"
             tabIndex={0}
-            aria-label={`View details for ${movie.title}`}
+            aria-label={`View details for ${media.title ?? media.name}`}
         >
 
             <img
-                src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-                alt={movie.title}
+                src={`${IMAGE_BASE_URL}${media.poster_path}`}
+                alt={media.title ?? media.name}
                 className='movie-poster'
             />
 
             <div className="movie-info">
-                <h3>{movie.title}</h3>
+                <h3>{media.title ?? media.name}</h3>
 
                 <div className="movie-details">
-                    <p className='year'>{movie.release_date?.slice(0, 4)}</p>
+                    <p className='year'>{media.release_date?.slice(0, 4) ?? media.first_air_date?.slice(0, 4)}</p>
 
                     <p className='rating'>{
-                    convertRatingToStars(movie.vote_average.toFixed(1))
+                    convertRatingToStars(media.vote_average.toFixed(1) ?? 0)
                     }</p>
 
                     <button className={`favorite-button-home ${favorite ?
@@ -87,4 +86,4 @@ const MovieCard = ({ movie, onMovieClick, onRemoveFavorite }) => {
     )
 }
 
-export default MovieCard
+export default MediaCard

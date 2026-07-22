@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import MovieCard from '../components/MovieCard';
+import MediaCard from '../components/MediaCard';
 import { useFavorites } from '../context/FavoritesContext';
-import MovieList from '../components/MovieList';
-import MovieModal from '../components/MovieModal';
+import MediaList from '../components/MediaList';
+import MediaModal from '../components/MediaModal';
 import { useDocumentTitle } from '../services/useDocumentTitle'
 
 const Favorites = () => {
@@ -11,13 +11,13 @@ const Favorites = () => {
 
     const { favorites, removeFavorite } = useFavorites();
 
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [selectedMedia, setSelectedMedia] = useState(null);
 
     return (
         <>
-            <MovieList
-                movies={favorites}
-                onMovieClick={setSelectedMovie}
+            <MediaList
+                media={favorites}
+                onMediaClick={setSelectedMedia}
                 onRemoveFavorite={(id) => {
                     if (window.confirm("Remove this movie from your favorites?")) {
                         removeFavorite(id);
@@ -25,7 +25,7 @@ const Favorites = () => {
                 }}
             />
 
-            {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
+            {selectedMedia && <MediaModal media={selectedMedia} onClose={() => setSelectedMedia(null)} />}
         </>
     )
 }

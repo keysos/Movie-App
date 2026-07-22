@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useWatchlist } from '../context/WatchlistContext'
-import MovieList from '../components/MovieList';
-import MovieModal from '../components/MovieModal';
+import MediaList from '../components/MediaList';
+import MediaModal from '../components/MediaModal';
 import { useDocumentTitle } from '../services/useDocumentTitle'
 
 
@@ -11,17 +11,17 @@ const Watchlist = () => {
 
     const { watchlist } = useWatchlist();
 
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [selectedMedia, setSelectedMedia] = useState(null);
 
     return (
         <>
-            <MovieList
-                movies={watchlist}
-                onMovieClick={setSelectedMovie}
+            <MediaList
+                media={watchlist}
+                onMediaClick={setSelectedMedia}
 
             />
 
-            {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
+            {selectedMedia && <MediaModal media={selectedMedia} onClose={() => setSelectedMedia(null)} />}
         </>
     )
 }

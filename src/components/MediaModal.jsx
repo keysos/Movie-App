@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { fetchMovieDetail, IMAGE_BASE_URL } from '../services/movieApi';
+import { fetchMediaDetail, IMAGE_BASE_URL } from '../services/TMDBApi';
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
@@ -7,7 +7,7 @@ import { FaPlus, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const MovieModal = ({ movie, onClose }) => {
+const MediaModal = ({ media, onClose, mediaType }) => {
 
     function formatRuntime(minutes) {
         const hours = Math.floor(minutes / 60);
@@ -20,42 +20,42 @@ const MovieModal = ({ movie, onClose }) => {
         e.stopPropagation();
 
         if (favorite) {
-            removeFavorite(movie.id)
+            removeFavorite(media.id)
         } else {
-            addFavorite(movie);
+            addFavorite(media);
         }
     }
 
-    const [movieDetails, setMovieDetails] = useState(null)
+    const [mediaDetails, setMediaDetails] = useState(null)
     const closeButtonRef = useRef(null);
 
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
     const { addToWatchlist, removeFromWatchlist, isOnWatchlist } = useWatchlist();
 
-    const favorite = isFavorite(movie.id);
-    const watchlist = isOnWatchlist(movie.id);
+    const favorite = isFavorite(media.id);
+    const watchlist = isOnWatchlist(media.id);
 
     function handleWatchlist() {
         if (watchlist) {
-            removeFromWatchlist(movie.id)
+            removeFromWatchlist(media.id)
         } else {
-            addToWatchlist(movie)
+            addToWatchlist(media)
         }
     }
 
 
     useEffect(() => {
-        async function getMovie() {
+        async function getMedia() {
             try {
-                const result = await fetchMovieDetail(movie.id);
-                setMovieDetails(result);
+                const result = await fetchMediaDetail(mediaType, media.id);
+                setMediaDetails(result);
             } catch (err) {
                 console.error(err)
             }
         }
 
-        getMovie()
-    }, [movie.id])
+        getMedia()
+    }, [media.id])
 
 
     useEffect(() => {
@@ -75,7 +75,7 @@ const MovieModal = ({ movie, onClose }) => {
     }, [onClose])
 
 
-    const details = movieDetails || movie;
+    const details = mediaDetails || media;
 
 
     return (
@@ -92,14 +92,14 @@ const MovieModal = ({ movie, onClose }) => {
                 <div className="modal-header">
 
                     <h2 id="movie-modal-title">
-                        {details.title} ({movie.release_date?.slice(0, 4)})
+                        {details.title ?? details.name} ({details.release_date?.slice(0, 4) ?? details.first_air_date.slice(0, 4)})
                     </h2>
 
 
                     <div className="modal-actions">
 
-                        <button 
-                            className="watchlist-button" 
+                        <button
+                            className="watchlist-button"
                             onClick={handleWatchlist}
                         >
                             {watchlist ? (
@@ -142,7 +142,7 @@ const MovieModal = ({ movie, onClose }) => {
 
                         <img
                             src={`${IMAGE_BASE_URL}${details.poster_path}`}
-                            alt={details.title}
+                            alt={details.title ?? details.name}
                             className="movie-modal-poster"
                         />
 
@@ -164,23 +164,23 @@ const MovieModal = ({ movie, onClose }) => {
 
 
                             <p className="director">
-                                Director:{" "}
+                                {details?.created_by?.length ? "Creator:" : "Director:"}{" "}
                                 <span>
-                                    {details.credits?.crew.find(
+                                    {details?.credits?.crew.find(
                                         (person) => person.job === "Director"
-                                    )?.name || "Unknown"}
+                                    )?.name || details?.created_by?.[0]?.name}
                                 </span>
                             </p>
 
 
                             <p className="actors">
-                                Main Actors:{" "}
+                                Main Cast:{" "}
                                 {
                                     details.credits?.cast
                                         .slice(0, 3)
                                         .map((actor) => (
                                             <span key={actor.name}>
-                                                 {actor.name}
+                                                {actor.name}
                                             </span>
                                         ))
                                 }
@@ -190,7 +190,10 @@ const MovieModal = ({ movie, onClose }) => {
                             <div className="modal-score">
 
                                 <div className="runtime">
-                                    {formatRuntime(details.runtime)}
+                                    {details.runtime
+                                        ? formatRuntime(details.runtime)
+                                        : `${details.number_of_seasons} Seasons`
+                                    }
                                 </div>
 
                                 <div className="popularity">
@@ -198,7 +201,7 @@ const MovieModal = ({ movie, onClose }) => {
                                 </div>
 
                                 <div className="score">
-                                    Rating: {details.vote_average.toFixed(1)} ⭐
+                                    Rating: {details.vote_average.toFixed(1) ?? 0} ⭐
                                 </div>
 
                                 <a
@@ -228,4 +231,4 @@ const MovieModal = ({ movie, onClose }) => {
     )
 }
 
-export default MovieModal
+export default MediaModal

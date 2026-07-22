@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
-import MovieCard from "./MovieCard";
+import MediaCard from "./MediaCard";
 
-const MovieSlider = ({ movies, name, onMovieClick, isSearching }) => {
+const MediaSlider = ({ media, name, onMediaClick }) => {
 
     const trackRef = useRef(null)
 
@@ -32,11 +32,11 @@ const MovieSlider = ({ movies, name, onMovieClick, isSearching }) => {
 
                 <div className="slider-track" ref={trackRef}>
                     {
-                        movies.map((movie) => (
-                            <MovieCard
-                                movie={movie}
-                                key={movie.id}
-                                onMovieClick={onMovieClick}
+                        media.map((item) => (
+                            <MediaCard
+                                media={item}
+                                key={item.id}
+                                onMediaClick={onMediaClick}
                             />
                         ))
                     }
@@ -54,4 +54,4 @@ const MovieSlider = ({ movies, name, onMovieClick, isSearching }) => {
     )
 }
 
-export default MovieSlider
+export default MediaSlider
