@@ -220,17 +220,26 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                         width="30"
                                     />
                                 </a>
-
                             </div>
 
+                            <div className="modal-streaming">
+                                {details?.providers?.results?.US?.flatrate?.length > 0 ? (
+                                    details.providers.results.US.flatrate.map((provider) => (
+                                        <img
+                                            className="provider-logo"
+                                            key={provider.provider_id}
+                                            src={`https://image.tmdb.org/t/p/w92${provider.logo_path}`}
+                                            alt={provider.name}
+                                        />
+                                    ))
+                                ) : (
+                                    <span>No streaming available</span>
+                                )}
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     )
 }

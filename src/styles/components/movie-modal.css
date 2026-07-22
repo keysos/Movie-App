@@ -142,6 +142,7 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius: 5px;
+  gap: 10px;
 }
 
 .modal-genres {
@@ -165,6 +166,20 @@
   flex-wrap: wrap;
   row-gap: 10px;
   gap: 20px;
+}
+
+.modal-streaming {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-streaming img{
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
 .modal-score div {

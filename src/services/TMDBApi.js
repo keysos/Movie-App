@@ -18,15 +18,32 @@ export async function fetchMedia(mediaType, query) {
 
 export async function fetchMediaDetail(mediaType, mediaId) {
 
-  try {
-    const response = await fetch(`${BASE_URL}/${mediaType}/${mediaId}?api_key=${API_KEY}&append_to_response=external_ids,credits`)
-    const data = await response.json();
+    try {
+        const [detailsResponse, providersResponse] = await Promise.all([
+            fetch(
+                `${BASE_URL}/${mediaType}/${mediaId}?api_key=${API_KEY}&append_to_response=external_ids,credits`
+            ),
+            fetch(
+                `${BASE_URL}/${mediaType}/${mediaId}/watch/providers?api_key=${API_KEY}`
+            )
+        ]);
 
-    return data;
-  } catch (err) {
-    console.error(err)
-    return null
-  }
+        const data = await detailsResponse.json();
+        const providersData = await providersResponse.json();
+
+        const result = {
+            ...data,
+            providers: providersData
+        };
+
+        console.log("FINAL RESULT:", result);
+
+        return result;
+
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
 }
 
 async function fetchCategoryMedia(endpoint) {
