@@ -8,11 +8,10 @@ import { useDocumentTitle } from '../services/useDocumentTitle'
 
 const MEDIA_TYPE = "movie";
 
-const Movies = () => {
+const Movies = ( {query, setQuery}) => {
 
     useDocumentTitle("Movies | CineSearch");
 
-    const [query, setQuery] = useState("");
     const [queryMedia, setQueryMedia] = useState([]);
     const [selectedMedia, setSelectedMedia] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -51,8 +50,9 @@ const Movies = () => {
                 console.error(err);
                 setError("Error during fetching movies");
             } finally {
-
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false)
+                }, 300)
             }
         }
 
@@ -80,10 +80,32 @@ const Movies = () => {
                 setPopular(popular);
             } catch (err) {
                 console.error(err)
+            } finally {
+                const timeout = setTimeout(() => {
+                    setLoading(false)
+                }, 300)
             }
+
+
         }
         loadHomepageMovies();
     }, [])
+
+    if (loading) {
+        return (
+            <>
+                <h1 className="title">
+                    <span> CineSearch </span>
+                </h1>
+                <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
+                <div className="page-loader">
+                    <div className="loading-bar">
+                        <div className="loading-progress"></div>
+                    </div>
+                </div>
+            </>
+        );
+    }
 
     return (
         <div>
@@ -94,7 +116,6 @@ const Movies = () => {
             <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
 
             <div aria-live="polite">
-                {loading && <p className='loading'>Loading...</p>}
 
                 {error !== "" && <p className='error'>{error}</p>}
 
@@ -112,21 +133,18 @@ const Movies = () => {
                     <MediaSlider
                         media={trending}
                         onMediaClick={setSelectedMedia}
-                        isSearching={isSearching}
                         name="Trending"
                     />
 
                     <MediaSlider
                         media={topRated}
                         onMediaClick={setSelectedMedia}
-                        isSearching={isSearching}
                         name="Top Rated"
                     />
 
                     <MediaSlider
                         media={popular}
                         onMediaClick={setSelectedMedia}
-                        isSearching={isSearching}
                         name="Popular"
                     />
                 </>

@@ -155,20 +155,24 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
 
                             <p className="modal-genres">
-                                {details.genres?.map((genre) => (
-                                    <span key={genre.id}>
-                                        {genre.name}
-                                    </span>
-                                ))}
+                                {details.genres?.length > 0 ? (
+                                    details.genres.map((genre) => (
+                                        <span key={genre.id}>
+                                            {genre.name}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <span>Undefined</span>
+                                )}
                             </p>
 
 
                             <p className="director">
-                                {details?.created_by?.length ? "Creator:" : "Director:"}{" "}
+                                {details?.created_by !== undefined ? "Creator:" : "Director:"}{" "}
                                 <span>
                                     {details?.credits?.crew.find(
                                         (person) => person.job === "Director"
-                                    )?.name || details?.created_by?.[0]?.name}
+                                    )?.name || details?.created_by?.map((person) => person.name)}
                                 </span>
                             </p>
 

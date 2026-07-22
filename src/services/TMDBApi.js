@@ -9,7 +9,7 @@ export async function fetchMedia(mediaType, query) {
         const response = await fetch(`${BASE_URL}/search/${mediaType}?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
         const data = await response.json();
 
-        return data.results.sort((a, b) => b.popularity - a.popularity);
+        return data.results.filter((media) => media.poster_path).sort((a, b) => b.popularity - a.popularity);
     }  catch (err) {
         console.error(err)
         return []

@@ -72,7 +72,7 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
                     <p className='year'>{media.release_date?.slice(0, 4) ?? media.first_air_date?.slice(0, 4)}</p>
 
                     <p className='rating'>{
-                    convertRatingToStars(media.vote_average.toFixed(1) ?? 0)
+                    convertRatingToStars(media.vote_average?.toFixed(1) ?? 0)
                     }</p>
 
                     <button className={`favorite-button-home ${favorite ?
