@@ -15,8 +15,21 @@ const Favorites = () => {
 
     return (
         <>
+
+            <h2 className='favorites-title'>Movies</h2>
             <MediaList
-                media={favorites}
+                media={favorites.filter((item) => item.title)}
+                onMediaClick={setSelectedMedia}
+                onRemoveFavorite={(id) => {
+                    if (window.confirm("Remove this movie from your favorites?")) {
+                        removeFavorite(id);
+                    }
+                }}
+            />
+
+            <h2 className='favorites-title'>TV Shows</h2>
+            <MediaList
+                media={favorites.filter((item) => item.name)}
                 onMediaClick={setSelectedMedia}
                 onRemoveFavorite={(id) => {
                     if (window.confirm("Remove this movie from your favorites?")) {

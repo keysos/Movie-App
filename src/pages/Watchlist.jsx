@@ -15,8 +15,17 @@ const Watchlist = () => {
 
     return (
         <>
+
+            <h2 className='watchlist-title'>Movies</h2>
             <MediaList
-                media={watchlist}
+                media={watchlist.filter((item) => item.title)}
+                onMediaClick={setSelectedMedia}
+
+            />
+
+            <h2 className='watchlist-title'>TV Shows</h2>
+            <MediaList
+                media={watchlist.filter((item) => item.name)}
                 onMediaClick={setSelectedMedia}
 
             />
