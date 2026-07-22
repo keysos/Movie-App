@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { fetchMovieDetail, IMAGE_BASE_URL } from '../services/movieApi';
-import RottenTomatoesIcon from "../assets/icons/Rotten_Tomatoes.svg.webp";
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
@@ -201,22 +200,6 @@ const MovieModal = ({ movie, onClose }) => {
                                 <div className="score">
                                     Rating: {details.vote_average.toFixed(1)} ⭐
                                 </div>
-
-
-                                <a
-                                    className="rotten-tomatoes"
-                                    href={`https://www.rottentomatoes.com/search?search=${encodeURIComponent(details.title)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <img
-                                        src={RottenTomatoesIcon}
-                                        alt="Rotten Tomatoes"
-                                        width="24"
-                                        height="24"
-                                    />
-                                </a>
-
 
                                 <a
                                     className="imdb"
