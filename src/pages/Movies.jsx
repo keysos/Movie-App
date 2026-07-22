@@ -28,6 +28,8 @@ const Movies = ({ query, setQuery }) => {
 
     const isSearching = query.length >= 3;
 
+    console.log("query:", query, "length:", query.length);
+
     useEffect(() => {
 
         async function getMedia() {
@@ -120,7 +122,10 @@ const Movies = ({ query, setQuery }) => {
                 <span> CineSearch </span>
             </h1>
 
-            <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
+            <SearchBar query={query} setQuery={(value) => {
+                setPage(1);
+                setQuery(value);
+            }} placeholder="Search a movie..." />
 
             <div aria-live="polite">
 
@@ -129,15 +134,13 @@ const Movies = ({ query, setQuery }) => {
                 {(!loading && queryMedia.length > 0) && <p className='result-count'>Found {totalResults} result(s)</p>}
             </div>
 
-            {isSearching && <Pagination page={page} setPage={setPage} totalPages={totalPages}/>}
+            {isSearching && !loading && totalPages !== 0 && <Pagination page={page} setPage={setPage} totalPages={totalPages} />}
 
             <MediaList
                 media={queryMedia}
                 onMediaClick={setSelectedMedia}
                 isSearching={isSearching}
             />
-
-            
 
             {!isSearching && (
                 <>

@@ -27,7 +27,7 @@ const TVShows = ({ query, setQuery }) => {
     const [topRated, setTopRated] = useState([]);
 
 
-    const isSearching = query.length > 3;
+    const isSearching = query.length >= 3;
 
     useEffect(() => {
 
@@ -60,7 +60,7 @@ const TVShows = ({ query, setQuery }) => {
                 console.error(err);
                 setError("Error during fetching tv shows");
             } finally {
-                const timeout = setTimeout(() => {
+                setTimeout(() => {
                     setLoading(false)
                 }, 300)
             }
@@ -121,18 +121,20 @@ const TVShows = ({ query, setQuery }) => {
                 <span>CineSearch</span>
             </h1>
 
-
-            <SearchBar query={query} setQuery={setQuery} placeholder={"Search a tv show..."} />
+            <SearchBar query={query} setQuery={(value) => {
+                setPage(1);
+                setQuery(value);
+            }} placeholder="Search a tv show..." />
 
             <div aria-live="polite">
                 {loading && <p className='loading'>Loading...</p>}
 
                 {error !== "" && <p className='error'>{error}</p>}
 
-                {(!loading && queryMedia.length > 0) && <p className='result-count'>Found {queryMedia.length} result(s)</p>}
+                {(!loading && queryMedia.length > 0) && <p className='result-count'>Found {totalResults} result(s)</p>}
             </div>
 
-            {isSearching && <Pagination page={page} setPage={setPage} totalPages={totalPages}/>}
+            {isSearching && !loading && totalPages !== 0 && <Pagination page={page} setPage={setPage} totalPages={totalPages} />}
 
             <MediaList
                 media={queryMedia}
