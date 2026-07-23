@@ -4,10 +4,15 @@ const WatchlistContext = createContext();
 
 export const WatchlistProvider = ({ children }) => {
 
+    // Initialize the watchlist state from localStorage or an empty array if not present
+
     const [watchlist, setWatchlist] = useState(() => {
         const saved = localStorage.getItem('watchlist');
         return saved ? JSON.parse(saved) : [];
     })
+
+
+    // useEffect to update localStorage whenever the watchlist state changes
 
     useEffect(() => {
         localStorage.setItem('watchlist', JSON.stringify(watchlist))

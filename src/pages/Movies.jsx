@@ -15,6 +15,8 @@ const Movies = ({ query, setQuery }) => {
 
     const [selectedMedia, setSelectedMedia] = useState(null);
 
+    // Custom hook to manage media browsing state, including search results, loading state, error handling, pagination, and fetching trending, popular, and top-rated movies
+
     const { queryMedia,
         loading,
         error,

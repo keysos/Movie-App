@@ -3,7 +3,11 @@ import MediaCard from "./MediaCard";
 
 const MediaSlider = ({ media, name, onMediaClick }) => {
 
+    // Use a ref to reference the slider track for scrolling
+
     const trackRef = useRef(null)
+
+    // Function to handle scrolling the slider left or right based on the direction parameter
 
     const scroll = (direction) => {
 

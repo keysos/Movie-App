@@ -11,10 +11,13 @@ import { formatRuntime } from '../utils/utils';
 
 const MediaModal = ({ media, onClose, mediaType }) => {
 
+    // Handle navigation to the media detail page when "View More" is clicked
     function handleDetails() {
         onClose();
         navigate(`/${mediaType}/${media.id}`);
     }
+
+    // Handle adding/removing media from favorites
 
     function handleFavorites(e) {
         e.stopPropagation();
@@ -34,6 +37,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
     const favorite = isFavorite(media.id);
     const watchlist = isOnWatchlist(media.id);
 
+    // Handle adding/removing media from the watchlist
     function handleWatchlist() {
         if (watchlist) {
             removeFromWatchlist(media.id)
@@ -42,7 +46,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
         }
     }
 
-
+    // useEffect to fetch media details when the component mounts or when media.id changes
     useEffect(() => {
         async function getMedia() {
             try {
@@ -57,6 +61,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
     }, [media.id])
 
 
+    // useEffect to handle closing the modal when the Escape key is pressed and to focus on the close button when the modal opens
     useEffect(() => {
         closeButtonRef.current?.focus();
 
@@ -73,6 +78,8 @@ const MediaModal = ({ media, onClose, mediaType }) => {
         }
     }, [onClose])
 
+
+    // Use the fetched media details if available, otherwise use the passed media prop
 
     const details = mediaDetails || media;
     const navigate = useNavigate()

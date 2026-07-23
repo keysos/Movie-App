@@ -7,6 +7,8 @@ import { useDocumentTitle } from '../services/useDocumentTitle'
 
 const MediaCollection = ({ collectionType }) => {
 
+  // Set the document title based on the collection type
+
   useDocumentTitle(collectionType === "favorites" ? "Favorites | CineSearch" : "Watchlist | CineSearch");
 
   const { favorites, removeFavorite } = useFavorites();

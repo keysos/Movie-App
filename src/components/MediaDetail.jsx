@@ -6,6 +6,8 @@ import { fetchMediaDetail, fetchMediaRecommendations, IMAGE_BASE_URL } from '../
 
 const MediaDetail = () => {
 
+    // Get the media type and ID from the URL parameters
+
     const { mediaType, id } = useParams();
 
     const [mediaDetail, setMediaDetail] = useState([])
@@ -13,6 +15,9 @@ const MediaDetail = () => {
 
     const [selectedMedia, setSelectedMedia] = useState(null)
 
+
+    // useEffect to fetch media details and recommendations when the component mounts or when mediaType or id changes
+    
     useEffect(() => {
 
         async function loadDetails() {

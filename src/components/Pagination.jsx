@@ -4,12 +4,18 @@ const Pagination = ({ page, setPage, totalPages }) => {
 
     const maxVisible = 5;
 
+
+    // Calculate the start and end page numbers for the visible pagination buttons based on the current page and total pages
+    
     const startPage = Math.max(
         1,
         Math.min(page - Math.floor(maxVisible / 2), totalPages - maxVisible + 1)
     );
 
     const endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+
+    // Create an array of visible page numbers based on the calculated start and end pages
 
     const visiblePages = Array.from(
         { length: endPage - startPage + 1 },

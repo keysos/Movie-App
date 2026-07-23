@@ -4,10 +4,14 @@ const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
 
+    // Initialize the favorites state from localStorage or an empty array if not present
+
     const [favorites, setFavorites] = useState(() => {
         const saved = localStorage.getItem('favorites');
         return saved ? JSON.parse(saved) : [];
     });
+
+    // useEffect to update localStorage whenever the favorites state changes
 
     useEffect(() => {
         localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -25,11 +29,12 @@ export const FavoritesProvider = ({ children }) => {
         );
     }, []);
 
-
     const isFavorite = useCallback((id) => {
         return favorites.some((movie) => movie.id === id);
     }, [favorites]);
 
+
+    // useMemo to memoize the context value to prevent unnecessary re-renders of consuming components
 
     const value = useMemo(() => ({
         favorites,

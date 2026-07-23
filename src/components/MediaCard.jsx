@@ -20,6 +20,8 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
         }
     }
 
+    // Handle favorite button click without triggering the card click event
+
     function handleFavorites(e) {
         e.stopPropagation();
 

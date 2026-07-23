@@ -3,6 +3,8 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
+// Fetch media based on search query and media type (movie or tv)
+
 export async function fetchMedia(mediaType, query, page = 1) {
 
     try {
@@ -27,6 +29,8 @@ export async function fetchMedia(mediaType, query, page = 1) {
     }
 }
 
+// Fetch media recommendations based on media type and media ID
+
 export async function fetchMediaRecommendations(mediaType, mediaId) {
 
     try {
@@ -40,6 +44,8 @@ export async function fetchMediaRecommendations(mediaType, mediaId) {
         return []
     }
 }
+
+// Fetch media details and watch providers based on media type and media ID
 
 export async function fetchMediaDetail(mediaType, mediaId) {
 
@@ -68,6 +74,8 @@ export async function fetchMediaDetail(mediaType, mediaId) {
         return null;
     }
 }
+
+// Fetch media based on category (trending, popular, top rated) and media type
 
 async function fetchCategoryMedia(endpoint) {
     try {

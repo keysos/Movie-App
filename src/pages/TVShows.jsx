@@ -15,6 +15,9 @@ const TVShows = ({ query, setQuery }) => {
 
     const [selectedMedia, setSelectedMedia] = useState(null)
 
+
+    // Custom hook to manage media browsing state, including search results, loading state, error handling, pagination, and fetching trending, popular, and top-rated TV shows
+
     const { queryMedia,
         loading,
         error,
