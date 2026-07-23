@@ -16,6 +16,9 @@
 }
 
 .movie-modal {
+
+  position: relative
+  ;
   background: var(--bg-secondary);
 
   width: min(900px, 90vw);
@@ -71,6 +74,9 @@
 .close-button {
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
+  position: absolute;
+  right: 10px;
+  top: 10px;
   font-size: 1.5rem;
   min-width: 36px;
   min-height: 36px;
@@ -90,6 +96,7 @@
   gap: 10px;
   flex-shrink: 0;
   justify-content: space-between;
+  margin-right: 30px;
 }
 
 .modal-header {
@@ -254,12 +261,13 @@
 @media (max-width: 768px) {
   .movie-modal {
     padding: 1rem;
+    position: relative;
   }
 
   .close-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     font-size: 1.5rem;
     min-width: 36px;
     min-height: 36px;
@@ -294,6 +302,7 @@
   .modal-actions {
     flex-direction: column;
     gap: 8px;
+    margin-right: 0;
   }
 
   .favorite-button,
@@ -332,8 +341,8 @@
 
   .close-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     font-size: 1.5rem;
     min-width: 36px;
     min-height: 36px;
@@ -342,6 +351,7 @@
   .modal-actions {
     flex-direction: column;
     gap: 8px;
+    margin-right: 0px;
   }
 
   .favorite-button,
