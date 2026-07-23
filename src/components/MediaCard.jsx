@@ -1,9 +1,8 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { IMAGE_BASE_URL } from '../services/TMDBApi'
 import { useFavorites } from '../context/FavoritesContext';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { convertRatingToStars, formatRuntime } from '../utils/utils';
-
 
 const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
 
@@ -19,8 +18,6 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
             onMediaClick(media);
         }
     }
-
-    // Handle favorite button click without triggering the card click event
 
     function handleFavorites(e) {
         e.stopPropagation();
@@ -49,21 +46,21 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
             <img
                 src={`${IMAGE_BASE_URL}${media.poster_path}`}
                 alt={media.title ?? media.name}
-                className='movie-poster'
+                className='movie-card__poster'
             />
 
-            <div className="movie-info">
-                <h3>{media.title ?? media.name}</h3>
+            <div className="movie-card__body">
+                <h3 className="movie-card__title">{media.title ?? media.name}</h3>
 
-                <div className="movie-details">
-                    <p className='year'>{media.release_date?.slice(0, 4) ?? media.first_air_date?.slice(0, 4)}</p>
+                <div className="movie-card__meta">
+                    <p className='movie-card__year'>{media.release_date?.slice(0, 4) ?? media.first_air_date?.slice(0, 4)}</p>
 
-                    <p className='rating'>{
+                    <p className='movie-card__rating'>{
                     convertRatingToStars(media.vote_average?.toFixed(1) ?? 0)
                     }</p>
 
-                    <button className={`favorite-button-home ${favorite ?
-                        'active' : ''}`} onClick={handleFavorites}>
+                    <button className={`movie-card__favorite-btn ${favorite ?
+                        'is-active' : ''}`} onClick={handleFavorites}>
                         {favorite ? <FaHeart /> : <FaRegHeart />}
                     </button>
                 </div>
@@ -73,4 +70,4 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
     )
 }
 
-export default memo(MediaCard)
+export default MediaCard

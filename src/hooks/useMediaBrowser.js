@@ -3,8 +3,6 @@ import { fetchMedia, fetchPopularMedia, fetchTopRatedMedia, fetchTrendingMedia }
 
 export function useMediaBrowser(mediaType, query) {
 
-
-    /* States used for media browsing */
     const [queryMedia, setQueryMedia] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -21,8 +19,6 @@ export function useMediaBrowser(mediaType, query) {
 
     const isSearching = debouncedQuery.length >= 3;
 
-    /* Debounce the query to avoid making too many API calls while the user is typing */
-
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedQuery(query);
@@ -30,8 +26,6 @@ export function useMediaBrowser(mediaType, query) {
 
         return () => clearTimeout(timer);
     }, [query]);
-
-    /* Fetch media based on the debounced query and page number */
 
     useEffect(() => {
 
@@ -73,8 +67,6 @@ export function useMediaBrowser(mediaType, query) {
         getMedia();
 
     }, [debouncedQuery, page])
-
-    /* Fetch trending, popular and top rated media on initial load */
 
     useEffect(() => {
 

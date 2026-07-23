@@ -6,8 +6,6 @@ import { fetchMediaDetail, fetchMediaRecommendations, IMAGE_BASE_URL } from '../
 
 const MediaDetail = () => {
 
-    // Get the media type and ID from the URL parameters
-
     const { mediaType, id } = useParams();
 
     const [mediaDetail, setMediaDetail] = useState([])
@@ -15,9 +13,6 @@ const MediaDetail = () => {
 
     const [selectedMedia, setSelectedMedia] = useState(null)
 
-
-    // useEffect to fetch media details and recommendations when the component mounts or when mediaType or id changes
-    
     useEffect(() => {
 
         async function loadDetails() {
@@ -42,21 +37,21 @@ const MediaDetail = () => {
     console.log(mediaDetail)
 
     return (
-        <div className='media-details-page'>
+        <div className='media-detail'>
 
 
-            <div className="media-detail-overview">
+            <div className="media-detail__overview-row">
 
-                <div className='media-detail-header'>
-                    <h2 className='media-detail-title'>{mediaDetail.title ?? mediaDetail.name}</h2>
+                <div className='media-detail__header'>
+                    <h2 className='media-detail__title'>{mediaDetail.title ?? mediaDetail.name}</h2>
 
                     <img
                         src={`${IMAGE_BASE_URL}${mediaDetail.poster_path}`}
                         alt={mediaDetail.title ?? mediaDetail.name}
-                        className="media-detail-poster"
+                        className="media-detail__poster"
                     />
 
-                    <p className='rating'>
+                    <p className='media-detail__rating'>
                         {
                             convertRatingToStars(mediaDetail.vote_average?.toFixed(1) ?? 0)
                         }</p>
@@ -66,16 +61,16 @@ const MediaDetail = () => {
                 <div className="media-detail-info">
 
                     {mediaDetail.tagline && (
-                        <p className="tagline">
+                        <p className="media-detail__tagline">
                             "{mediaDetail.tagline}"
                         </p>
                     )}
 
-                    <p className="overview">
+                    <p className="media-detail__overview-text">
                         {mediaDetail.overview}
                     </p>
 
-                    <div className="media-meta">
+                    <div className="media-detail__meta">
 
                         <p>
                             <strong>Genres:</strong>{" "}
@@ -180,7 +175,7 @@ const MediaDetail = () => {
                     </div>
 
 
-                    <div className="cast">
+                    <div className="media-detail__cast">
 
                         <h3>Cast</h3>
 
@@ -198,7 +193,7 @@ const MediaDetail = () => {
             </div>
 
 
-            <MediaSlider media={mediaRecommendation} name="Recommendations" onMediaClick={setSelectedMedia} />
+            <MediaSlider media={mediaRecommendation} name="Recommendations" onMediaClick={setSelectedMedia} compact />
 
             {selectedMedia && (
                 <MediaModal

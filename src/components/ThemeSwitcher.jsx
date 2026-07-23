@@ -1,5 +1,8 @@
 import { FaSun, FaMoon } from "react-icons/fa";
+
 import { useThemeToggle } from "../context/ThemeToggleContext";
+
+
 
 const ThemeSwitcher = () => {
 
@@ -13,8 +16,8 @@ const ThemeSwitcher = () => {
             onChange={toggleTheme}
             />
 
-            <span className="slider">
-                <span className="icon">
+            <span className="theme-switch__track">
+                <span className="theme-switch__icon">
                     {isDark ? <FaMoon /> : <FaSun />}
                 </span>
             </span>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import MediaList from '../components/MediaList'
 import MediaModal from '../components/MediaModal'
@@ -15,20 +15,18 @@ const Movies = ({ query, setQuery }) => {
 
     const [selectedMedia, setSelectedMedia] = useState(null);
 
-    // Custom hook to manage media browsing state, including search results, loading state, error handling, pagination, and fetching trending, popular, and top-rated movies
-
-    const { queryMedia,
-        loading,
-        error,
-        page,
-        setPage,
-        totalPages,
-        totalResults,
-        trending,
-        popular,
-        topRated,
-        isSearching
-    } = useMediaBrowser(MEDIA_TYPE, query);
+        const { queryMedia,
+            loading,
+            error,
+            page,
+            setPage,
+            totalPages,
+            totalResults,
+            trending,
+            popular,
+            topRated,
+            isSearching 
+        } = useMediaBrowser(MEDIA_TYPE, query);
 
     return (
         <div>
@@ -41,13 +39,13 @@ const Movies = ({ query, setQuery }) => {
                 setQuery(value);
             }} placeholder="Search a movie..." />
 
-            {loading &&
-
-                <div className="page-loader">
-                    <div className="loading-bar">
-                        <div className="loading-progress"></div>
-                    </div>
-                </div>}
+            {loading && 
+            
+            <div className="page-loader">
+                <div className="loading-bar">
+                    <div className="loading-progress"></div>
+                </div>
+            </div>}
 
             <div aria-live="polite">
 

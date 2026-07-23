@@ -10,10 +10,8 @@ import MediaDetail from './components/MediaDetail'
 
 function App() {
 
-  // State to manage the search query entered by the user
   const [query, setQuery] = useState("");
 
-  // Function to reset the search query when the user clicks on the navbar logo
   function resetSearch () {
     setQuery("")
   }

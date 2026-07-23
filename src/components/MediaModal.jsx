@@ -11,13 +11,10 @@ import { formatRuntime } from '../utils/utils';
 
 const MediaModal = ({ media, onClose, mediaType }) => {
 
-    // Handle navigation to the media detail page when "View More" is clicked
     function handleDetails() {
         onClose();
         navigate(`/${mediaType}/${media.id}`);
     }
-
-    // Handle adding/removing media from favorites
 
     function handleFavorites(e) {
         e.stopPropagation();
@@ -37,7 +34,6 @@ const MediaModal = ({ media, onClose, mediaType }) => {
     const favorite = isFavorite(media.id);
     const watchlist = isOnWatchlist(media.id);
 
-    // Handle adding/removing media from the watchlist
     function handleWatchlist() {
         if (watchlist) {
             removeFromWatchlist(media.id)
@@ -46,7 +42,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
         }
     }
 
-    // useEffect to fetch media details when the component mounts or when media.id changes
+
     useEffect(() => {
         async function getMedia() {
             try {
@@ -61,7 +57,6 @@ const MediaModal = ({ media, onClose, mediaType }) => {
     }, [media.id])
 
 
-    // useEffect to handle closing the modal when the Escape key is pressed and to focus on the close button when the modal opens
     useEffect(() => {
         closeButtonRef.current?.focus();
 
@@ -79,14 +74,12 @@ const MediaModal = ({ media, onClose, mediaType }) => {
     }, [onClose])
 
 
-    // Use the fetched media details if available, otherwise use the passed media prop
-
     const details = mediaDetails || media;
     const navigate = useNavigate()
 
 
     return (
-        <div className="overlay" onClick={onClose}>
+        <div className="modal-overlay" onClick={onClose}>
 
             <div
                 className="movie-modal"
@@ -108,7 +101,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                     <div className="modal-actions">
 
                         <button
-                            className="watchlist-button"
+                            className="modal-btn"
                             onClick={handleWatchlist}
                         >
                             {watchlist ? (
@@ -124,14 +117,14 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
 
                         <button
-                            className={`favorite-button ${favorite ? "active" : ""}`}
+                            className={`modal-btn ${favorite ? "is-active" : ""}`}
                             onClick={handleFavorites}
                         >
                             Add to Favorites {favorite ? <FaHeart /> : <FaRegHeart />}
                         </button>
 
                         <button
-                            className='view-more'
+                            className='modal-btn'
                             onClick={handleDetails}
                         >
                             View More
@@ -142,7 +135,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
 
                     <button
-                        className="close-button"
+                        className="modal-close-btn"
                         ref={closeButtonRef}
                         onClick={onClose}
                         aria-label="Close"
@@ -153,20 +146,20 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                 </div>
 
 
-                <div className="modal-content">
+                <div className="modal-body">
 
-                    <div className="overview">
+                    <div className="modal-overview">
 
                         <img
                             src={`${IMAGE_BASE_URL}${details.poster_path}`}
                             alt={details.title ?? details.name}
-                            className="movie-modal-poster"
+                            className="modal-poster"
                         />
 
 
-                        <div className="movie-modal-details">
+                        <div className="modal-details">
 
-                            <p className="sinopsis">
+                            <p className="modal-synopsis">
                                 {details.overview}
                             </p>
 
@@ -194,7 +187,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                             </p>
 
 
-                            <p className="actors">
+                            <p className="modal-cast">
                                 Main Cast:{" "}
                                 {
                                     details.credits?.cast
@@ -210,23 +203,23 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
                             <div className="modal-score">
 
-                                <div className="runtime">
+                                <div className="modal-score__pill">
                                     {details.runtime
                                         ? formatRuntime(details.runtime)
                                         : `${details.number_of_seasons} Seasons`
                                     }
                                 </div>
 
-                                <div className="popularity">
+                                <div className="modal-score__pill">
                                     Popularity: {details.popularity?.toFixed(2) ?? 0}
                                 </div>
 
-                                <div className="score">
+                                <div className="modal-score__pill">
                                     Rating: {details.vote_average?.toFixed(1) ?? 0} ⭐
                                 </div>
 
                                 <a
-                                    className="imdb"
+                                    className="modal-imdb-link"
                                     href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -246,7 +239,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                 {details?.providers?.results?.US?.flatrate?.length > 0 ? (
                                     details.providers.results.US.flatrate.map((provider) => (
                                         <img
-                                            className="provider-logo"
+                                            className="modal-streaming__logo"
                                             key={provider.provider_id}
                                             src={`https://image.tmdb.org/t/p/w92${provider.logo_path}`}
                                             alt={provider.name}

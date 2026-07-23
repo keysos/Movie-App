@@ -1,13 +1,9 @@
 import React, { useRef } from 'react'
 import MediaCard from "./MediaCard";
 
-const MediaSlider = ({ media, name, onMediaClick }) => {
-
-    // Use a ref to reference the slider track for scrolling
+const MediaSlider = ({ media, name, onMediaClick, compact = false }) => {
 
     const trackRef = useRef(null)
-
-    // Function to handle scrolling the slider left or right based on the direction parameter
 
     const scroll = (direction) => {
 
@@ -21,20 +17,20 @@ const MediaSlider = ({ media, name, onMediaClick }) => {
     }
 
     return (
-        <div className='movie-slider'>
+        <div className={`movie-slider ${compact ? 'movie-slider--compact' : ''}`}>
 
             <h2>{name}</h2>
 
-            <div className="slider-wrapper">
+            <div className="movie-slider__wrapper">
                 <button
-                    className='slider-btn slider-btn-left'
+                    className='movie-slider__btn movie-slider__btn--left'
                     onClick={() => scroll("left")}
                     aria-label={`Scroll ${name} left`}
                 >
                     ‹
                 </button>
 
-                <div className="slider-track" ref={trackRef}>
+                <div className="movie-slider__track" ref={trackRef}>
                     {
                         media.map((item) => (
                             <MediaCard
@@ -47,7 +43,7 @@ const MediaSlider = ({ media, name, onMediaClick }) => {
                 </div>
 
                 <button
-                    className='slider-btn slider-btn-right'
+                    className='movie-slider__btn movie-slider__btn--right'
                     onClick={() => scroll("right")}
                     aria-label={`Scroll ${name} right`}
                 >

@@ -1,61 +1,43 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const FavoritesContext = createContext();
 
-export const FavoritesProvider = ({ children }) => {
-
-    // Initialize the favorites state from localStorage or an empty array if not present
+export const FavoritesProvider = ({ children}) => {
 
     const [favorites, setFavorites] = useState(() => {
         const saved = localStorage.getItem('favorites');
         return saved ? JSON.parse(saved) : [];
-    });
-
-    // useEffect to update localStorage whenever the favorites state changes
+    })
 
     useEffect(() => {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-    }, [favorites]);
+        localStorage.setItem("favorites", JSON.stringify(favorites))
+    }, [favorites])
 
-
-    const addFavorite = useCallback((movie) => {
+    function addFavorite(movie) {
         setFavorites((prev) => [...prev, movie]);
-    }, []);
+    }
 
+    function removeFavorite(id) {
+        setFavorites((prev) => prev.filter((movie) => movie.id !== id))
+    }
 
-    const removeFavorite = useCallback((id) => {
-        setFavorites((prev) =>
-            prev.filter((movie) => movie.id !== id)
-        );
-    }, []);
-
-    const isFavorite = useCallback((id) => {
-        return favorites.some((movie) => movie.id === id);
-    }, [favorites]);
-
-
-    // useMemo to memoize the context value to prevent unnecessary re-renders of consuming components
-
-    const value = useMemo(() => ({
-        favorites,
-        addFavorite,
-        removeFavorite,
-        isFavorite
-    }), [
-        favorites,
-        addFavorite,
-        removeFavorite,
-        isFavorite
-    ]);
-
+    function isFavorite(id) {
+        return favorites.some((movie) => movie.id === id)
+    }
 
     return (
-        <FavoritesContext.Provider value={value}>
+        <FavoritesContext.Provider
+            value={{
+                favorites,
+                addFavorite,
+                removeFavorite,
+                isFavorite
+            }}
+        >
             {children}
         </FavoritesContext.Provider>
     );
-};
-
+}
 
 export function useFavorites() {
     return useContext(FavoritesContext);
