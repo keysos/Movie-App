@@ -117,9 +117,7 @@ Example response:
 ## 🔮 Future Improvements
 
 * Add advanced movie filtering
-* Add pagination for search results
 * Add user authentication
-* Add personalized movie recommendations
 * Improve animations and UI interactions
 * Add movie trailers
 * Improve accessibility
