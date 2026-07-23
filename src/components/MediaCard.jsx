@@ -2,29 +2,13 @@ import React from 'react'
 import { IMAGE_BASE_URL } from '../services/TMDBApi'
 import { useFavorites } from '../context/FavoritesContext';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { TiStarFullOutline, TiStarHalfOutline, TiStarOutline } from "react-icons/ti";
+import { convertRatingToStars, formatRuntime } from '../utils/utils';
 
 const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
 
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
     const favorite = isFavorite(media.id);
-
-    function convertRatingToStars(rating) {
-        const stars = rating / 2;
-
-        return Array.from({ length: 5 }, (_, i) => {
-            if (stars >= i + 1) {
-                return <TiStarFullOutline key={i} />;
-            }
-
-            if (stars >= i + 0.5) {
-                return <TiStarHalfOutline key={i} />;
-            }
-
-            return <TiStarOutline key={i} />;
-        });
-    }
 
     function handleKeyDown(e) {
 

@@ -3,20 +3,13 @@ import { fetchMediaDetail, IMAGE_BASE_URL } from '../services/TMDBApi';
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
-import { FaPlus, FaCheck } from "react-icons/fa";
+import { FaPlus, FaCheck, FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { formatRuntime } from '../utils/utils';
 
 
 const MediaModal = ({ media, onClose, mediaType }) => {
-
-    function formatRuntime(minutes) {
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-
-        return `${hours}h ${mins.toString().padStart(2, "0")}min`;
-    }
 
     function handleDetails() {
         onClose();
