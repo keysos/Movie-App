@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import MediaList from '../components/MediaList'
 import MediaModal from '../components/MediaModal'
 import MediaSlider from '../components/MediaSlider'
-import { fetchMedia, fetchPopularMedia, fetchTopRatedMedia, fetchTrendingMedia } from '../services/TMDBApi'
 import SearchBar from '../components/SearchBar'
 import { useDocumentTitle } from '../services/useDocumentTitle'
 import Pagination from '../components/Pagination'
+import useMediaBrowser from '../hooks/useMediaBrowser'
 
 const MEDIA_TYPE = "tv";
 
@@ -13,98 +13,20 @@ const TVShows = ({ query, setQuery }) => {
 
     useDocumentTitle("TV Shows | CineSearch")
 
-    const [queryMedia, setQueryMedia] = useState([])
     const [selectedMedia, setSelectedMedia] = useState(null)
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
 
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const [totalResults, setTotalResults] = useState(0)
-
-    const [trending, setTrending] = useState([]);
-    const [popular, setPopular] = useState([]);
-    const [topRated, setTopRated] = useState([]);
-
-    const [debouncedQuery, setDebouncedQuery] = useState(query);
-
-
-    const isSearching = debouncedQuery.length >= 3;
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setDebouncedQuery(query);
-        }, 1000);
-
-        return () => clearTimeout(timer);
-    }, [query]);
-
-    useEffect(() => {
-
-        async function getMedia() {
-
-            if (debouncedQuery.length < 3) {
-                setQueryMedia([])
-                setLoading(false)
-                return
-            }
-
-            setError("")
-            setLoading(true)
-
-            try {
-
-                const result = await fetchMedia(MEDIA_TYPE, debouncedQuery, page);
-
-
-                if (result.results.length === 0) {
-                    setError("No tv shows were found");
-                } else {
-                    setError("");
-                }
-
-                setQueryMedia(result.results);
-                setTotalPages(result.totalPages)
-                setTotalResults(result.totalResults)
-            } catch (err) {
-                console.error(err);
-                setError("Error during fetching tv shows");
-            } finally {
-                setTimeout(() => {
-                    setLoading(false)
-                }, 300)
-            }
-        }
-
-        getMedia();
-
-    }, [debouncedQuery, page])
-
-    useEffect(() => {
-
-        async function loadShowspage() {
-
-            try {
-                const [trending, topRated, popular] = await Promise.all([
-                    fetchTrendingMedia(MEDIA_TYPE),
-                    fetchTopRatedMedia(MEDIA_TYPE),
-                    fetchPopularMedia(MEDIA_TYPE)
-                ])
-
-                setTrending(trending);
-                setPopular(popular);
-                setTopRated(topRated);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setTimeout(() => {
-                    setLoading(false)
-                }, 300)
-            }
-        }
-
-        loadShowspage()
-    }, [])
+    const { queryMedia,
+        loading,
+        error,
+        page,
+        setPage,
+        totalPages,
+        totalResults,
+        trending,
+        popular,
+        topRated,
+        isSearching 
+    } = useMediaBrowser(MEDIA_TYPE, query);
 
     return (
         <div>
@@ -117,12 +39,12 @@ const TVShows = ({ query, setQuery }) => {
                 setQuery(value);
             }} placeholder="Search a tv show..." />
 
-            {loading && 
-            <div className="page-loader">
-                <div className="loading-bar">
-                    <div className="loading-progress"></div>
-                </div>
-            </div>}
+            {loading &&
+                <div className="page-loader">
+                    <div className="loading-bar">
+                        <div className="loading-progress"></div>
+                    </div>
+                </div>}
 
             <div aria-live="polite">
                 {loading && <p className='loading'>Loading...</p>}

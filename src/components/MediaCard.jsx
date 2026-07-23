@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { IMAGE_BASE_URL } from '../services/TMDBApi'
 import { useFavorites } from '../context/FavoritesContext';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { convertRatingToStars, formatRuntime } from '../utils/utils';
+
 
 const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
 
@@ -70,4 +71,4 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
     )
 }
 
-export default MediaCard
+export default memo(MediaCard)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import MediaCard from './MediaCard';
 
 const MediaList = ({ media, onMediaClick, onRemoveFavorite}) => {
@@ -19,4 +19,4 @@ const MediaList = ({ media, onMediaClick, onRemoveFavorite}) => {
     );
 }
 
-export default MediaList
+export default memo(MediaList)
