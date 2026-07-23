@@ -1,0 +1,258 @@
+.media-details-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+}
+
+.media-detail-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+.media-detail-info .tagline {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+.media-detail-info .overview {
+    color: var(--text);
+    line-height: 1.7;
+}
+
+
+/* Metadata cards */
+.media-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.media-meta p {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin: 0;
+}
+
+.media-meta strong {
+    display: block;
+    color: var(--primary);
+    font-size: .9rem;
+    margin-bottom: 4px;
+}
+
+.media-details-page .rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+}
+
+.media-details-page .rating svg {
+    color: var(--primary-600);
+    font-size: 1.6rem;
+}
+
+
+.media-detail-header {
+    padding: 15px 20px;
+    margin: 0 auto;
+}
+
+.media-detail-header h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.media-detail-poster {
+    height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.media-detail-overview {
+    display: flex;
+}
+
+.cast {
+    margin-top: 15px;
+}
+
+.cast h3 {
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.cast span {
+    color: var(--text);
+}
+
+.cast span:not(:last-child)::after {
+    content: ", ";
+}
+
+
+.media-details-page .movie-slider {
+    max-width: 1000px;
+    margin: 10px auto 15px;
+    padding: 0 5px;
+}
+
+.media-details-page .movie-slider h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.media-details-page .slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.media-details-page .slider-track {
+    overflow-x: auto;
+    display: flex;
+    gap: 12px;
+    scroll-behavior: smooth;
+    padding: 15px 0 0;
+}
+
+.media-details-page .slider-track::-webkit-scrollbar {
+    display: none;
+}
+
+.media-details-page .slider-track .movie-card {
+    flex: 0 0 140px;
+}
+
+.media-details-page .movie-card img {
+    height: 190px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.media-details-page .movie-card h3 {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.media-details-page .favorite-button-home {
+    display: none;
+}
+
+
+.media-details-page .slider-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--border);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.media-details-page .slider-btn:hover {
+    background-color: var(--primary-600);
+}
+
+.media-details-page .movie-card .rating {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .media-details-page {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        overflow-x: hidden;
+    }
+
+
+    .media-detail-overview {
+        flex-direction: column;
+    }
+
+
+    .media-detail-header {
+        padding: 15px;
+    }
+
+
+    .media-detail-header h2 {
+        font-size: 1.5rem;
+    }
+
+
+    .media-detail-info {
+        padding: 15px;
+        font-size: 1rem;
+    }
+
+
+    .media-meta {
+        grid-template-columns: 1fr;
+    }
+
+
+    .media-details-page .movie-slider {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+
+    .media-details-page .slider-track .movie-card {
+        flex: 0 0 100px;
+    }
+
+
+    .media-details-page .movie-card img {
+        height: 250px;
+        object-fit: cover;
+    }
+
+
+    .media-details-page .slider-btn {
+        display: none;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .media-detail-header h2 {
+        font-size: 1.3rem;
+        word-break: break-word;
+    }
+
+
+    .media-detail-info {
+        font-size: .95rem;
+        box-sizing: border-box;
+    }
+
+
+    .media-details-page .movie-slider {
+        max-width: 100%;
+    }
+
+}

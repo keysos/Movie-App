@@ -3,7 +3,7 @@
     grid-template-columns: 80px auto 80px;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    margin: 20px auto 0;
     width: 100%;
     gap: 10px;
 }

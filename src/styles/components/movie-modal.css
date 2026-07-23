@@ -205,7 +205,8 @@
 }
 
 .favorite-button,
-.watchlist-button {
+.watchlist-button,
+.view-more {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -228,20 +229,23 @@
 }
 
 .favorite-button:hover,
-.watchlist-button:hover {
+.watchlist-button:hover,
+.view-more:hover {
   background-color: var(--primary-800);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px var(--shadow-strong);
 }
 
 .favorite-button:active,
-.watchlist-button:active {
+.watchlist-button:active,
+.view-more:active {
   transform: translateY(0) scale(0.96);
   box-shadow: 0 2px 8px var(--shadow-soft);
 }
 
 .favorite-button:focus-visible,
-.watchlist-button:focus-visible {
+.watchlist-button:focus-visible,
+.view-more:focus-visible {
   outline: 2px solid var(--primary-400);
   outline-offset: 3px;
 }
@@ -293,7 +297,8 @@
   }
 
   .favorite-button,
-  .watchlist-button {
+  .watchlist-button,
+  .view-more {
     width: 100%;
   }
 }
@@ -340,7 +345,8 @@
   }
 
   .favorite-button,
-  .watchlist-button {
+  .watchlist-button,
+  .view-more {
     flex: 1;
     padding: 0.55rem 0.5rem;
     font-size: 0.85rem;

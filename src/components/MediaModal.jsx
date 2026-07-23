@@ -5,7 +5,9 @@ import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
 import { FaPlus, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaRegEye} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 const MediaModal = ({ media, onClose, mediaType }) => {
 
@@ -14,6 +16,11 @@ const MediaModal = ({ media, onClose, mediaType }) => {
         const mins = minutes % 60;
 
         return `${hours}h ${mins.toString().padStart(2, "0")}min`;
+    }
+
+    function handleDetails() {
+        onClose();
+        navigate(`/${mediaType}/${media.id}`);
     }
 
     function handleFavorites(e) {
@@ -25,7 +32,6 @@ const MediaModal = ({ media, onClose, mediaType }) => {
             addFavorite(media);
         }
     }
-
     const [mediaDetails, setMediaDetails] = useState(null)
     const closeButtonRef = useRef(null);
 
@@ -76,6 +82,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
 
     const details = mediaDetails || media;
+    const navigate = useNavigate()
 
 
     return (
@@ -119,6 +126,14 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                             onClick={handleFavorites}
                         >
                             Add to Favorites {favorite ? <FaHeart /> : <FaRegHeart />}
+                        </button>
+
+                        <button 
+                            className='view-more'
+                            onClick={handleDetails}
+                        >
+                            View More
+                            <FaRegEye />
                         </button>
 
                     </div>

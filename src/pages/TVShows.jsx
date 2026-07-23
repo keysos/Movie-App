@@ -106,22 +106,6 @@ const TVShows = ({ query, setQuery }) => {
         loadShowspage()
     }, [])
 
-    if (loading) {
-        return (
-            <>
-                <h1 className="title">
-                    <span> CineSearch </span>
-                </h1>
-                <SearchBar query={query} setQuery={setQuery} placeholder="Search a movie..." />
-                <div className="page-loader">
-                    <div className="loading-bar">
-                        <div className="loading-progress"></div>
-                    </div>
-                </div>
-            </>
-        );
-    }
-
     return (
         <div>
             <h1 className='title'>

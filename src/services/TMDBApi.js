@@ -27,6 +27,20 @@ export async function fetchMedia(mediaType, query, page = 1) {
     }
 }
 
+export async function fetchMediaRecommendations(mediaType, mediaId) {
+
+    try {
+        const response = await fetch (`https://api.themoviedb.org/3/${mediaType}/${mediaId}/recommendations?api_key=${API_KEY}`);
+        const data = await response.json()
+
+        return data.results || [];
+
+    } catch (err) {
+        console.error(err)
+        return []
+    }
+}
+
 export async function fetchMediaDetail(mediaType, mediaId) {
 
     try {
@@ -46,8 +60,6 @@ export async function fetchMediaDetail(mediaType, mediaId) {
             ...data,
             providers: providersData
         };
-
-        console.log("FINAL RESULT:", result);
 
         return result;
 
