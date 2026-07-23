@@ -5,7 +5,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
 import { FaPlus, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { FaHeart, FaRegHeart, FaRegEye} from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 
@@ -99,7 +99,9 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                 <div className="modal-header">
 
                     <h2 id="movie-modal-title">
-                        {details.title ?? details.name} ({details.release_date?.slice(0, 4) ?? details.first_air_date.slice(0, 4)})
+                        {details.title ?? details.name} (
+                        {details.release_date?.slice(0, 4) ?? details.first_air_date?.slice(0, 4)}
+                        )
                     </h2>
 
 
@@ -128,7 +130,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                             Add to Favorites {favorite ? <FaHeart /> : <FaRegHeart />}
                         </button>
 
-                        <button 
+                        <button
                             className='view-more'
                             onClick={handleDetails}
                         >
@@ -216,11 +218,11 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                 </div>
 
                                 <div className="popularity">
-                                    Popularity: {details.popularity.toFixed(2)}
+                                    Popularity: {details.popularity?.toFixed(2) ?? 0}
                                 </div>
 
                                 <div className="score">
-                                    Rating: {details.vote_average.toFixed(1) ?? 0} ⭐
+                                    Rating: {details.vote_average?.toFixed(1) ?? 0} ⭐
                                 </div>
 
                                 <a

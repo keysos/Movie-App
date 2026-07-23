@@ -78,3 +78,35 @@ input:checked + .slider .icon {
     transform: translate(20px, -50%);
     color: var(--toggle-icon);
 }
+
+@media (max-width: 480px) {
+    .theme-switch {
+        width: 34px;
+        height: 18px;
+    }
+
+    .slider {
+        border-radius: 18px;
+    }
+
+    .slider::before {
+        width: 14px;
+        height: 14px;
+
+        left: 2px;
+        bottom: 2px;
+    }
+
+    input:checked + .slider::before {
+        transform: translateX(16px);
+    }
+
+    .icon {
+        left: 3px;
+        font-size: 8px;
+    }
+
+    input:checked + .slider .icon {
+        transform: translate(16px, -50%);
+    }
+}

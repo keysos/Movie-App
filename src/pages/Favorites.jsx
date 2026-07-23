@@ -38,7 +38,7 @@ const Favorites = () => {
                 }}
             />
 
-            {selectedMedia && <MediaModal media={selectedMedia} onClose={() => setSelectedMedia(null)} />}
+            {selectedMedia && <MediaModal media={selectedMedia} onClose={() => setSelectedMedia(null)} mediaType={selectedMedia.title ? "movie" : "tv"}/>}
         </>
     )
 }
