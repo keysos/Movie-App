@@ -1,17 +1,14 @@
 /* Entry point: import order matters (tokens -> reset -> layout -> components) */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 @import "./theme.css";
 @import "./base.css";
 @import "./layout.css";
 
 @import "./components/search-bar.css";
-@import "./components/movie-card.css";
-@import "./components/movie-modal.css";
-@import "./components/movie-slider.css";
+@import "./components/media-card.css";
+@import "./components/media-modal.css";
+@import "./components/media-slider.css";
 @import "./components/navbar.css";
 @import "./components/theme-switcher.css";
 @import "./components/footer.css";
 @import "./components/pagination.css";
 @import "./components/media-detail.css"
-

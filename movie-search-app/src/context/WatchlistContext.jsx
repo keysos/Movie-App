@@ -13,16 +13,16 @@ export const WatchlistProvider = ({ children }) => {
         localStorage.setItem('watchlist', JSON.stringify(watchlist))
     }, [watchlist])
 
-    function addToWatchlist(media) {
-        setWatchlist((prev) => [...prev, media])
+    function addToWatchlist(movie) {
+        setWatchlist((prev) => [...prev, movie])
     }
 
     function removeFromWatchlist(id) {
-        setWatchlist((prev) => prev.filter((media) => media.id !== id))
+        setWatchlist((prev) => prev.filter((movie) => movie.id !== id))
     }
 
     function isOnWatchlist(id) {
-        return watchlist.some((media) => media.id === id);
+        return watchlist.some((movie) => movie.id === id);
     }
 
     return (

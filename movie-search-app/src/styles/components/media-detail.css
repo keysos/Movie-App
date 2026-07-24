@@ -33,7 +33,6 @@
     align-items: center;
     gap: 8px;
     color: var(--text);
-    justify-content: center;
 }
 
 .media-detail__rating svg {
@@ -55,13 +54,11 @@
     color: var(--text-muted);
     font-style: italic;
     font-size: 1.1rem;
-    padding: 15px 20px;
 }
 
 .media-detail__overview-text {
     color: var(--text);
     line-height: 1.7;
-    padding: 0 20px;
 }
 
 /* Metadata cards */
@@ -70,7 +67,6 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     margin-top: 10px;
-    padding: 0 20px;
 }
 
 .media-detail__meta p {
@@ -90,7 +86,6 @@
 
 .media-detail__cast {
     margin-top: 15px;
-    padding: 0 20px 20px;
 }
 
 .media-detail__cast h3 {

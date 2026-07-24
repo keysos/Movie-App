@@ -7,17 +7,14 @@ export async function fetchMedia(mediaType, query, page = 1) {
 
     try {
         const response = await fetch(`${BASE_URL}/search/${mediaType}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}`);
-
-        if (!response.ok) {
-            throw new Error("Request failed");
-        }
-
         const data = await response.json();
 
         return {
             results: data.results.filter((media) => media.poster_path).sort((a, b) => b.popularity - a.popularity),
+            pages: data.pages,
             totalPages: data.total_pages,
             totalResults: data.total_results
+
         }
     }  catch (err) {
         console.error(err)
@@ -34,11 +31,6 @@ export async function fetchMediaRecommendations(mediaType, mediaId) {
 
     try {
         const response = await fetch (`https://api.themoviedb.org/3/${mediaType}/${mediaId}/recommendations?api_key=${API_KEY}`);
-
-        if (!response.ok) {
-            throw new Error("Request failed");
-        }
-
         const data = await response.json()
 
         return data.results || [];
@@ -61,10 +53,6 @@ export async function fetchMediaDetail(mediaType, mediaId) {
             )
         ]);
 
-        if (!detailsResponse.ok || !providersResponse) {
-            throw new Error("Request failed");
-        }
-
         const data = await detailsResponse.json();
         const providersData = await providersResponse.json();
 
@@ -86,10 +74,6 @@ async function fetchCategoryMedia(endpoint) {
         const response = await fetch(
             `${BASE_URL}${endpoint}?api_key=${API_KEY}`
         );
-
-        if (!response.ok) {
-            throw new Error("Request failed");
-        }
 
         const data = await response.json();
 

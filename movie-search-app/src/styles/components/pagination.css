@@ -58,4 +58,5 @@
 
 .pagination__page-btn.is-active {
     background-color: var(--primary-800);
+    font-weight: 700;
 }

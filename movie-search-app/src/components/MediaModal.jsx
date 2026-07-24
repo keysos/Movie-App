@@ -1,0 +1,260 @@
+import React, { useEffect, useRef, useState } from 'react'
+import { fetchMediaDetail, IMAGE_BASE_URL } from '../services/TMDBApi';
+import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
+import { useFavorites } from '../context/FavoritesContext';
+import { useWatchlist } from '../context/WatchlistContext';
+import { FaPlus, FaCheck, FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import { formatRuntime } from '../utils/utils';
+
+
+const MediaModal = ({ media, onClose, mediaType }) => {
+
+    function handleDetails() {
+        onClose();
+        navigate(`/${mediaType}/${media.id}`);
+    }
+
+    function handleFavorites(e) {
+        e.stopPropagation();
+
+        if (favorite) {
+            removeFavorite(media.id)
+        } else {
+            addFavorite(media);
+        }
+    }
+    const [mediaDetails, setMediaDetails] = useState(null)
+    const closeButtonRef = useRef(null);
+
+    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+    const { addToWatchlist, removeFromWatchlist, isOnWatchlist } = useWatchlist();
+
+    const favorite = isFavorite(media.id);
+    const watchlist = isOnWatchlist(media.id);
+
+    function handleWatchlist() {
+        if (watchlist) {
+            removeFromWatchlist(media.id)
+        } else {
+            addToWatchlist(media)
+        }
+    }
+
+
+    useEffect(() => {
+        async function getMedia() {
+            try {
+                const result = await fetchMediaDetail(mediaType, media.id);
+                setMediaDetails(result);
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
+        getMedia()
+    }, [media.id])
+
+
+    useEffect(() => {
+        closeButtonRef.current?.focus();
+
+        function handleKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+    }, [onClose])
+
+
+    const details = mediaDetails || media;
+    const navigate = useNavigate()
+
+
+    return (
+        <div className="modal-overlay" onClick={onClose}>
+
+            <div
+                className="media-modal"
+                onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="media-modal-title"
+            >
+
+                <div className="modal-header">
+
+                    <h2 id="media-modal-title">
+                        {details.title ?? details.name} (
+                        {details.release_date?.slice(0, 4) ?? details.first_air_date?.slice(0, 4)}
+                        )
+                    </h2>
+
+
+                    <div className="modal-actions">
+
+                        <button
+                            className="modal-btn"
+                            onClick={handleWatchlist}
+                        >
+                            {watchlist ? (
+                                <>
+                                    Remove from Watchlist <FaCheck />
+                                </>
+                            ) : (
+                                <>
+                                    Add to Watchlist <FaPlus />
+                                </>
+                            )}
+                        </button>
+
+
+                        <button
+                            className={`modal-btn ${favorite ? "is-active" : ""}`}
+                            onClick={handleFavorites}
+                        >
+                            Add to Favorites {favorite ? <FaHeart /> : <FaRegHeart />}
+                        </button>
+
+                        <button
+                            className='modal-btn'
+                            onClick={handleDetails}
+                        >
+                            View More
+                            <FaRegEye />
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        className="modal-close-btn"
+                        ref={closeButtonRef}
+                        onClick={onClose}
+                        aria-label="Close"
+                    >
+                        <IoClose />
+                    </button>
+
+                </div>
+
+
+                <div className="modal-body">
+
+                    <div className="modal-overview">
+
+                        <img
+                            src={`${IMAGE_BASE_URL}${details.poster_path}`}
+                            alt={details.title ?? details.name}
+                            className="modal-poster"
+                        />
+
+
+                        <div className="modal-details">
+
+                            <p className="modal-synopsis">
+                                {details.overview}
+                            </p>
+
+
+                            <p className="modal-genres">
+                                {details.genres?.length > 0 ? (
+                                    details.genres.map((genre) => (
+                                        <span key={genre.id}>
+                                            {genre.name}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <span>Undefined</span>
+                                )}
+                            </p>
+
+
+                            <p className="director">
+                                {details?.created_by !== undefined ? "Creator:" : "Director:"}{" "}
+                                <span>
+                                    {details?.credits?.crew.find(
+                                        (person) => person.job === "Director"
+                                    )?.name || details?.created_by?.map((person) => person.name)}
+                                </span>
+                            </p>
+
+
+                            <p className="modal-cast">
+                                Main Cast:{" "}
+                                {
+                                    details.credits?.cast
+                                        .slice(0, 3)
+                                        .map((actor) => (
+                                            <span key={actor.name}>
+                                                {actor.name}
+                                            </span>
+                                        ))
+                                }
+                            </p>
+
+
+                            <div className="modal-score">
+
+                                <div className="modal-score__pill">
+                                    {details.runtime
+                                        ? formatRuntime(details.runtime)
+                                        : `${details.number_of_seasons} Seasons`
+                                    }
+                                </div>
+
+                                <div className="modal-score__pill">
+                                    Popularity: {details.popularity?.toFixed(2) ?? 0}
+                                </div>
+
+                                <div className="modal-score__pill">
+                                    Rating: {details.vote_average?.toFixed(1) ?? 0} ⭐
+                                </div>
+
+                                <a
+                                    className="modal-imdb-link"
+                                    href={`https://www.imdb.com/title/${details.external_ids?.imdb_id}/`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <img
+                                        src={IMDBIcon}
+                                        alt="IMDB"
+                                        width="30"
+                                    />
+                                </a>
+                            </div>
+
+                            <p>Available On:</p>
+
+                            <div className="modal-streaming">
+
+                                {details?.providers?.results?.US?.flatrate?.length > 0 ? (
+                                    details.providers.results.US.flatrate.map((provider) => (
+                                        <img
+                                            className="modal-streaming__logo"
+                                            key={provider.provider_id}
+                                            src={`https://image.tmdb.org/t/p/w92${provider.logo_path}`}
+                                            alt={provider.name}
+                                        />
+                                    ))
+                                ) : (
+                                    <span>No streaming available</span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default MediaModal

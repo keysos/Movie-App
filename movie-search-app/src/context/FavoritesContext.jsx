@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const FavoritesContext = createContext();
 
-export const FavoritesProvider = ({ children }) => {
+export const FavoritesProvider = ({ children}) => {
 
     const [favorites, setFavorites] = useState(() => {
         const saved = localStorage.getItem('favorites');
@@ -13,16 +13,16 @@ export const FavoritesProvider = ({ children }) => {
         localStorage.setItem("favorites", JSON.stringify(favorites))
     }, [favorites])
 
-    function addFavorite(media) {
-        setFavorites((prev) => [...prev, media]);
+    function addFavorite(movie) {
+        setFavorites((prev) => [...prev, movie]);
     }
 
     function removeFavorite(id) {
-        setFavorites((prev) => prev.filter((media) => media.id !== id))
+        setFavorites((prev) => prev.filter((movie) => movie.id !== id))
     }
 
     function isFavorite(id) {
-        return favorites.some((media) => media.id === id)
+        return favorites.some((movie) => movie.id === id)
     }
 
     return (

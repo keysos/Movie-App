@@ -3,7 +3,6 @@ import MediaModal from './MediaModal'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchMediaDetail, fetchMediaRecommendations, IMAGE_BASE_URL } from '../services/TMDBApi'
-import { convertRatingToStars } from '../utils/utils'
 
 const MediaDetail = () => {
 

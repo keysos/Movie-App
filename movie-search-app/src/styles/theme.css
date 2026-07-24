@@ -1,0 +1,103 @@
+/* Design tokens: colors only. */
+/* Palette: Forest Green / Neutral Gray / White */
+:root {
+  /* Primary (Emerald Green) */
+  --primary-50: #ECFDF5;
+  --primary-100: #D1FAE5;
+  --primary-200: #A7F3D0;
+  --primary-300: #6EE7B7;
+  --primary-400: #34D399;
+  --primary-500: #10B981;
+  --primary-600: #059669;
+  --primary-700: #047857;
+  --primary-800: #065F46;
+  --primary-900: #064E3B;
+
+  /* Backgrounds */
+  --bg: #F8FAFC;
+  --bg-secondary: #F1F5F9;
+  --surface: #FFFFFF;
+  --surface-hover: #F8FAFC;
+
+  /* Search */
+  --search-bg: #F1F5F9;
+  --search-hover: #E2E8F0;
+  --search-focus: #FFFFFF;
+
+  /* Text */
+  --text: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+
+  /* Borders */
+  --border: #CBD5E1;
+  --border-light: #E2E8F0;
+
+  /* Status */
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+
+  /* Overlay / Shadow */
+  --overlay: rgba(15, 23, 42, 0.55);
+  --shadow-soft: rgba(15, 23, 42, 0.08);
+  --shadow-strong: rgba(15, 23, 42, 0.18);
+
+  /* Theme toggle switch */
+  --toggle-track: #CBD5E1;
+  --toggle-track-active: var(--primary-600);
+  --toggle-thumb: #FFFFFF;
+  --toggle-icon: var(--primary-500);
+}
+
+[data-theme="dark"] {
+  /* Primary (Forest Green) */
+  --primary-50: #ECFDF3;
+  --primary-100: #D1FAE5;
+  --primary-200: #A7F3D0;
+  --primary-300: #6EE7B7;
+  --primary-400: #34D399;
+  --primary-500: #22C55E;
+  --primary-600: #16A34A;
+  --primary-700: #15803D;
+  --primary-800: #166534;
+  --primary-900: #14532D;
+
+  /* Backgrounds */
+  --bg: #0B0F0D;
+  --bg-secondary: #121815;
+  --surface: #1A221E;
+  --surface-hover: #26302B;
+
+  /* Search */
+  --search-bg: #151D19;
+  --search-hover: #202924;
+  --search-focus: #2B3731;
+
+  /* Text */
+  --text: #F9FAFB;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+
+  /* Borders */
+  --border: #375137;
+  --border-light: #4e634b;
+
+  /* Status */
+  --success: #22C55E;
+  --warning: #EAB308;
+  --error: #F87171;
+  --info: #60A5FA;
+
+  /* Overlay / shadow */
+  --overlay: rgba(0, 0, 0, 0.85);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --shadow-strong: rgba(0, 0, 0, 0.5);
+
+  /* Theme toggle switch */
+  --toggle-track: #374151;
+  --toggle-track-active: var(--primary-600);
+  --toggle-thumb: #FFFFFF;
+  --toggle-icon: var(--primary-400);
+}

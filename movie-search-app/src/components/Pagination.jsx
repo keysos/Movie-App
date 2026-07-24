@@ -23,23 +23,23 @@ const Pagination = ({ page, setPage, totalPages }) => {
 
     return (
         <div className='pagination'>
-            <button className='pagination__nav-btn' onClick={() => setPage((p) => p - 1)} disabled={page === 1}>
+            <button className='page-button previous' onClick={() => setPage((p) => p - 1)} disabled={page === 1}>
                 Previous
             </button>
 
-            <div className='pagination__pages'>
+            <div className='pages-container'>
                 {visiblePages.map((item) => (
                     <button
                         key={item}
                         onClick={() => setPage(item)}
-                        className={`pagination__page-btn${page === item ? " is-active" : ""}`}
+                        className={page === item ? "active" : ""}
                     >
                         {item}
                     </button>
                 ))}
             </div>
 
-            <button className='pagination__nav-btn' onClick={() => setPage((p) => p + 1)} disabled={page === totalPages}>
+            <button className='page-button next' onClick={() => setPage((p) => p + 1)} disabled={page === totalPages}>
                 Next
             </button>
         </div>
