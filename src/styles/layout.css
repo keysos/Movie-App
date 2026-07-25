@@ -25,6 +25,17 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
+.collection-error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+.favorites-title, .watchlist-title  {
+  margin-top: 50px;
+}
+
 @keyframes pulse {
 
   0%,

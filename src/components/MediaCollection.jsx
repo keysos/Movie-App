@@ -17,9 +17,20 @@ const MediaCollection = ({ collectionType }) => {
 
   const result = collectionType === "favorites" ? favorites : watchlist
 
+  const movies = result.filter((media) => media.title);
+  const tvshows = result.filter((media) => media.name)
+
   return (
     <>
       <h2 className={`${collectionType}-title`}>Movies</h2>
+
+      {
+        movies.length === 0 &&
+        <div className="collection-error-message">
+          <p>{collectionType === "favorites" ? "No favorites movies yet" : "No movies in watchlist"}</p>
+        </div>
+      }
+
       <MediaList
         media={result.filter((item) => item.title)}
         onMediaClick={setSelectedMedia}
@@ -35,6 +46,14 @@ const MediaCollection = ({ collectionType }) => {
       />
 
       <h2 className={`${collectionType}-title`}>TV Shows</h2>
+
+      {
+        tvshows.length === 0 &&
+        <div className="collection-error-message">
+          <p>{collectionType === "favorites" ? "No favorites tv shows yet" : "No tv shows in watchlist"}</p>
+        </div>
+      }
+
       <MediaList
         media={result.filter((item) => item.name)}
         onMediaClick={setSelectedMedia}

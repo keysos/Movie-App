@@ -13,6 +13,9 @@ const Discover = () => {
     const [selectedMedia, setSelectedMedia] = useState(null);
     const [filter, setFilter] = useState("all");
 
+    const movies = favorites.filter((media) => media.title);
+    const tvshows = favorites.filter((media) => media.name)
+
     useEffect(() => {
 
         async function loadSimilar() {
@@ -43,7 +46,7 @@ const Discover = () => {
                 result = result.filter(
                     (media) =>
                         !isFavorite(media) &&
-                        media.vote_average > 7.5 &&
+                        media.vote_average > 6 &&
                         media.poster_path
                 ).sort((a, b) => b.popularity - a.popularity);
 
@@ -88,6 +91,22 @@ const Discover = () => {
                     All
                 </button>
             </div>
+
+            {
+                movies.length === 0 && filter === "movie" &&
+                <div className="discover-error-message">
+                    <h1 className='discover-error'> Try adding some favorites </h1>
+                    <p>The Discover page fetchs data based on your favorites movies and tv shows</p>
+                </div>
+            }
+
+            {
+                tvshows.length === 0 && filter === "tv" &&
+                <div className="discover-error-message">
+                    <h1 className='discover-error'> Try adding some favorites </h1>
+                    <p>The Discover page fetchs data based on your favorites movies and tv shows</p>
+                </div>
+            }
 
 
             <MediaList
