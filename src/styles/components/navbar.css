@@ -68,7 +68,18 @@
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 769px) {
+    
+    .navbar {
+        gap: 0.9rem;
+    }
+
+    .navbar a {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 468px) {
     
     .navbar {
         gap: 0.8rem;

@@ -74,7 +74,7 @@ input:checked + .theme-switch__track .theme-switch__icon {
     color: var(--toggle-icon);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 760px) {
     .theme-switch {
         width: 30px;
         height: 16px;

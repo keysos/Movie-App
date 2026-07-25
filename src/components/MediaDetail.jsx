@@ -15,6 +15,10 @@ const MediaDetail = () => {
     const [selectedMedia, setSelectedMedia] = useState(null)
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [mediaType, id]);
+
+    useEffect(() => {
 
         async function loadDetails() {
 
