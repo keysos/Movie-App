@@ -104,7 +104,7 @@ const Discover = () => {
                 tvshows.length === 0 && filter === "tv" &&
                 <div className="discover-error-message">
                     <h1 className='discover-error'> Try adding some favorites </h1>
-                    <p>The Discover page fetchs data based on your favorites movies and tv shows</p>
+                    <p>The discovery page fetchs data based on your favorites movies and tv shows</p>
                 </div>
             }
 
