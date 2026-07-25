@@ -1,5 +1,5 @@
 import React from 'react'
-import { IMAGE_BASE_URL } from '../services/TMDBApi'
+import { IMAGE_BASE_URL_THUMB } from '../services/TMDBApi'
 import { useFavorites } from '../context/FavoritesContext';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { convertRatingToStars, formatRuntime } from '../utils/utils';
@@ -44,9 +44,13 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
         >
 
             <img
-                src={`${IMAGE_BASE_URL}${media.poster_path}`}
+                src={`${IMAGE_BASE_URL_THUMB}${media.poster_path}`}
                 alt={media.title ?? media.name}
                 className='movie-card__poster'
+                loading='lazy'
+                decoding='async'
+                width={342}
+                height={513}
             />
 
             <div className="movie-card__body">
@@ -56,7 +60,7 @@ const MediaCard = ({ media, onMediaClick, onRemoveFavorite }) => {
                     <p className='movie-card__year'>{media.release_date?.slice(0, 4) ?? media.first_air_date?.slice(0, 4)}</p>
 
                     <p className='movie-card__rating'>{
-                    convertRatingToStars(media.vote_average?.toFixed(1) ?? 0)
+                        convertRatingToStars(media.vote_average?.toFixed(1) ?? 0)
                     }</p>
 
                     <button className={`movie-card__favorite-btn ${favorite ?

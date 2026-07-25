@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { fetchMediaDetail, IMAGE_BASE_URL } from '../services/TMDBApi';
+import { fetchMediaDetail, IMAGE_BASE_URL_THUMB} from '../services/TMDBApi';
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
@@ -151,9 +151,12 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                     <div className="modal-overview">
 
                         <img
-                            src={`${IMAGE_BASE_URL}${details.poster_path}`}
+                            src={`${IMAGE_BASE_URL_THUMB}${details.poster_path}`}
                             alt={details.title ?? details.name}
                             className="modal-poster"
+                            decoding="async"
+                            width={342}
+                            height={513}
                         />
 
 
@@ -228,6 +231,8 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                         src={IMDBIcon}
                                         alt="IMDB"
                                         width="30"
+                                        height="15"
+                                        decoding="async"
                                     />
                                 </a>
                             </div>
@@ -243,6 +248,10 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                             key={provider.provider_id}
                                             src={`https://image.tmdb.org/t/p/w92${provider.logo_path}`}
                                             alt={provider.name}
+                                            loading="lazy"
+                                            decoding="async"
+                                            width={45}
+                                            height={45}
                                         />
                                     ))
                                 ) : (

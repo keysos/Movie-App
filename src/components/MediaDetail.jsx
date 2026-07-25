@@ -39,8 +39,6 @@ const MediaDetail = () => {
 
     }, [mediaType, id])
 
-    console.log(mediaDetail)
-
     return (
         <div className='media-detail'>
 
@@ -54,6 +52,9 @@ const MediaDetail = () => {
                         src={`${IMAGE_BASE_URL}${mediaDetail.poster_path}`}
                         alt={mediaDetail.title ?? mediaDetail.name}
                         className="media-detail__poster"
+                        decoding="async"
+                        width={334}
+                        height={500}
                     />
 
                     <p className='media-detail__rating'>
