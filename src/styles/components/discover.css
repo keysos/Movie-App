@@ -1,0 +1,56 @@
+.discover-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.discover-title {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.discover-error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.discover-filter {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.discover-filter button {
+    background-color: var(--primary-600);
+    color: var(--text);
+    font-size: 1rem;
+    padding: 6px 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    width: 100%;
+    max-width: 100px;
+}
+
+.discover-filter button:hover {
+    transform: translateY(-2px);
+    background-color: var(--primary-700);
+}
+
+.discover-filter button:focus-visible {
+    outline: 2px solid var(--primary-400);
+    outline-offset: 2px;
+}
+
+.discover-page button.active {
+    color: var(--text-secondary);
+    background-color: var(--primary-800);
+    font-weight: 600;
+}

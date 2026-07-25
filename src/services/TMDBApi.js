@@ -19,7 +19,7 @@ export async function fetchMedia(mediaType, query, page = 1) {
             totalPages: data.total_pages,
             totalResults: data.total_results
         }
-    }  catch (err) {
+    } catch (err) {
         console.error(err)
         return {
             results: [],
@@ -33,7 +33,7 @@ export async function fetchMedia(mediaType, query, page = 1) {
 export async function fetchMediaRecommendations(mediaType, mediaId) {
 
     try {
-        const response = await fetch (`https://api.themoviedb.org/3/${mediaType}/${mediaId}/recommendations?api_key=${API_KEY}`);
+        const response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/recommendations?api_key=${API_KEY}`);
 
         if (!response.ok) {
             throw new Error("Request failed");
@@ -46,6 +46,40 @@ export async function fetchMediaRecommendations(mediaType, mediaId) {
     } catch (err) {
         console.error(err)
         return []
+    }
+}
+
+// Fecth similar media based on favorites list 
+
+export async function fetchDiscoverMedia(medias) {
+    try {
+        const allSimilar = [];
+
+        for (const media of medias) {
+            const response = await fetch(
+                `https://api.themoviedb.org/3/${media.title ? "movie" : "tv" }/${media.id}/recommendations?api_key=${API_KEY}`
+            );
+
+            if (!response.ok) {
+                console.warn(`Failed fetching ${mediaType}/${media.id}`);
+                continue;
+            }
+
+            const data = await response.json();
+
+            allSimilar.push(...(data.results || []));
+        }
+
+        const uniqueSimilar = [
+            ...new Map(allSimilar.map((media) => {
+                return [`${media.id}`, media]
+            })).values()
+        ]
+
+        return uniqueSimilar;
+    } catch (err) {
+        console.error(err);
+        return [];
     }
 }
 

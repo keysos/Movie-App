@@ -76,17 +76,18 @@ input:checked + .theme-switch__track .theme-switch__icon {
 
 @media (max-width: 480px) {
     .theme-switch {
-        width: 34px;
-        height: 18px;
+        width: 30px;
+        height: 16px;
     }
 
     .theme-switch__track {
+        width: 32px;
         border-radius: 18px;
     }
 
     .theme-switch__track::before {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
 
         left: 2px;
         bottom: 2px;

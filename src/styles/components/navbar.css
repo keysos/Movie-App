@@ -62,10 +62,19 @@
     font-weight: 600;
 }
 
+.navbar a:focus-visible {
+    outline: 2px solid var(--primary-400);
+    outline-offset: 2px;
+}
+
 
 @media (max-width: 480px) {
     
     .navbar {
-        gap: 1rem;
+        gap: 0.8rem;
+    }
+
+    .navbar a {
+        font-size: 0.8rem;
     }
 }

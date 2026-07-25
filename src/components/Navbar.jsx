@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import ThemeSwitcher from './ThemeSwitcher'
 
-const Navbar = ( {query, resetSearch}) => {
+const Navbar = ({ query, resetSearch }) => {
 
     return (
         <nav className='navbar'>
             <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""} onClick={() => resetSearch()}>Movies</NavLink>
             <NavLink to="/tvshows" className={({ isActive }) => isActive ? "active" : ""} onClick={() => resetSearch()}>Series</NavLink>
+            <NavLink to="/discover" className={({ isActive }) => isActive ? "active" : ""}>Discover</NavLink>
             <NavLink to="/favorites" className={({ isActive }) => isActive ? "active" : ""}>Favorites</NavLink>
             <NavLink to="/watchlist" className={({ isActive }) => isActive ? "active" : ""}>Watchlist</NavLink>
 
