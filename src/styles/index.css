@@ -10,9 +10,9 @@
 @import "./components/movie-modal.css";
 @import "./components/movie-slider.css";
 @import "./components/navbar.css";
-@import "./components/theme-switcher.css";
 @import "./components/footer.css";
 @import "./components/pagination.css";
 @import "./components/media-detail.css";
-@import "./components/discover.css"
+@import "./components/discover.css";
+@import "./components/options-dropdown.css"
 

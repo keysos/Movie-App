@@ -3,10 +3,13 @@ import { fetchDiscoverMedia } from '../services/TMDBApi';
 import { useFavorites } from '../context/FavoritesContext';
 import MediaList from '../components/MediaList';
 import MediaModal from '../components/MediaModal'
+import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Discover = () => {
 
     const { favorites, removeFavorite, isFavorite } = useFavorites();
+    const { language } = useLanguage();
 
 
     const [similar, setSimilar] = useState([]);
@@ -15,6 +18,7 @@ const Discover = () => {
 
     const movies = favorites.filter((media) => media.title);
     const tvshows = favorites.filter((media) => media.name)
+    const t = useTranslation()
 
     useEffect(() => {
 
@@ -41,7 +45,7 @@ const Discover = () => {
                     );
                 }
 
-                let result = await fetchDiscoverMedia(filteredFavorites);
+                let result = await fetchDiscoverMedia(filteredFavorites, language);
 
                 result = result.filter(
                     (media) =>
@@ -60,14 +64,14 @@ const Discover = () => {
             }
         }
         loadSimilar();
-    }, [favorites, filter])
+    }, [favorites, filter, language])
 
     if (favorites.length === 0) {
         return (
             <div className="discover-page">
                 <div className="discover-error-message">
-                    <h1 className='discover-error'> Try adding some favorites </h1>
-                    <p>The Discover page fetchs data based on your favorites movies and tv shows</p>
+                    <h1 className='discover-error'>{t.discoverHelp}</h1>
+                    <p>{t.discoverWarning}</p>
                 </div>
             </div>
         )
@@ -76,35 +80,35 @@ const Discover = () => {
     return (
         <div className="discover-page">
 
-            <h2 className='discover-title'>Discover new things to watch</h2>
+            <h2 className='discover-title'>{t.discoverHeading}</h2>
 
             <div className="discover-filter">
                 <button className={filter === "movie" ? "active" : ""} onClick={() => setFilter("movie")}>
-                    Movies
+                    {t.movies}
                 </button>
 
                 <button className={filter === "tv" ? "active" : ""} onClick={() => setFilter("tv")}>
-                    TV Shows
+                    {t.tvShows}
                 </button>
 
                 <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>
-                    All
+                    {t.all}
                 </button>
             </div>
 
             {
                 movies.length === 0 && filter === "movie" &&
                 <div className="discover-error-message">
-                    <h1 className='discover-error'> Try adding some favorites </h1>
-                    <p>The Discover page fetchs data based on your favorites movies and tv shows</p>
+                    <h1 className='discover-error'>{t.discoverHelp}</h1>
+                    <p>{t.discoverWarning}</p>
                 </div>
             }
 
             {
                 tvshows.length === 0 && filter === "tv" &&
                 <div className="discover-error-message">
-                    <h1 className='discover-error'> Try adding some favorites </h1>
-                    <p>The discovery page fetchs data based on your favorites movies and tv shows</p>
+                    <h1 className='discover-error'>{t.discoverHelp}</h1>
+                    <p>{t.discoverWarning}</p>
                 </div>
             }
 

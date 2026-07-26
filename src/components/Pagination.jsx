@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from '../hooks/useTranslation';
 
 const Pagination = ({ page, setPage, totalPages }) => {
 
@@ -21,10 +22,12 @@ const Pagination = ({ page, setPage, totalPages }) => {
         (_, i) => startPage + i
     );
 
+    const t = useTranslation();
+
     return (
         <div className='pagination'>
             <button className='pagination__nav-btn' onClick={() => setPage((p) => p - 1)} disabled={page === 1}>
-                Previous
+                {t.previous}
             </button>
 
             <div className='pagination__pages'>
@@ -40,7 +43,7 @@ const Pagination = ({ page, setPage, totalPages }) => {
             </div>
 
             <button className='pagination__nav-btn' onClick={() => setPage((p) => p + 1)} disabled={page === totalPages}>
-                Next
+                {t.next}
             </button>
         </div>
     )

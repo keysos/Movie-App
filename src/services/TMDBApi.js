@@ -4,10 +4,11 @@ const BASE_URL = "https://api.themoviedb.org/3";
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const IMAGE_BASE_URL_THUMB = "https://image.tmdb.org/t/p/w342";
 
-export async function fetchMedia(mediaType, query, page = 1) {
-
+export async function fetchMedia(mediaType, query, page = 1, language) {
     try {
-        const response = await fetch(`${BASE_URL}/search/${mediaType}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}`);
+        const response = await fetch(
+            `${BASE_URL}/search/${mediaType}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}&language=${language}`
+        );
 
         if (!response.ok) {
             throw new Error("Request failed");
@@ -16,12 +17,14 @@ export async function fetchMedia(mediaType, query, page = 1) {
         const data = await response.json();
 
         return {
-            results: data.results.filter((media) => media.poster_path).sort((a, b) => b.popularity - a.popularity),
+            results: data.results
+                .filter((media) => media.poster_path)
+                .sort((a, b) => b.popularity - a.popularity),
             totalPages: data.total_pages,
             totalResults: data.total_results
-        }
+        };
     } catch (err) {
-        console.error(err)
+        console.error(err);
         return {
             results: [],
             page: 1,
@@ -31,34 +34,35 @@ export async function fetchMedia(mediaType, query, page = 1) {
     }
 }
 
-export async function fetchMediaRecommendations(mediaType, mediaId) {
-
+export async function fetchMediaRecommendations(mediaType, mediaId, language) {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${mediaId}/recommendations?api_key=${API_KEY}`);
+        const response = await fetch(
+            `${BASE_URL}/${mediaType}/${mediaId}/recommendations?api_key=${API_KEY}&language=${language}`
+        );
 
         if (!response.ok) {
             throw new Error("Request failed");
         }
 
-        const data = await response.json()
+        const data = await response.json();
 
         return data.results || [];
-
     } catch (err) {
-        console.error(err)
-        return []
+        console.error(err);
+        return [];
     }
 }
 
-// Fecth similar media based on favorites list 
-
-export async function fetchDiscoverMedia(medias) {
+// Fetch similar media based on favorites list
+export async function fetchDiscoverMedia(medias, language) {
     try {
         const allSimilar = [];
 
         for (const media of medias) {
+            const mediaType = media.title ? "movie" : "tv";
+
             const response = await fetch(
-                `https://api.themoviedb.org/3/${media.title ? "movie" : "tv" }/${media.id}/recommendations?api_key=${API_KEY}`
+                `${BASE_URL}/${mediaType}/${media.id}/recommendations?api_key=${API_KEY}&language=${language}`
             );
 
             if (!response.ok) {
@@ -72,10 +76,10 @@ export async function fetchDiscoverMedia(medias) {
         }
 
         const uniqueSimilar = [
-            ...new Map(allSimilar.map((media) => {
-                return [`${media.id}`, media]
-            })).values()
-        ]
+            ...new Map(
+                allSimilar.map((media) => [`${media.id}`, media])
+            ).values()
+        ];
 
         return uniqueSimilar;
     } catch (err) {
@@ -84,42 +88,38 @@ export async function fetchDiscoverMedia(medias) {
     }
 }
 
-export async function fetchMediaDetail(mediaType, mediaId) {
-
+export async function fetchMediaDetail(mediaType, mediaId, language) {
     try {
         const [detailsResponse, providersResponse] = await Promise.all([
             fetch(
-                `${BASE_URL}/${mediaType}/${mediaId}?api_key=${API_KEY}&append_to_response=external_ids,credits`
+                `${BASE_URL}/${mediaType}/${mediaId}?api_key=${API_KEY}&language=${language}&append_to_response=external_ids,credits`
             ),
             fetch(
                 `${BASE_URL}/${mediaType}/${mediaId}/watch/providers?api_key=${API_KEY}`
             )
         ]);
 
-        if (!detailsResponse.ok || !providersResponse) {
+        if (!detailsResponse.ok || !providersResponse.ok) {
             throw new Error("Request failed");
         }
 
         const data = await detailsResponse.json();
         const providersData = await providersResponse.json();
 
-        const result = {
+        return {
             ...data,
             providers: providersData
         };
-
-        return result;
-
     } catch (err) {
         console.error(err);
         return null;
     }
 }
 
-async function fetchCategoryMedia(endpoint) {
+async function fetchCategoryMedia(endpoint, language) {
     try {
         const response = await fetch(
-            `${BASE_URL}${endpoint}?api_key=${API_KEY}`
+            `${BASE_URL}${endpoint}?api_key=${API_KEY}&language=${language}`
         );
 
         if (!response.ok) {
@@ -128,8 +128,7 @@ async function fetchCategoryMedia(endpoint) {
 
         const data = await response.json();
 
-        return data.results
-
+        return data.results;
     } catch (err) {
         console.error(err);
         return [];
@@ -137,16 +136,16 @@ async function fetchCategoryMedia(endpoint) {
 }
 
 // Trending media this week
-export async function fetchTrendingMedia(mediaType) {
-    return fetchCategoryMedia(`/trending/${mediaType}/week`);
+export async function fetchTrendingMedia(mediaType, language) {
+    return fetchCategoryMedia(`/trending/${mediaType}/week`, language);
 }
 
-// Popular media 
-export async function fetchPopularMedia(mediaType) {
-    return fetchCategoryMedia(`/${mediaType}/popular`);
+// Popular media
+export async function fetchPopularMedia(mediaType, language) {
+    return fetchCategoryMedia(`/${mediaType}/popular`, language);
 }
 
 // Top rated media
-export async function fetchTopRatedMedia(mediaType) {
-    return fetchCategoryMedia(`/${mediaType}/top_rated`);
+export async function fetchTopRatedMedia(mediaType, language) {
+    return fetchCategoryMedia(`/${mediaType}/top_rated`, language);
 }

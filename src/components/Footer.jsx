@@ -1,11 +1,15 @@
 import React from 'react'
 import { FaGithub } from "react-icons/fa";
+import { useTranslation } from '../hooks/useTranslation';
 
 const Footer = () => {
+
+    const t = useTranslation();
+
     return (
         <footer className="footer">
             <p>
-                © {new Date().getFullYear()} Movie App. All rights reserved.
+                © {new Date().getFullYear()} {t.allRights}
             </p>
 
             <a
@@ -19,7 +23,7 @@ const Footer = () => {
             </a>
 
             <p>
-                Built with React + TMDB API
+                {t.builtWith}
             </p>
         </footer>
     )

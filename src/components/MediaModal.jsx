@@ -1,15 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { fetchMediaDetail, IMAGE_BASE_URL_THUMB} from '../services/TMDBApi';
+import { fetchMediaDetail, IMAGE_BASE_URL_THUMB } from '../services/TMDBApi';
 import IMDBIcon from "../assets/icons/330px-IMDB_Logo_2016.svg.webp";
 import { useFavorites } from '../context/FavoritesContext';
 import { useWatchlist } from '../context/WatchlistContext';
+import { useLanguage } from '../context/LanguageContext';
 import { FaPlus, FaCheck, FaHeart, FaRegHeart, FaRegEye } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { formatRuntime } from '../utils/utils';
+import { useTranslation } from '../hooks/useTranslation';
+
 
 
 const MediaModal = ({ media, onClose, mediaType }) => {
+
+
+    const t = useTranslation();
 
     function handleDetails() {
         onClose();
@@ -30,6 +36,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
     const { addToWatchlist, removeFromWatchlist, isOnWatchlist } = useWatchlist();
+    const { language } = useLanguage()
 
     const favorite = isFavorite(media.id);
     const watchlist = isOnWatchlist(media.id);
@@ -42,11 +49,29 @@ const MediaModal = ({ media, onClose, mediaType }) => {
         }
     }
 
+    function handleRegion(language) {
+        switch (language) {
+            case "en-US":
+                return "US";
+
+            case "pt-BR":
+                return "BR";
+
+            case "fr-FR":
+                return "FR";
+
+            case "es-ES":
+                return "ES";
+
+            default:
+                return "BR";
+        }
+    }
 
     useEffect(() => {
         async function getMedia() {
             try {
-                const result = await fetchMediaDetail(mediaType, media.id);
+                const result = await fetchMediaDetail(mediaType, media.id, language);
                 setMediaDetails(result);
             } catch (err) {
                 console.error(err)
@@ -106,11 +131,11 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                         >
                             {watchlist ? (
                                 <>
-                                    Remove from Watchlist <FaCheck />
+                                    {t.removeWatchlist} <FaCheck />
                                 </>
                             ) : (
                                 <>
-                                    Add to Watchlist <FaPlus />
+                                    {t.addWatchlist} <FaPlus />
                                 </>
                             )}
                         </button>
@@ -120,14 +145,22 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                             className={`modal-btn ${favorite ? "is-active" : ""}`}
                             onClick={handleFavorites}
                         >
-                            Add to Favorites {favorite ? <FaHeart /> : <FaRegHeart />}
+                            {favorite ? (
+                                <>
+                                    {t.addFavorites} <FaRegHeart />
+                                </>
+                            ) : (
+                                <>
+                                    {t.removeFavorites} <FaHeart />
+                                </>
+                            )}
                         </button>
 
                         <button
                             className='modal-btn'
                             onClick={handleDetails}
                         >
-                            View More
+                            {t.viewMore}
                             <FaRegEye />
                         </button>
 
@@ -181,7 +214,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
 
                             <p className="director">
-                                {details?.created_by !== undefined ? "Creator:" : "Director:"}{" "}
+                                {details?.created_by !== undefined ? t.creator + ":" : t.director + ":"}{" "}
                                 <span>
                                     {details?.credits?.crew.find(
                                         (person) => person.job === "Director"
@@ -191,7 +224,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
 
 
                             <p className="modal-cast">
-                                Main Cast:{" "}
+                                {t.mainCast}{": "}
                                 {
                                     details.credits?.cast
                                         .slice(0, 3)
@@ -209,7 +242,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                 <div className="modal-score__pill">
                                     {details.runtime
                                         ? formatRuntime(details.runtime)
-                                        : `${details.number_of_seasons} Seasons`
+                                        : `${details.number_of_seasons} ${t.seasons}`
                                     }
                                 </div>
 
@@ -237,12 +270,12 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                 </a>
                             </div>
 
-                            <p>Available On:</p>
+                            <p>{t.availableOn}</p>
 
                             <div className="modal-streaming">
 
-                                {details?.providers?.results?.US?.flatrate?.length > 0 ? (
-                                    details.providers.results.US.flatrate.map((provider) => (
+                                {details?.providers?.results?.[handleRegion(language)]?.flatrate?.length > 0 ? (
+                                    details.providers.results[handleRegion(language)].flatrate.map((provider) => (
                                         <img
                                             className="modal-streaming__logo"
                                             key={provider.provider_id}
@@ -255,7 +288,7 @@ const MediaModal = ({ media, onClose, mediaType }) => {
                                         />
                                     ))
                                 ) : (
-                                    <span>No streaming available</span>
+                                    <span>{t.noStreaming}</span>
                                 )}
                             </div>
                         </div>

@@ -67,6 +67,10 @@
     outline-offset: 2px;
 }
 
+.navbar-options {
+    display: flex;
+}
+
 
 @media (max-width: 769px) {
     
@@ -82,7 +86,7 @@
 @media (max-width: 468px) {
     
     .navbar {
-        gap: 0.8rem;
+        justify-content: space-between;
     }
 
     .navbar a {

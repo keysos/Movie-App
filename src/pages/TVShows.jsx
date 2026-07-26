@@ -6,6 +6,8 @@ import SearchBar from '../components/SearchBar'
 import { useDocumentTitle } from '../services/useDocumentTitle'
 import Pagination from '../components/Pagination'
 import useMediaBrowser from '../hooks/useMediaBrowser'
+import { useTranslation } from '../hooks/useTranslation'
+import { useLanguage } from '../context/LanguageContext'
 
 const MEDIA_TYPE = "tv";
 
@@ -14,6 +16,10 @@ const TVShows = ({ query, setQuery }) => {
     useDocumentTitle("TV Shows | CineSearch")
 
     const [selectedMedia, setSelectedMedia] = useState(null)
+
+    const { language } = useLanguage();
+
+    const t = useTranslation();
 
     const { queryMedia,
         loading,
@@ -26,7 +32,7 @@ const TVShows = ({ query, setQuery }) => {
         popular,
         topRated,
         isSearching 
-    } = useMediaBrowser(MEDIA_TYPE, query);
+    } = useMediaBrowser(MEDIA_TYPE, query, language);
 
     return (
         <div>
@@ -37,7 +43,7 @@ const TVShows = ({ query, setQuery }) => {
             <SearchBar query={query} setQuery={(value) => {
                 setPage(1);
                 setQuery(value);
-            }} placeholder="Search a tv show..." />
+            }} placeholder={t.searchTvshowPlaceholder} />
 
             {loading &&
                 <div className="page-loader">
@@ -67,19 +73,19 @@ const TVShows = ({ query, setQuery }) => {
                     <MediaSlider
                         media={trending}
                         onMediaClick={setSelectedMedia}
-                        name="Trending"
+                        name={t.trending}
                     />
 
                     <MediaSlider
                         media={topRated}
                         onMediaClick={setSelectedMedia}
-                        name="Top Rated"
+                        name={t.topRated}
                     />
 
                     <MediaSlider
                         media={popular}
                         onMediaClick={setSelectedMedia}
-                        name="Popular"
+                        name={t.popular}
                     />
                 </>
             )}

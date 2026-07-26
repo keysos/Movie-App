@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchMedia, fetchPopularMedia, fetchTopRatedMedia, fetchTrendingMedia } from '../services/TMDBApi'
 
-export function useMediaBrowser(mediaType, query) {
+export function useMediaBrowser(mediaType, query, language) {
 
     const [queryMedia, setQueryMedia] = useState([])
     const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ export function useMediaBrowser(mediaType, query) {
 
             try {
 
-                const result = await fetchMedia(mediaType, debouncedQuery, page);
+                const result = await fetchMedia(mediaType, debouncedQuery, page, language);
 
 
                 if (result.results.length === 0) {
@@ -66,7 +66,7 @@ export function useMediaBrowser(mediaType, query) {
 
         getMedia();
 
-    }, [debouncedQuery, page])
+    }, [debouncedQuery, page, language])
 
     useEffect(() => {
 
@@ -74,9 +74,9 @@ export function useMediaBrowser(mediaType, query) {
 
             try {
                 const [trending, topRated, popular] = await Promise.all([
-                    fetchTrendingMedia(mediaType),
-                    fetchTopRatedMedia(mediaType),
-                    fetchPopularMedia(mediaType)
+                    fetchTrendingMedia(mediaType, language),
+                    fetchTopRatedMedia(mediaType, language),
+                    fetchPopularMedia(mediaType, language)
                 ])
 
                 setTrending(trending);
@@ -92,7 +92,7 @@ export function useMediaBrowser(mediaType, query) {
         }
 
         loadShowspage()
-    }, [])
+    }, [language])
 
     return {
         queryMedia,

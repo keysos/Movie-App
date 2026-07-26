@@ -6,12 +6,18 @@ import MediaSlider from '../components/MediaSlider'
 import Pagination from '../components/Pagination'
 import { useDocumentTitle } from '../services/useDocumentTitle'
 import useMediaBrowser from '../hooks/useMediaBrowser'
+import { useLanguage } from '../context/LanguageContext'
+import { useTranslation } from '../hooks/useTranslation'
 
 const MEDIA_TYPE = "movie";
 
 const Movies = ({ query, setQuery }) => {
 
     useDocumentTitle("Movies | CineSearch");
+
+    const { language } = useLanguage();
+
+    const t = useTranslation();
 
     const [selectedMedia, setSelectedMedia] = useState(null);
 
@@ -26,7 +32,7 @@ const Movies = ({ query, setQuery }) => {
             popular,
             topRated,
             isSearching 
-        } = useMediaBrowser(MEDIA_TYPE, query);
+        } = useMediaBrowser(MEDIA_TYPE, query, language);
 
     return (
         <div>
@@ -37,7 +43,7 @@ const Movies = ({ query, setQuery }) => {
             <SearchBar query={query} setQuery={(value) => {
                 setPage(1);
                 setQuery(value);
-            }} placeholder="Search a movie..." />
+            }} placeholder={t.searchMoviePlaceholder} />
 
             {loading && 
             
@@ -67,19 +73,19 @@ const Movies = ({ query, setQuery }) => {
                     <MediaSlider
                         media={trending}
                         onMediaClick={setSelectedMedia}
-                        name="Trending"
+                        name={t.trending}
                     />
 
                     <MediaSlider
                         media={topRated}
                         onMediaClick={setSelectedMedia}
-                        name="Top Rated"
+                        name={t.topRated}
                     />
 
                     <MediaSlider
                         media={popular}
                         onMediaClick={setSelectedMedia}
-                        name="Popular"
+                        name={t.popular}
                     />
                 </>
             )}

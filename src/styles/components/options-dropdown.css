@@ -1,0 +1,150 @@
+.settings {
+    position: relative;
+}
+
+.settings-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--surface);
+    width: 32px;
+    height: 32px;
+    color: var(--text);
+    font-size: 1rem;
+    border: none;
+}
+
+.settings-button.gear {
+    font-size: 1.25rem;
+}
+
+.settings-menu,
+.language-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 9999;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
+.settings-menu {
+    right: -60px;
+}
+
+.language-menu {
+    gap: 8px;
+    right: -45px;
+}
+
+.language-menu button {
+    background-color: var(--primary-600);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: backgroud-color ease 0.2s;
+    font-size: 1rem;
+}
+
+.language-menu button:hover {
+    background-color: var(--primary-700);
+    ;
+}
+
+.settings-item {
+    display: flex;
+    gap: 8px;
+}
+
+.settings-item label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.custom-checkbox-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    gap: 10px;
+}
+
+
+.custom-checkbox {
+    display: none;
+}
+
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+
+    border: 2px solid var(--text-muted);
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+
+/* checked box */
+.custom-checkbox:checked+.checkmark {
+    background-color: var(--primary-600);
+    border-color: var(--primary-700);
+}
+
+
+/* check symbol */
+.custom-checkbox:checked+.checkmark::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+
+    .settings-menu {
+        right: -40px;
+    }
+
+    .language-menu {
+        right: -40px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .settings-menu,
+    .language-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        z-index: 9999;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .settings-menu {
+        right: -5px;
+    }
+
+    .language-menu {
+        right: -20px;
+        font-size: 0.8rem;
+    }
+}
