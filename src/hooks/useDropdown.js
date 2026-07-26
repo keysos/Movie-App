@@ -1,28 +1,34 @@
 import { useEffect, useRef } from "react";
 
-export default function useDropdown(name, open, setOpenDropdown) {
+const useDropdown = (id, open, setOpenDropdown) => {
+
     const dropdownRef = useRef(null);
 
-    function toggleDropdown() {
-        setOpenDropdown(open ? null : name);
-    }
-
     useEffect(() => {
-        function handleClickOutside(event) {
+
+        const handleClickOutside = (event) => {
             if (
                 dropdownRef.current &&
                 !dropdownRef.current.contains(event.target)
             ) {
                 setOpenDropdown(null);
             }
+        };
+
+        if (open) {
+            document.addEventListener("mousedown", handleClickOutside);
         }
 
-        document.addEventListener("pointerdown", handleClickOutside);
-
         return () => {
-            document.removeEventListener("pointerdown", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [setOpenDropdown]);
 
-    return { dropdownRef, toggleDropdown };
-}
+    }, [open, setOpenDropdown]);
+
+
+    return {
+        dropdownRef
+    };
+};
+
+export default useDropdown;

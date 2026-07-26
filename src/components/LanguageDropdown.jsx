@@ -11,7 +11,7 @@ const LanguageDropdown = ({ open, setOpenDropdown }) => {
 
     const t = useTranslation();
 
-    const { dropdownRef, toggleDropdown } = useDropdown(
+    const { dropdownRef } = useDropdown(
         "language",
         open,
         setOpenDropdown

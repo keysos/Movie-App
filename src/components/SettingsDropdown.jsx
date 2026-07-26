@@ -11,7 +11,7 @@ const SettingsDropdown = ({ open, setOpenDropdown }) => {
 
     const t = useTranslation();
 
-    const { dropdownRef, toggleDropdown } = useDropdown(
+    const { dropdownRef } = useDropdown(
         "settings",
         open,
         setOpenDropdown
