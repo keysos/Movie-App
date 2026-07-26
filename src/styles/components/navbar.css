@@ -73,6 +73,7 @@
 
 .navbar-options {
     display: flex;
+    gap: 5px;
 }
 
 
@@ -95,7 +96,7 @@
     
     .navbar {
         justify-content: space-between;
-        padding: 1rem;
+        padding: 0.5rem;
     }
 
     .navbar a {
