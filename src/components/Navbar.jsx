@@ -49,7 +49,11 @@ const Navbar = ({ query, resetSearch }) => {
             <div className="navbar-mobile" ref={dropdownRef}>
                 <button
                     className="settings-button"
-                    onClick={toggleDropdown}
+                    onClick={() =>
+                        setOpenDropdown(
+                            openDropdown === "nav" ? null : "nav"
+                        )
+                    }
                 >
                     <HiMenu />
                 </button>
