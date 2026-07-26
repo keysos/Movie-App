@@ -4,14 +4,26 @@
 
 .settings-button {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: var(--surface);
-    width: 20px;
-    height: 32px;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    background: transparent;
     color: var(--text);
-    font-size: 1rem;
+
     border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    font-size: 1rem;
+
+    transition: background-color .2s ease, color .2s ease;
+}
+
+.settings-button:hover {
+    background-color: var(--primary-700);
 }
 
 .settings-button.gear {
@@ -20,132 +32,166 @@
 
 .settings-menu,
 .language-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+
     display: flex;
     flex-direction: column;
-    position: absolute;
-    z-index: 9999;
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    padding: 0.8rem;
-    font-size: 1rem;
-    border-radius: 12px;
-}
+    gap: 8px;
 
-.settings-menu {
-    right: -15px;
+    padding: .75rem;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .18);
+
+    z-index: 9999;
+
+    animation: dropdown .15s ease;
 }
 
 .language-menu {
-    gap: 8px;
+    min-width: 170px;
     right: -45px;
 }
 
+.settings-menu {
+    min-width: 180px;
+    right: -12px;
+}
+
 .language-menu button {
-    background-color: var(--primary-600);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    padding: 6px 8px;
-    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    padding: .65rem .8rem;
+
+    background: transparent;
+    color: var(--text);
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: .95rem;
+    text-align: left;
+
     cursor: pointer;
-    transition: backgroud-color ease 0.2s;
-    font-size: 1rem;
-    min-width: 100px;
+
+    transition: background-color .2s ease;
 }
 
 .language-menu button:hover {
     background-color: var(--primary-700);
-    ;
+}
+
+.language-menu button.active {
+    background-color: var(--primary-600);
+    color: white;
+    font-weight: 600;
+}
+
+.language-menu button span:last-child {
+    font-size: 1rem;
 }
 
 .settings-item {
     display: flex;
-    gap: 8px;
-}
-
-.settings-item label {
-    display: flex;
     align-items: center;
-    gap: 10px;
-    white-space: nowrap;
 }
 
 .custom-checkbox-label {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
-    gap: 10px;
-}
 
+    width: 100%;
+
+    gap: 12px;
+
+    white-space: nowrap;
+    cursor: pointer;
+}
 
 .custom-checkbox {
     display: none;
 }
 
-
 .checkmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
     width: 18px;
     height: 18px;
 
     border: 2px solid var(--text-muted);
     border-radius: 4px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
-
-/* checked box */
-.custom-checkbox:checked+.checkmark {
+.custom-checkbox:checked + .checkmark {
     background-color: var(--primary-600);
     border-color: var(--primary-700);
 }
 
-
-/* check symbol */
-.custom-checkbox:checked+.checkmark::after {
+.custom-checkbox:checked + .checkmark::after {
     content: "✓";
     color: white;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
 }
 
+/* ---------- Animation ---------- */
+
+@keyframes dropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 768px) {
-
-
     .settings-menu {
-        right: -10px;
+        right: -8px;
     }
 
     .language-menu {
-        right: -40px;
-        font-size: 0.8rem;
+        right: -36px;
     }
 }
 
 @media (max-width: 480px) {
-
     .settings-menu,
     .language-menu {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        z-index: 9999;
-        background-color: var(--surface);
-        border: 1px solid var(--border);
-        padding: 0.5rem;
-        font-size: 0.8rem;
+        padding: .6rem;
+        font-size: .85rem;
     }
 
     .settings-menu {
-        right: -10px;
+        min-width: 160px;
     }
 
     .language-menu {
-        right: -35px;
-        font-size: 0.8rem;
+        min-width: 150px;
+        right: -30px;
+    }
+
+    .language-menu button {
+        font-size: .85rem;
+        padding: .55rem .7rem;
     }
 }

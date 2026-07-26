@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { useLanguage } from "../context/LanguageContext";
 import { useTranslation } from "../hooks/useTranslation";
+import useDropdown from "../hooks/useDropdown";
 import { FaGlobe } from "react-icons/fa";
 
-const LanguageDropdown = ( { open, setOpenDropdown } ) => {
+const LanguageDropdown = ({ open, setOpenDropdown }) => {
 
-    const { setLanguage } = useLanguage();
+    const { setLanguage, language } = useLanguage();
 
     const t = useTranslation();
 
+    const { dropdownRef, toggleDropdown } = useDropdown(
+        "language",
+        open,
+        setOpenDropdown
+    );
+
+    const languages = [
+        { code: "pt-BR", label: t.portuguese },
+        { code: "en-US", label: t.english },
+        { code: "fr-FR", label: t.french },
+        { code: "es-ES", label: t.spanish },
+    ];
 
     return (
         <div className="settings">
@@ -28,24 +41,20 @@ const LanguageDropdown = ( { open, setOpenDropdown } ) => {
 
             {open && (
 
-                <div className="language-menu">
+                <div className="language-menu" ref={dropdownRef}>
 
-                    <button onClick={() => setLanguage("pt-BR")}>
-                        {t.portuguese}
-                    </button>
+                    {
+                        languages.map((item) => (
+                            <button
+                                key={item.code}
+                                className={item.code === language ? "active" : ""}
+                                onClick={() => setLanguage(item.code)}>
 
-                    <button onClick={() => setLanguage("en-US")}>
-                        {t.english}
-                    </button>
-
-                    <button onClick={() => setLanguage("fr-FR")}>
-                        {t.french}
-                    </button>
-
-                    <button onClick={() => setLanguage("es-ES")}>
-                        {t.spanish}
-                    </button>
-
+                                <span>{item.label}</span>
+                                {language === item.code && <span>✓</span>}
+                            </button>
+                        ))
+                    }
                 </div>
 
             )}

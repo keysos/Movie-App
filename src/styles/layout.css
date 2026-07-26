@@ -30,11 +30,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: centercd ;
+  text-align: centercd;
   font-size: 1.6rem;
 }
 
-.favorites-title, .watchlist-title  {
+.favorites-title,
+.watchlist-title {
   margin-top: 50px;
 }
 
@@ -66,47 +67,48 @@
   color: var(--text-muted);
 }
 
-.favorites-title, .watchlist-title {
+.favorites-title,
+.watchlist-title {
   font-size: 2rem;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .page-loader {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    margin-top: 200px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 200px;
 }
 
 .loading-bar {
-    width: 300px;
-    height: 8px;
-    background: #333;
-    border-radius: 10px;
-    overflow: hidden;
+  width: 300px;
+  height: 8px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .loading-progress {
-    height: 100%;
-    width: 40%;
-    background: var(--primary-600);
-    border-radius: 10px;
-    animation: loading 1.2s infinite ease-in-out;
+  height: 100%;
+  width: 40%;
+  background: var(--primary-600);
+  border-radius: 10px;
+  animation: loading 1.2s infinite ease-in-out;
 }
 
 @keyframes loading {
-    0% {
-        transform: translateX(-150%);
-    }
+  0% {
+    transform: translateX(-150%);
+  }
 
-    50% {
-        transform: translateX(150%);
-    }
+  50% {
+    transform: translateX(150%);
+  }
 
-    100% {
-        transform: translateX(300%);
-    }
+  100% {
+    transform: translateX(300%);
+  }
 }
 
 @media (max-width: 768px) {
@@ -116,17 +118,20 @@
     margin-bottom: 15px;
   }
 
-  .movie-list {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 15px;
-    padding: 0 5px;
-  }
-
   .collection-error-message {
     font-size: 1.3rem;
   }
 
-  .favorites-title, .watchlist-title {
+  .favorites-title,
+  .watchlist-title {
     font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 460px) {
+
+  .movie-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 }

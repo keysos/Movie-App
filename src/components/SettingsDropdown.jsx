@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { useThemeToggle } from "../context/ThemeToggleContext";
+import useDropdown from "../hooks/useDropdown";
 import { useTranslation } from "../hooks/useTranslation";
 import { RiSettings4Fill } from "react-icons/ri";
 
@@ -9,6 +10,13 @@ const SettingsDropdown = ({ open, setOpenDropdown }) => {
     const { isDark, toggleTheme } = useThemeToggle();
 
     const t = useTranslation();
+
+    const { dropdownRef, toggleDropdown } = useDropdown(
+        "settings",
+        open,
+        setOpenDropdown
+    );
+
 
     return (
         <div className="settings">
@@ -26,7 +34,7 @@ const SettingsDropdown = ({ open, setOpenDropdown }) => {
 
 
             {open && (
-                <div className="settings-menu">
+                <div className="settings-menu" ref={dropdownRef}>
 
                     <div className="settings-item">
 
