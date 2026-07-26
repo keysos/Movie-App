@@ -32,7 +32,7 @@
 }
 
 .settings-menu {
-    right: -60px;
+    right: -15px;
 }
 
 .language-menu {
@@ -49,6 +49,7 @@
     cursor: pointer;
     transition: backgroud-color ease 0.2s;
     font-size: 1rem;
+    min-width: 100px;
 }
 
 .language-menu button:hover {
@@ -116,7 +117,7 @@
 
 
     .settings-menu {
-        right: -40px;
+        right: -10px;
     }
 
     .language-menu {
@@ -140,11 +141,11 @@
     }
 
     .settings-menu {
-        right: -5px;
+        right: -10px;
     }
 
     .language-menu {
-        right: -20px;
+        right: -35px;
         font-size: 0.8rem;
     }
 }

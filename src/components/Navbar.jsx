@@ -12,11 +12,18 @@ const Navbar = ({ query, resetSearch }) => {
 
     return (
         <nav className='navbar'>
-            <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""} onClick={() => resetSearch()}>{t.movies}</NavLink>
-            <NavLink to="/tvshows" className={({ isActive }) => isActive ? "active" : ""} onClick={() => resetSearch()}>{t.series}</NavLink>
-            <NavLink to="/discover" className={({ isActive }) => isActive ? "active" : ""}>{t.discover}</NavLink>
-            <NavLink to="/favorites" className={({ isActive }) => isActive ? "active" : ""}>{t.favorites}</NavLink>
-            <NavLink to="/watchlist" className={({ isActive }) => isActive ? "active" : ""}>{t.watchlist}</NavLink>
+
+            <div className='ghost-nav'style={{ width: "64px" }}>
+
+            </div>
+
+            <div className='navbar-tabs'>
+                <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""} onClick={() => resetSearch()}>{t.movies}</NavLink>
+                <NavLink to="/tvshows" className={({ isActive }) => isActive ? "active" : ""} onClick={() => resetSearch()}>{t.series}</NavLink>
+                <NavLink to="/discover" className={({ isActive }) => isActive ? "active" : ""}>{t.discover}</NavLink>
+                <NavLink to="/favorites" className={({ isActive }) => isActive ? "active" : ""}>{t.favorites}</NavLink>
+                <NavLink to="/watchlist" className={({ isActive }) => isActive ? "active" : ""}>{t.watchlist}</NavLink>
+            </div>
 
             <div className='navbar-options'>
 
