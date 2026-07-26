@@ -30,6 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: centercd ;
   font-size: 1.6rem;
 }
 
@@ -119,5 +120,13 @@
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 15px;
     padding: 0 5px;
+  }
+
+  .collection-error-message {
+    font-size: 1.3rem;
+  }
+
+  .favorites-title, .watchlist-title {
+    font-size: 1.7rem;
   }
 }
