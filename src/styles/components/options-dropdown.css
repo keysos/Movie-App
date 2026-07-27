@@ -93,7 +93,6 @@
 .language-menu button.active {
     background-color: var(--primary-600);
     color: white;
-    font-weight: 600;
 }
 
 .language-menu button span:last-child {
